@@ -1,2 +1,23 @@
 # REGBA
 尝试从头开始编写一个GBA模拟器
+
+
+
+CPU：
+
+Gameboy Advance使用运行ARMv4架构的32位ARM7TDMI CPU
+
+
+
+
+
+资料：
+
+GBA工作原理资料
+
+https://www.coranac.com/tonc/text/
+
+Emulating the GBA
+
+https://web.archive.org/web/20150428041044/http://6bit.net/shonumi/2015/04/19/emulating-the-gba/
+
