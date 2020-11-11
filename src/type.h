@@ -12,4 +12,3 @@
 #else
 #define REGBA_ASSERT(...)
 #endif
-

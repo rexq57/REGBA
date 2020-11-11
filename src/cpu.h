@@ -19,7 +19,7 @@ struct RECPU{
             // 为 r13-15 三个寄存器设置别名
             union {
                 uint32_t r13;
-                uint32_t SP;
+                uint32_t sp;
             };
             
             union {
