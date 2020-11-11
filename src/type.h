@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include <assert.h>
 
@@ -11,3 +12,4 @@
 #else
 #define REGBA_ASSERT(...)
 #endif
+

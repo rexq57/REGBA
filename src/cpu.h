@@ -37,9 +37,15 @@ struct RECPU{
     
     // 总线需要暴露给CPU
     struct REBUS* bus;
+    
+    // 当前CPU经过的时钟周期
+    unsigned int current_cycle_count;
 };
 
 struct RECPU* recpu_create(void);
 void recpu_delete(struct RECPU* cpu);
 
 void recpu_init(struct RECPU* cpu, struct REBUS* bus);
+
+// 执行一条指令，返回所需时钟周期
+int recpu_run_instruction(struct RECPU* cpu);
