@@ -12,13 +12,16 @@
 struct REMEM{
     
     void* bios_rom;
-    void* work_slow_ram;
-    void* work_fast_ram;
+    void* work_256k_ram;
+    void* work_32k_ram;
     void* io_regs;
     
+    void* palette_ram;
     void* vram;
     void* oam;
-    void* palette_ram;
+    
+    void* gamepak_rom[3];
+    void* gamepak_sram;
 };
 
 struct REMEM* remem_create(void);
