@@ -31,12 +31,11 @@ struct REGBA* regba_create(void);
 void regba_delete(struct REGBA* gba);
 void regba_init(struct REGBA* gba, REGBA_CB_DEBUG cb_debug);
 
-void regba_load_rom(struct REGBA* gba, void* rom);
+void regba_load_rom(struct REGBA* gba, FILE* fp);
 void regba_stop_at_next(struct REGBA* gba);
 
 void regba_run(struct REGBA* gba);
 void regba_pause(struct REGBA* gba);
 void regba_resume(struct REGBA* gba);
 
-// 工作循环
 int regba_get_error(struct REGBA* gba, char* info);

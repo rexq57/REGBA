@@ -63,10 +63,15 @@ void regba_init(struct REGBA* gba, REGBA_CB_DEBUG cb_debug) {
     gba->initialized = true;
 }
 
-void regba_load_rom(struct REGBA* gba, void* rom) {
+void regba_load_rom(struct REGBA* gba, FILE* fp) {
     
     REGBA_ASSERT(gba->initialized);
-    REGBA_ASSERT(0);
+    
+    // 载入(虚拟)内存中
+    uint8_t* buf = gba->mem->gamepak_rom[0];
+    while(!feof(fp)) {
+        buf += fread(buf, 1024*1024, 1, fp);
+    }
 }
 
 void regba_stop_at_next(struct REGBA* gba) {

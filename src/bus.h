@@ -7,6 +7,13 @@
  数据总线、地址总线、控制总线
  */
 
+enum MEM_ERROR{
+    MEM_ERROR_NONE,
+    MEM_ERROR_ACCESS_DENIED,    // 访问禁止
+    MEM_ERROR_INCOMPLETE,       // 不完整访问
+    MEM_ERROR_INVALID_ADDR,     // 无效的地址
+};
+
 struct REBUS{
     
     // 上一次请求的相关数据
@@ -18,13 +25,6 @@ struct REBUS{
     
     // 周期
     int cycles;
-    
-    enum MEM_ERROR{
-        MEM_ERROR_NONE,
-        MEM_ERROR_ACCESS_DENIED,    // 访问禁止
-        MEM_ERROR_INCOMPLETE,       // 不完整访问
-        MEM_ERROR_INVALID_ADDR,     // 无效的地址
-    };
 
     // 是否发生错误
     enum MEM_ERROR error;

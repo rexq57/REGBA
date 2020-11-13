@@ -13,3 +13,5 @@
 #else
 #define REGBA_ASSERT(...)
 #endif
+
+#define MEM_GAMEPAK_ROM 0x08000000

@@ -57,6 +57,12 @@ void regba_debug(struct REGBA* gba) {
     }
 }
 
+void load_rom(struct REGBA* gba) {
+    FILE* fp = fopen("/Users/xingbi/REGBA/gba_template/demo1/demo1.gba", "rb");
+    regba_load_rom(gba, fp);
+    fclose(fp);
+}
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
@@ -65,8 +71,11 @@ int main(int argc, const char * argv[]) {
         uint16_t b  = a;
         uint8_t c = a;
         
+        
+        
         struct REGBA* gba = regba_create();
         regba_init(gba, &regba_debug);
+        load_rom(gba);
         regba_stop_at_next(gba);
         
         regba_run(gba);
