@@ -9,11 +9,18 @@
 
 struct REBUS{
     
-    // 数据总线
-    uint32_t input, output;
+    // 上一次请求的相关数据
+    // 数值
+    uint32_t data;
     
-    // 地址总线
+    // 地址
     uint32_t addr;
+    
+    // 周期
+    int cycles;
+    
+    // 是否发生错误
+    bool error;
     
     // 连接内存
     struct REMEM* mem;
@@ -31,5 +38,5 @@ enum ACCESS_WIDTH{
     ACCESS_WIDTH_BIT_32 = 1 << 2
 };
 
-uint32_t rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w, int* cycles, bool* error);
-void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t data, enum ACCESS_WIDTH acc_w, int* cycles, bool* error);
+void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w);
+void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t data, enum ACCESS_WIDTH acc_w);

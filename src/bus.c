@@ -52,14 +52,6 @@
  */
 
 struct BusAccess {
-//    union {
-//        void* data;
-//        union {
-//            uint8_t* u8;
-//            uint16_t* u16;
-//            uint32_t* u32;
-//        };
-//    };
     int bus_width;
     int read_width;
     int write_width;
@@ -95,27 +87,28 @@ enum {
     GamePak_SRAM
 };
 
+inline
 const struct BusAccess* memory_mapping(struct REBUS* bus, uint32_t addr, void** data, int* size) {
     
     #define RET(a) return &bus_access[a];
-#define IN_RANGE(a, b, c, d) if (addr >= a && addr <= b) {/*printf("base=%p offset=%d %p %p %d\n", d, addr-a, b, addr, b-addr);*/*data=d+(addr-a);*size=b-addr+1;RET(c);}
+    #define IN_RANGE(a, b, c, d) if (addr >= a && addr <= b) {/*printf("base=%p offset=%d %p %p %d\n", d, addr-a, b, addr, b-addr);*/*data=d+(addr-a);*size=b-addr+1;RET(c);}
     
     // External Memory (Game Pak)
     IN_RANGE(0x0E000000, 0x0E00FFFF, GamePak_SRAM, bus->mem->gamepak_sram)  // Game Pak SRAM    (max 64 KBytes) - 8bit Bus width
-    IN_RANGE(0x0C000000, 0x0DFFFFFF, GamePak_ROM, bus->mem->gamepak_rom[0])   // Game Pak ROM/FlashROM (max 32MB) - Wait State 2
-    IN_RANGE(0x0A000000, 0x0BFFFFFF, GamePak_ROM, bus->mem->gamepak_rom[1])   // Game Pak ROM/FlashROM (max 32MB) - Wait State 1
-    IN_RANGE(0x08000000, 0x09FFFFFF, GamePak_ROM, bus->mem->gamepak_rom[2])   // Game Pak ROM/FlashROM (max 32MB) - Wait State 0
+    IN_RANGE(0x0C000000, 0x0DFFFFFF, GamePak_ROM, bus->mem->gamepak_rom[0]) // Game Pak ROM/FlashROM (max 32MB) - Wait State 2
+    IN_RANGE(0x0A000000, 0x0BFFFFFF, GamePak_ROM, bus->mem->gamepak_rom[1]) // Game Pak ROM/FlashROM (max 32MB) - Wait State 1
+    IN_RANGE(0x08000000, 0x09FFFFFF, GamePak_ROM, bus->mem->gamepak_rom[2]) // Game Pak ROM/FlashROM (max 32MB) - Wait State 0
     
     // Internal Display Memory
-    IN_RANGE(0x07000000, 0x070003FF, OAM, bus->mem->oam)           // OAM - OBJ Attributes      (1 Kbyte)
-    IN_RANGE(0x06000000, 0x06017FFF, VRAM, bus->mem->vram)          // VRAM - Video RAM          (96 KBytes)
-    IN_RANGE(0x05000000, 0x050003FF, Palette_RAM, bus->mem->palette_ram)   // BG/OBJ Palette RAM        (1 Kbyte)
+    IN_RANGE(0x07000000, 0x070003FF, OAM, bus->mem->oam)                    // OAM - OBJ Attributes      (1 Kbyte)
+    IN_RANGE(0x06000000, 0x06017FFF, VRAM, bus->mem->vram)                  // VRAM - Video RAM          (96 KBytes)
+    IN_RANGE(0x05000000, 0x050003FF, Palette_RAM, bus->mem->palette_ram)    // BG/OBJ Palette RAM        (1 Kbyte)
     
     // General Internal Memory
-    IN_RANGE(0x04000000, 0x040003FE, I_O, bus->mem->io_regs)           // I/O Registers
-    IN_RANGE(0x03000000, 0x03007FFF, Work_RAM_32K, bus->mem->work_32k_ram)  // WRAM - On-chip Work RAM   (32 KBytes)
-    IN_RANGE(0x02000000, 0x0203FFFF, Work_RAM_256K, bus->mem->work_256k_ram) // WRAM - On-board Work RAM  (256 KBytes) 2 Wait
-    IN_RANGE(0x00000000, 0x00003FFF, BIOS_ROM, bus->mem->bios_rom)      // BIOS - System ROM         (16 KBytes)
+    IN_RANGE(0x04000000, 0x040003FE, I_O, bus->mem->io_regs)                    // I/O Registers
+    IN_RANGE(0x03000000, 0x03007FFF, Work_RAM_32K, bus->mem->work_32k_ram)      // WRAM - On-chip Work RAM   (32 KBytes)
+    IN_RANGE(0x02000000, 0x0203FFFF, Work_RAM_256K, bus->mem->work_256k_ram)    // WRAM - On-board Work RAM  (256 KBytes) 2 Wait
+    IN_RANGE(0x00000000, 0x00003FFF, BIOS_ROM, bus->mem->bios_rom)              // BIOS - System ROM         (16 KBytes)
     
     return 0;
 }
@@ -133,15 +126,17 @@ void rebus_init(struct REBUS* bus, struct REMEM* mem) {
     bus->mem = mem;
 }
 
-uint32_t rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w, int* cycles, bool* error) {
+void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w) {
     
     // 读取数据可采用遮罩方式来屏蔽无效的位
     void* data;
     int size;
     const struct BusAccess* acc = memory_mapping(bus, addr, &data, &size);
-    *cycles = acc->cycles[(int)acc_w>>1] - '0';
+    int cycles = acc->cycles[(int)acc_w>>1] - '0';
+    uint32_t output = 0;
+    
     if (acc->read_width & acc_w) {
-        *error = false;
+
         int mask;
         if (size >= 4) {
             mask = 0xffffffff;
@@ -151,43 +146,50 @@ uint32_t rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_
         
         switch (acc_w) {
             case ACCESS_WIDTH_BIT_8:
-                return (*(uint8_t*)data) & mask;
+                output = (*(uint8_t*)data) & mask;
+                break;
             case ACCESS_WIDTH_BIT_16:
-                return (*(uint16_t*)data) & mask;
+                output = (*(uint16_t*)data) & mask;
+                break;
             case ACCESS_WIDTH_BIT_32:
-                return (*(uint32_t*)data) & mask;
+                output = (*(uint32_t*)data) & mask;
+                break;
             default:
                 assert(!"error");
                 break;
         }
+        bus->error = false;
+    } else {
+        bus->error = true;
     }
     
-    *error = true;
-    return 0;
+    bus->addr   = addr;
+    bus->data   = output;
+    bus->cycles = cycles;
 }
 
-void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t value, enum ACCESS_WIDTH acc_w, int* cycles, bool* error) {
+void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t value, enum ACCESS_WIDTH acc_w) {
     
     void* data;
     int size;
     const struct BusAccess* acc = memory_mapping(bus, addr, &data, &size);
+    int cycles = acc->cycles[(int)acc_w>>1] - '0';
+    
     if (acc->read_width & acc_w) {
-        *cycles = acc->cycles[(int)acc_w>>1] - '0';
-        *error = false;
-        
+
         const int acc_w_bytes = (int)acc_w;
         const int write_size = acc_w_bytes < size ? acc_w_bytes : size;
+        REGBA_ASSERT(write_size == acc_w);
         switch (write_size) {
             case 1:
-                (*(uint8_t*)data) = value & 0xff;
+                (*(uint8_t*)data) = value;// & 0xff; 
                 break;
             case 2:
-                (*(uint16_t*)data) = value & 0xffff;
+                (*(uint16_t*)data) = value;// & 0xffff;
                 break;
             case 3:
                 // 通常此操作是由于32bit写入在有效内存末端被截断所致
-                ((uint8_t*)data)[0] = ((uint8_t*)&value)[0];
-                ((uint8_t*)data)[1] = ((uint8_t*)&value)[1];
+                ((uint16_t*)data)[0] = ((uint16_t*)&value)[0];
                 ((uint8_t*)data)[2] = ((uint8_t*)&value)[2];
                 // memcpy(data, &value, 3);
                 break;
@@ -198,5 +200,12 @@ void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t value, enum ACCE
                 assert(!"error");
                 break;
         }
+        bus->error = false;
+    } else {
+        bus->error = true;
     }
+    
+    bus->addr   = addr;
+    bus->data   = value;
+    bus->cycles = cycles;
 }

@@ -23,11 +23,12 @@ void regba_debug(struct REGBA* gba) {
         
         if (strcmp("exit", input) == 0) {
             exit = true;
-        } else if (strcmp("test", input) == 0) {
-            int cycles;
-            bool error;
-            rebus_mem_write(gba->bus, 0x0, 12345, ACCESS_WIDTH_BIT_32, &cycles, &error);
-            printf("cycles %d error %d\n", cycles, error);
+        } else if (strcmp("tw", input) == 0) {
+            rebus_mem_write(gba->bus, 0x3fff-3, 0x11223344, ACCESS_WIDTH_BIT_32);
+            printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
+        } else if (strcmp("tr", input) == 0) {
+            rebus_mem_read(gba->bus, 0x3fff-1, ACCESS_WIDTH_BIT_16);
+            printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
         } else {
             printf("%s\n", input);
         }
@@ -38,8 +39,9 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
         
-        typedef uint8_t uint24_t[3];
-        printf("uint24_t size %d\n", sizeof(uint24_t));
+        uint32_t a = 0x11223344;
+        uint16_t b  = a;
+        uint8_t c = a;
         
         struct REGBA* gba = regba_create();
         regba_init(gba, &regba_debug);
