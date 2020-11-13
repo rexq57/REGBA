@@ -19,8 +19,15 @@ struct REBUS{
     // 周期
     int cycles;
     
+    enum MEM_ERROR{
+        MEM_ERROR_NONE,
+        MEM_ERROR_ACCESS_DENIED,    // 访问禁止
+        MEM_ERROR_INCOMPLETE,       // 不完整访问
+        MEM_ERROR_INVALID_ADDR,     // 无效的地址
+    };
+
     // 是否发生错误
-    bool error;
+    enum MEM_ERROR error;
     
     // 连接内存
     struct REMEM* mem;

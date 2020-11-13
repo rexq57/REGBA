@@ -87,7 +87,6 @@ enum {
     GamePak_SRAM
 };
 
-inline
 const struct BusAccess* memory_mapping(struct REBUS* bus, uint32_t addr, void** data, int* size) {
     
     #define RET(a) return &bus_access[a];
@@ -131,36 +130,48 @@ void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w) {
     // 读取数据可采用遮罩方式来屏蔽无效的位
     void* data;
     int size;
+    int cycles = 0;
     const struct BusAccess* acc = memory_mapping(bus, addr, &data, &size);
-    int cycles = acc->cycles[(int)acc_w>>1] - '0';
     uint32_t output = 0;
     
-    if (acc->read_width & acc_w) {
-
-        int mask;
-        if (size >= 4) {
-            mask = 0xffffffff;
-        } else {
-            mask = 0xffffffff >> (4-size)*8; // 数据遮罩
-        }
+    if (acc) {
+        cycles = acc->cycles[(int)acc_w>>1] - '0';
         
-        switch (acc_w) {
-            case ACCESS_WIDTH_BIT_8:
-                output = (*(uint8_t*)data) & mask;
-                break;
-            case ACCESS_WIDTH_BIT_16:
-                output = (*(uint16_t*)data) & mask;
-                break;
-            case ACCESS_WIDTH_BIT_32:
-                output = (*(uint32_t*)data) & mask;
-                break;
-            default:
-                assert(!"error");
-                break;
+        if (acc->read_width & acc_w) {
+            
+            const int acc_w_bytes = (int)acc_w;
+            const int read_size = acc_w_bytes < size ? acc_w_bytes : size;
+            
+            switch (read_size) {
+                case 1:
+                    output = *(uint8_t*)data;
+                    break;
+                case 2:
+                    output = *(uint16_t*)data;
+                    break;
+                case 3:
+                    // output = (*(uint32_t*)data) & 0xffffff; // 可能会触发真正的内存访问错误
+                    output = *(uint16_t*)data + (((uint8_t*)data)[2] << 16);
+                    break;
+                case 4:
+                    output = *(uint32_t*)data;
+                    break;
+                default:
+                    assert(!"error");
+                    break;
+            }
+            
+            if (read_size == acc_w) {
+                bus->error = MEM_ERROR_NONE;
+            } else {
+                bus->error = MEM_ERROR_INCOMPLETE;
+            }
+            
+        } else {
+            bus->error = MEM_ERROR_ACCESS_DENIED;
         }
-        bus->error = false;
     } else {
-        bus->error = true;
+        bus->error = MEM_ERROR_INVALID_ADDR;
     }
     
     bus->addr   = addr;
@@ -172,40 +183,51 @@ void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t value, enum ACCE
     
     void* data;
     int size;
+    int cycles = 0;
     const struct BusAccess* acc = memory_mapping(bus, addr, &data, &size);
-    int cycles = acc->cycles[(int)acc_w>>1] - '0';
-    
-    if (acc->read_width & acc_w) {
+    if (acc) {
+        cycles = acc->cycles[(int)acc_w>>1] - '0';
+        
+        if (acc->write_width & acc_w) {
 
-        const int acc_w_bytes = (int)acc_w;
-        const int write_size = acc_w_bytes < size ? acc_w_bytes : size;
-        REGBA_ASSERT(write_size == acc_w);
-        switch (write_size) {
-            case 1:
-                (*(uint8_t*)data) = value;// & 0xff; 
-                break;
-            case 2:
-                (*(uint16_t*)data) = value;// & 0xffff;
-                break;
-            case 3:
-                // 通常此操作是由于32bit写入在有效内存末端被截断所致
-                ((uint16_t*)data)[0] = ((uint16_t*)&value)[0];
-                ((uint8_t*)data)[2] = ((uint8_t*)&value)[2];
-                // memcpy(data, &value, 3);
-                break;
-            case 4:
-                (*(uint32_t*)data) = value;
-                break;
-            default:
-                assert(!"error");
-                break;
+            const int acc_w_bytes = (int)acc_w;
+            const int write_size = acc_w_bytes < size ? acc_w_bytes : size;
+            
+            switch (write_size) {
+                case 1:
+                    (*(uint8_t*)data) = value;// & 0xff;
+                    break;
+                case 2:
+                    (*(uint16_t*)data) = value;// & 0xffff;
+                    break;
+                case 3:
+                    // 通常此操作是由于32bit写入在有效内存末端被截断所致
+                    ((uint16_t*)data)[0] = ((uint16_t*)&value)[0];
+                    ((uint8_t*)data)[2] = ((uint8_t*)&value)[2];
+                    // memcpy(data, &value, 3);
+                    break;
+                case 4:
+                    (*(uint32_t*)data) = value;
+                    break;
+                default:
+                    assert(!"error");
+                    break;
+            }
+            
+            if (write_size == acc_w) {
+                bus->error = MEM_ERROR_NONE;
+            } else {
+                bus->error = MEM_ERROR_INCOMPLETE;
+            }
+            
+        } else {
+            bus->error = MEM_ERROR_ACCESS_DENIED;
         }
-        bus->error = false;
     } else {
-        bus->error = true;
+        bus->error = MEM_ERROR_INVALID_ADDR;
     }
     
-    bus->addr   = addr;
-    bus->data   = value;
+    bus->addr = addr;
+    bus->data = value;
     bus->cycles = cycles;
 }

@@ -23,12 +23,34 @@ void regba_debug(struct REGBA* gba) {
         
         if (strcmp("exit", input) == 0) {
             exit = true;
-        } else if (strcmp("tw", input) == 0) {
-            rebus_mem_write(gba->bus, 0x3fff-3, 0x11223344, ACCESS_WIDTH_BIT_32);
+        } else if (strcmp("t0", input) == 0) {
+            rebus_mem_write(gba->bus, 0x09FFFFFF-3, 0x11223344, ACCESS_WIDTH_BIT_32);
             printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
-        } else if (strcmp("tr", input) == 0) {
-            rebus_mem_read(gba->bus, 0x3fff-1, ACCESS_WIDTH_BIT_16);
+            
+            rebus_mem_read(gba->bus, 0x09FFFFFF-3, ACCESS_WIDTH_BIT_16);
             printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
+            
+        } else if (strcmp("t1", input) == 0) {
+            rebus_mem_write(gba->bus, 0x0203FFFF-2, 0x11223344, ACCESS_WIDTH_BIT_32);
+            printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
+            
+            rebus_mem_read(gba->bus, 0x0203FFFF-2, ACCESS_WIDTH_BIT_32);
+            printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
+            
+        } else if (strcmp("t2", input) == 0) {
+            rebus_mem_write(gba->bus, 0x00003FFF-3, 0x11223344, ACCESS_WIDTH_BIT_32);
+            printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
+            
+            rebus_mem_read(gba->bus, 0x00003FFF-3, ACCESS_WIDTH_BIT_16);
+            printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
+            
+        } else if (strcmp("t3", input) == 0) {
+            rebus_mem_write(gba->bus, 0x01FFFFFF-2, 0x11223344, ACCESS_WIDTH_BIT_32);
+            printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
+            
+            rebus_mem_read(gba->bus, 0x01FFFFFF-2, ACCESS_WIDTH_BIT_32);
+            printf("addr %p data %x cycles %d error %d\n", gba->bus->addr, gba->bus->data, gba->bus->cycles, gba->bus->error);
+            
         } else {
             printf("%s\n", input);
         }
