@@ -125,7 +125,7 @@ void rebus_init(struct REBUS* bus, struct REMEM* mem) {
     bus->mem = mem;
 }
 
-void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w) {
+void rebus_mem_access(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w) {
     
     // 读取数据可采用遮罩方式来屏蔽无效的位
     void* data;
@@ -135,6 +135,7 @@ void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w) {
     uint32_t output = 0;
     
     if (acc) {
+        
         cycles = acc->cycles[(int)acc_w>>1] - '0';
         
         if (acc->read_width & acc_w) {
@@ -177,6 +178,19 @@ void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w) {
     bus->addr   = addr;
     bus->data   = output;
     bus->cycles = cycles;
+}
+
+void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w) {
+    
+    // BIOS内存不可读
+    if (addr >= 0 && addr <= 0x01FFFFFF) {
+        bus->error = MEM_ERROR_INVALID_ADDR;
+        bus->addr   = addr;
+        bus->data   = 0;
+        bus->cycles = 0;
+    } else {
+        rebus_mem_access(bus, addr, acc_w);
+    }
 }
 
 void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t value, enum ACCESS_WIDTH acc_w) {

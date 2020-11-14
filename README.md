@@ -33,3 +33,6 @@ GBA虚拟硬件规格
 
 https://www.cs.rit.edu/~tjh8300/CowBite/CowBiteSpec.htm
 
+ARMV4基础指令集
+
+https://faculty-web.msoe.edu/meier/ce1921/armisa.pdf

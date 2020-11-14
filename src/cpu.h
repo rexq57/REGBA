@@ -19,12 +19,12 @@
 
 enum PROCESSOR_MODE{
     PROCESSOR_MODE_USER,
-    PROCESSOR_MODE_FIQ,
+    PROCESSOR_MODE_SYS,
     PROCESSOR_MODE_IRQ,
-    PROCESSOR_MODE_SUPERVISOR,
-    PROCESSOR_MODE_ABORT,
-    PROCESSOR_MODE_UNDEFINED,
-    PROCESSOR_MODE_SYSTEM
+    PROCESSOR_MODE_FIQ,
+    PROCESSOR_MODE_SVC,
+    PROCESSOR_MODE_ABT,
+    PROCESSOR_MODE_UND,
 };
 
 /* 当前状态寄存器
@@ -165,8 +165,8 @@ struct RECPU{
     // 用户寄存器
     union REGS_USER regs;
     
-    // 各种模式下的寄存器
-    struct REGS_IRO _regs_IRO;
+    // 异常模式下的寄存器
+    struct REGS_IRO _regs_IRQ;
     struct REGS_FIQ _regs_FIQ;
     struct REGS_SVC _regs_SVC;
     struct REGS_ABT _regs_ABT;

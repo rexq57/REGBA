@@ -26,7 +26,7 @@ struct REBUS{
     // 周期
     int cycles;
 
-    // 是否发生错误
+    // 错误
     enum MEM_ERROR error;
     
     // 连接内存
@@ -45,5 +45,9 @@ enum ACCESS_WIDTH{
     ACCESS_WIDTH_BIT_32 = 1 << 2
 };
 
+// 内存访问
+void rebus_mem_access(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w);
+
+// 内存读写 (读取BIOS内存会发生错误)
 void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w);
 void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t data, enum ACCESS_WIDTH acc_w);

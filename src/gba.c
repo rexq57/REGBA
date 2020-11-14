@@ -9,13 +9,15 @@ void process_interrupt(struct REGBA* gba) {
     
     REGBA_ASSERT(gba->initialized);
     
-    // 检查断点，触发
+    // 检查断点，触发中断
     if (gba->stop_at_next) {
-        // 触发CPU中断
+        // 设置处理器模式到IRQ 并标记中断
+        recpu_set_mode(gba->cpu, PROCESSOR_MODE_IRQ);
         gba->interrupt = InterruptTypeBreakpoint;
         gba->stop_at_next = false;
     }
     
+    // 处理中断
     switch (gba->interrupt) {
         case InterruptTypeBreakpoint:
             gba->cb_debug(gba);
