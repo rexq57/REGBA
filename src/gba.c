@@ -21,10 +21,14 @@ void process_interrupt(struct REGBA* gba) {
     switch (gba->interrupt) {
         case InterruptTypeBreakpoint:
             gba->cb_debug(gba);
+            // 退出调试器后，恢复处理器模式
+            recpu_set_mode(gba->cpu, PROCESSOR_MODE_USER);
             break;
         default:
             break;
     }
+    
+    gba->interrupt = InterruptTypeNone;
 }
 
 
@@ -87,8 +91,13 @@ void regba_run(struct REGBA* gba) {
     
     REGBA_ASSERT(gba->initialized);
     
+    // 设置PC指针起始位置
+    gba->cpu->regs.PC = 0x08000000;
+    
     int exit = 0;
     do {
+        
+        printf("[CPU] PC %p\n", gba->cpu);
         
         // 循环
         int cycle_count = recpu_run_instruction(gba->cpu);

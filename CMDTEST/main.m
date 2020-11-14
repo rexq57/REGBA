@@ -26,7 +26,7 @@ void regba_debug(struct REGBA* gba) {
         
         scanf("%s", input);
         
-        if (strcmp("exit", input) == 0) {
+        if (strcmp("go", input) == 0) {
             exit = true;
         } else if (strcmp("t0", input) == 0) {
             rebus_mem_write(gba->bus, 0x09FFFFFF-3, 0x11223344, ACCESS_WIDTH_BIT_32);

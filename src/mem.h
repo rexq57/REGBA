@@ -1,6 +1,8 @@
 #pragma once
 
 /*
+ 设计参考：https://www.cs.rit.edu/~tjh8300/CowBite/CowBiteSpec.htm#Memory%20Map
+ 
  Internal Memory
    BIOS ROM     16 KBytes
    Work RAM     288 KBytes (Fast 32K on-chip, plus Slow 256K on-board)

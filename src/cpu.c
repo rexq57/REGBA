@@ -30,6 +30,8 @@ void recpu_init(struct RECPU* cpu, struct REBUS* bus) {
 
 void recpu_set_mode(struct RECPU* cpu, enum PROCESSOR_MODE mode) {
     
+    // [注意] 在某些情况下，BIOS可能允许从SWI过程内部执行中断。 如果是这样，并且如果中断处理程序进一步调用SWI，则应注意Supervisor堆栈不会溢出。
+    
     // 禁止从异常模式切换到异常模式
     REGBA_ASSERT(!(cpu->cpsr.mode > PROCESSOR_MODE_SYS && mode > PROCESSOR_MODE_SYS));
     
@@ -68,8 +70,13 @@ void recpu_set_mode(struct RECPU* cpu, enum PROCESSOR_MODE mode) {
 
 int recpu_run_instruction(struct RECPU* cpu) {
     
-    // 从总线上请求指令，并执行
-//    rebus_mem_read32bit(gba->bus, <#uint32_t addr#>);
+    // 从内存总线上请求指令，并执行
+    rebus_mem_access(cpu->bus, cpu->regs.PC, ACCESS_WIDTH_BIT_32);
+    
+    // 理论上指令读取不会出错
+    REGBA_ASSERT(cpu->bus->error == MEM_ERROR_NONE);
+    
+    // uint32_t instruction
     
     int cycle_count = 3;
     

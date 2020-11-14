@@ -9,7 +9,7 @@
 
 enum MEM_ERROR{
     MEM_ERROR_NONE,
-    MEM_ERROR_ACCESS_DENIED,    // 访问禁止
+    MEM_ERROR_WIDTH_LESS,       // 带宽不够
     MEM_ERROR_INCOMPLETE,       // 不完整访问
     MEM_ERROR_INVALID_ADDR,     // 无效的地址
 };

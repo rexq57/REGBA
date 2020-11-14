@@ -14,7 +14,7 @@ void* AllocateVirtualMemory(size_t size)
     // In debug builds, check that we have
     // correct VM page alignment
     // check(size != 0);
-    check((size % 4096) == 0);
+    check((size % 4096) == 0); // 似乎非4096也一样可用
     
     // Allocate directly from VM
     err = vm_allocate(  (vm_map_t) mach_task_self(),
@@ -132,12 +132,16 @@ void remem_init(struct REMEM* mem) {
     
     struct ADDR_SIZE vm_list[] = {
         {&mem->gamepak_rom[0], 32 * 1024 * 1024},
-        {&mem->gamepak_rom[1], 32 * 1024 * 1024},
-        {&mem->gamepak_rom[2], 32 * 1024 * 1024},
+        //{&mem->gamepak_rom[1], 32 * 1024 * 1024}, 这两个是镜像，所以不用申请内存，在下面直接使用镜像地址
+        //{&mem->gamepak_rom[2], 32 * 1024 * 1024},
         {&mem->gamepak_sram, 64 * 1024},
     };
     
     re_malloc(vm_list, sizeof(vm_list)/sizeof(*vm_list), true);
+    
+    // 镜像内存
+    mem->gamepak_rom[1] = mem->gamepak_rom[0];
+    mem->gamepak_rom[2] = mem->gamepak_rom[0];
     
     // RAM清零，只处理IO，PAL，VRAM和OAM
     for (int i=3; i<sizeof(mem_list)/sizeof(*mem_list); i++) {

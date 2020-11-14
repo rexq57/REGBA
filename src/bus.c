@@ -169,7 +169,7 @@ void rebus_mem_access(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w)
             }
             
         } else {
-            bus->error = MEM_ERROR_ACCESS_DENIED;
+            bus->error = MEM_ERROR_WIDTH_LESS;
         }
     } else {
         bus->error = MEM_ERROR_INVALID_ADDR;
@@ -235,7 +235,7 @@ void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t value, enum ACCE
             }
             
         } else {
-            bus->error = MEM_ERROR_ACCESS_DENIED;
+            bus->error = MEM_ERROR_WIDTH_LESS;
         }
     } else {
         bus->error = MEM_ERROR_INVALID_ADDR;

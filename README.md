@@ -36,3 +36,11 @@ https://www.cs.rit.edu/~tjh8300/CowBite/CowBiteSpec.htm
 ARMV4基础指令集
 
 https://faculty-web.msoe.edu/meier/ce1921/armisa.pdf
+
+使用模拟器的GDB调试器
+
+https://www.csie.ntu.edu.tw/~cyy/courses/assembly/10fall/assignments/proj3/GBA-debug.pdf
+
+在模拟器中集成GDB支持
+
+https://medium.com/virtuslab/integrating-gdb-support-in-an-emulator-ef41ff13f301
