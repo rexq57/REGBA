@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "regba.h"
+#import "gba.h"
 #import "bus.h"
 
 void regba_debug(struct REGBA* gba) {

@@ -6,7 +6,7 @@
 //
 
 #import "ViewController.h"
-#import <src/regba.h>
+#import <src/gba.h>
 
 @implementation ViewController
 

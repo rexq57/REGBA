@@ -123,7 +123,6 @@ void remem_init(struct REMEM* mem) {
         {&mem->work_256k_ram, 256 * 1024},
         {&mem->work_32k_ram, 32 * 1024},
         {&mem->io_regs, 0x3FF},
-        
         {&mem->palette_ram, 1 * 1024},
         {&mem->vram, 96 * 1024},
         {&mem->oam, 1 * 1024},
@@ -140,4 +139,8 @@ void remem_init(struct REMEM* mem) {
     
     re_malloc(vm_list, sizeof(vm_list)/sizeof(*vm_list), true);
     
+    // RAM清零，只处理IO，PAL，VRAM和OAM
+    for (int i=3; i<sizeof(mem_list)/sizeof(*mem_list); i++) {
+        memset(*mem_list[i].addr, 0, mem_list[i].size);
+    }
 }

@@ -1,4 +1,4 @@
-#include "regba.h"
+#include "gba.h"
 #include "cpu.h"
 #include "bus.h"
 #include "mem.h"

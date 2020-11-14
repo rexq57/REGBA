@@ -11,7 +11,7 @@
 		21857C62255B9A0800DD6FA8 /* bus.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEFE255ADC6500656E9C /* bus.c */; };
 		21857C64255B9A0800DD6FA8 /* cpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEF4255AD88400656E9C /* cpu.c */; };
 		21857C66255B9A0800DD6FA8 /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FF07255ADD1100656E9C /* mem.c */; };
-		21857C68255B9A0800DD6FA8 /* regba.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEF7255AD88400656E9C /* regba.c */; };
+		21857C68255B9A0800DD6FA8 /* gba.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEF7255AD88400656E9C /* gba.c */; };
 		21C6FE5F255ABAC500656E9C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FE5E255ABAC500656E9C /* AppDelegate.m */; };
 		21C6FE62255ABAC500656E9C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FE61255ABAC500656E9C /* ViewController.m */; };
 		21C6FE64255ABAC700656E9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21C6FE63255ABAC700656E9C /* Assets.xcassets */; };
@@ -20,7 +20,7 @@
 		21C6FE75255ABAC700656E9C /* REGBATests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FE74255ABAC700656E9C /* REGBATests.m */; };
 		21C6FE80255ABAC700656E9C /* REGBAUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FE7F255ABAC700656E9C /* REGBAUITests.m */; };
 		21C6FEF8255AD88400656E9C /* cpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEF4255AD88400656E9C /* cpu.c */; };
-		21C6FEF9255AD88400656E9C /* regba.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEF7255AD88400656E9C /* regba.c */; };
+		21C6FEF9255AD88400656E9C /* gba.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEF7255AD88400656E9C /* gba.c */; };
 		21C6FEFF255ADC6500656E9C /* bus.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEFE255ADC6500656E9C /* bus.c */; };
 		21C6FF08255ADD1100656E9C /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FF07255ADD1100656E9C /* mem.c */; };
 /* End PBXBuildFile section */
@@ -75,9 +75,9 @@
 		21C6FE7F255ABAC700656E9C /* REGBAUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = REGBAUITests.m; sourceTree = "<group>"; };
 		21C6FE81255ABAC700656E9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21C6FEF4255AD88400656E9C /* cpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpu.c; sourceTree = "<group>"; };
-		21C6FEF5255AD88400656E9C /* regba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regba.h; sourceTree = "<group>"; };
+		21C6FEF5255AD88400656E9C /* gba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gba.h; sourceTree = "<group>"; };
 		21C6FEF6255AD88400656E9C /* cpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu.h; sourceTree = "<group>"; };
-		21C6FEF7255AD88400656E9C /* regba.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = regba.c; sourceTree = "<group>"; };
+		21C6FEF7255AD88400656E9C /* gba.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gba.c; sourceTree = "<group>"; };
 		21C6FEFD255ADC6500656E9C /* bus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bus.h; sourceTree = "<group>"; };
 		21C6FEFE255ADC6500656E9C /* bus.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bus.c; sourceTree = "<group>"; };
 		21C6FF06255ADD1100656E9C /* mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mem.h; sourceTree = "<group>"; };
@@ -192,8 +192,8 @@
 				21C6FEF6255AD88400656E9C /* cpu.h */,
 				21C6FF07255ADD1100656E9C /* mem.c */,
 				21C6FF06255ADD1100656E9C /* mem.h */,
-				21C6FEF7255AD88400656E9C /* regba.c */,
-				21C6FEF5255AD88400656E9C /* regba.h */,
+				21C6FEF7255AD88400656E9C /* gba.c */,
+				21C6FEF5255AD88400656E9C /* gba.h */,
 				21C6FF0C255ADE5200656E9C /* type.h */,
 			);
 			path = src;
@@ -351,7 +351,7 @@
 				21857C62255B9A0800DD6FA8 /* bus.c in Sources */,
 				21857C64255B9A0800DD6FA8 /* cpu.c in Sources */,
 				21857C66255B9A0800DD6FA8 /* mem.c in Sources */,
-				21857C68255B9A0800DD6FA8 /* regba.c in Sources */,
+				21857C68255B9A0800DD6FA8 /* gba.c in Sources */,
 				21857C55255B893100DD6FA8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,7 +363,7 @@
 				21C6FEFF255ADC6500656E9C /* bus.c in Sources */,
 				21C6FE62255ABAC500656E9C /* ViewController.m in Sources */,
 				21C6FF08255ADD1100656E9C /* mem.c in Sources */,
-				21C6FEF9255AD88400656E9C /* regba.c in Sources */,
+				21C6FEF9255AD88400656E9C /* gba.c in Sources */,
 				21C6FE6A255ABAC700656E9C /* main.m in Sources */,
 				21C6FEF8255AD88400656E9C /* cpu.c in Sources */,
 				21C6FE5F255ABAC500656E9C /* AppDelegate.m in Sources */,
