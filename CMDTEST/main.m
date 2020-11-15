@@ -17,12 +17,12 @@ void print_bus(struct REBUS* bus) {
 
 void regba_debug(struct REGBA* gba) {
     
+    printf("中断信息: event %d mode %d\n", gba->event, gba->cpu->cpsr.mode);
+    
     bool exit = false;
     while (!exit) {
         
         char input[50] = {0};
-        
-        printf("中断信息: type %d mode %d\n", gba->interrupt, gba->cpu->cpsr.mode);
         
         scanf("%s", input);
         

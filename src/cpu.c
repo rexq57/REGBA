@@ -20,6 +20,13 @@ void recpu_init(struct RECPU* cpu, struct REBUS* bus) {
     memset(&cpu->_regs_UND, 0, sizeof(cpu->_regs_UND));
     memset(&cpu->cpsr, 0, sizeof(cpu->cpsr));
     
+    // 初始化处理器各模式下的栈针，位于工作内存中
+    memset(&cpu->mode_SP, 0, sizeof(cpu->mode_SP));
+    cpu->mode_SP[PROCESSOR_MODE_USER] = 0x03007F00;
+    cpu->mode_SP[PROCESSOR_MODE_SYS] = 0x03007F00;
+    cpu->mode_SP[PROCESSOR_MODE_IRQ] = 0x03007FA0;
+    cpu->mode_SP[PROCESSOR_MODE_SVC] = 0x03007FE0;
+    
     // 处理器默认是用户模式
     recpu_set_mode(cpu, PROCESSOR_MODE_USER);
     
@@ -36,8 +43,29 @@ void recpu_set_mode(struct RECPU* cpu, enum PROCESSOR_MODE mode) {
     REGBA_ASSERT(!(cpu->cpsr.mode > PROCESSOR_MODE_SYS && mode > PROCESSOR_MODE_SYS));
     
     // 直接拷贝数据到目标
-    #define CASE_BANK_REGS(x, name) case PROCESSOR_MODE_##name: memcpy(&cpu->_regs_##name, &cpu->regs.r##x, sizeof(cpu->_regs_##name)); break;
-    #define CASE_RESTORE_REGS(x, name) case PROCESSOR_MODE_##name: memcpy(&cpu->regs.r##x, &cpu->_regs_##name, sizeof(cpu->_regs_##name)); break;
+#define CASE_BANK_REGS(x, name)  \
+case PROCESSOR_MODE_##name: \
+memcpy(&cpu->_regs_##name, &cpu->regs.r##x, sizeof(cpu->_regs_##name)); \
+break;
+
+#define CASE_RESTORE_REGS(x, name) \
+case PROCESSOR_MODE_##name: \
+memcpy(&cpu->regs.r##x, &cpu->_regs_##name, sizeof(cpu->_regs_##name)); \
+break;
+    
+    // 模式相同时，不存只取，防止初始化时，SP未定义覆盖了有效值，后面再从中取出就造成错误
+    if (mode != cpu->cpsr.mode) {
+        // 存储当前模式的栈针
+        if (cpu->cpsr.mode == PROCESSOR_MODE_USER || cpu->cpsr.mode == PROCESSOR_MODE_SYS) {
+            cpu->mode_SP[PROCESSOR_MODE_USER] = cpu->regs.SP;
+            cpu->mode_SP[PROCESSOR_MODE_SYS]  = cpu->regs.SP;
+        } else {
+            cpu->mode_SP[cpu->cpsr.mode] = cpu->regs.SP;
+        }
+    }
+    
+    // 设置切换模式的栈针，有些模式没有栈针，就是0，读写就会报错
+    cpu->regs.SP = cpu->mode_SP[mode];
     
     // 寄存器保存/恢复
     switch (mode) {
@@ -68,7 +96,7 @@ void recpu_set_mode(struct RECPU* cpu, enum PROCESSOR_MODE mode) {
     cpu->cpsr.mode = mode;
 }
 
-int recpu_run_instruction(struct RECPU* cpu) {
+int recpu_run_next_instruction(struct RECPU* cpu) {
     
     // 从内存总线上请求指令，并执行
     rebus_mem_access(cpu->bus, cpu->regs.PC, ACCESS_WIDTH_BIT_32);

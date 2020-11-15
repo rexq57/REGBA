@@ -3,12 +3,10 @@
 #include "type.h"
 
 // 中断
-enum InterruptType{
-    InterruptTypeNone = 0,      // 无
-    InterruptTypeBreakpoint,    // 断点中断，用于断点调试和单步调试
-//        InterruptTypeIRQs,      // 软中断
-//        InterruptTypeBreak, // 指令中断
-//        InterruptTypeReset  // 重置
+enum SYSTEM_EVENT{
+    SYSTEM_EVENT_NONE = 0,      // 无
+    SYSTEM_EVENT_BREAKPOINNT,   // 断点
+    SYSTEM_EVENT_INTERRUPT,     // 中断
 };
 
 struct REGBA{
@@ -17,7 +15,7 @@ struct REGBA{
     struct REBUS* bus;
     struct REMEM* mem;
     
-    enum InterruptType interrupt;
+    enum SYSTEM_EVENT event;
     bool stop_at_next;
     
     void (*cb_debug)(struct REGBA*);

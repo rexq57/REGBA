@@ -5,30 +5,27 @@
 
 #include <unistd.h>
 
-void process_interrupt(struct REGBA* gba) {
+static inline
+void process_event(struct REGBA* gba, bool interrupt_happend) {
     
     REGBA_ASSERT(gba->initialized);
     
-    // 检查断点，触发中断
+    // 检查断点，触发事件
     if (gba->stop_at_next) {
-        // 设置处理器模式到IRQ 并标记中断
-        recpu_set_mode(gba->cpu, PROCESSOR_MODE_IRQ);
-        gba->interrupt = InterruptTypeBreakpoint;
+        gba->event = SYSTEM_EVENT_BREAKPOINNT;
         gba->stop_at_next = false;
+    } else {
+        // 检查中断
+        if (interrupt_happend) {
+            gba->event = SYSTEM_EVENT_INTERRUPT;
+        }
     }
     
-    // 处理中断
-    switch (gba->interrupt) {
-        case InterruptTypeBreakpoint:
-            gba->cb_debug(gba);
-            // 退出调试器后，恢复处理器模式
-            recpu_set_mode(gba->cpu, PROCESSOR_MODE_USER);
-            break;
-        default:
-            break;
-    }
+    // 处理事件
+    if (gba->event != SYSTEM_EVENT_NONE)
+        gba->cb_debug(gba);
     
-    gba->interrupt = InterruptTypeNone;
+    gba->event = SYSTEM_EVENT_NONE;
 }
 
 
@@ -61,7 +58,7 @@ void regba_init(struct REGBA* gba, REGBA_CB_DEBUG cb_debug) {
     recpu_init(gba->cpu, gba->bus);
     
     // 一些状态初始化
-    gba->interrupt = InterruptTypeNone;
+    gba->event = SYSTEM_EVENT_NONE;
     gba->stop_at_next = false;
     
     gba->cb_debug = cb_debug;
@@ -99,11 +96,20 @@ void regba_run(struct REGBA* gba) {
         
         printf("[CPU] PC %p\n", gba->cpu);
         
-        // 循环
-        int cycle_count = recpu_run_instruction(gba->cpu);
+        const enum PROCESSOR_MODE mode = gba->cpu->cpsr.mode;
         
-        // 处理中断
-        process_interrupt(gba);
+        // 执行下一条指令
+        int cycle_count = recpu_run_next_instruction(gba->cpu);
+        
+        // 检查模式变更
+        bool interrupt_happend = false;
+        const enum PROCESSOR_MODE current_mode = gba->cpu->cpsr.mode;
+        if (current_mode != mode && current_mode != PROCESSOR_MODE_USER && current_mode != PROCESSOR_MODE_SYS) {
+            interrupt_happend = true;
+        }
+        
+        // 处理事件
+        process_event(gba, interrupt_happend);
         
         usleep(1000 * 1000);
         

@@ -25,6 +25,7 @@ enum PROCESSOR_MODE{
     PROCESSOR_MODE_SVC,
     PROCESSOR_MODE_ABT,
     PROCESSOR_MODE_UND,
+    __PROCESSOR_MODE_COUNT
 };
 
 /* 当前状态寄存器
@@ -68,8 +69,10 @@ Current Program Status Register (CPSR)
  */
 struct CPSR{
     enum PROCESSOR_MODE mode;
-    bool T, F,
-    I, // 中断禁止
+    bool
+    T, // Thumb状态
+    F, // 禁止FIQ中断
+    I, // 禁止IRO中断
     V, // 溢出
     C, // 进位
     Z, // 零
@@ -165,7 +168,9 @@ struct RECPU{
     // 用户寄存器
     union REGS_USER regs;
     
-    // 异常模式下的寄存器
+    uint32_t mode_SP[__PROCESSOR_MODE_COUNT];
+    
+    // 异常模式下的寄存器备份，这些寄存器不可被软件访问，只作为切换模式时的备份，切换回User/SYS后恢复
     struct REGS_IRO _regs_IRQ;
     struct REGS_FIQ _regs_FIQ;
     struct REGS_SVC _regs_SVC;
@@ -191,6 +196,6 @@ void recpu_init(struct RECPU* cpu, struct REBUS* bus);
 void recpu_set_mode(struct RECPU* cpu, enum PROCESSOR_MODE mode);
 
 // 执行一条指令，返回所需时钟周期
-int recpu_run_instruction(struct RECPU* cpu);
+int recpu_run_next_instruction(struct RECPU* cpu);
 
 
