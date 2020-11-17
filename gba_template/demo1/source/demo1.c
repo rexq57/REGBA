@@ -22,12 +22,12 @@ int main(void) {
 
 	consoleDemoInit();
 
-	uint32_t* data = 0x00000000;
+	uint32_t* data = 0x08000000;
 	int a = *data;
 
 	// ansi escape sequence to set print co-ordinates
 	// /x1b[line;columnH
-	iprintf("\x1b[10;10HHello World! %d\n", a);
+	iprintf("\x1b[10;10HHello World! %x\n", a);
 	//iprintf("\x1b[10;10HHello World! \n");
 
 	while (1) {

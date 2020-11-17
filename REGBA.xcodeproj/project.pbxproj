@@ -55,7 +55,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		21721E5425601593000E3DC7 /* ARM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARM.h; sourceTree = "<group>"; };
 		21857C52255B893100DD6FA8 /* CMDTEST */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CMDTEST; sourceTree = BUILT_PRODUCTS_DIR; };
 		21857C54255B893100DD6FA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		21857C5D255B8BE600DD6FA8 /* test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test.hpp; sourceTree = "<group>"; };
@@ -196,7 +195,6 @@
 				21C6FEF7255AD88400656E9C /* gba.c */,
 				21C6FEF5255AD88400656E9C /* gba.h */,
 				21C6FF0C255ADE5200656E9C /* type.h */,
-				21721E5425601593000E3DC7 /* ARM.h */,
 			);
 			path = src;
 			sourceTree = "<group>";

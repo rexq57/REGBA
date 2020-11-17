@@ -1,6 +1,8 @@
 #include "cpu.h"
 #include "bus.h"
 
+void compile_arm(struct RECPU* cpu, uint32_t instruction);
+
 struct RECPU* recpu_create(void) {
     return (struct RECPU*)malloc(sizeof(struct RECPU));
 }
@@ -104,11 +106,111 @@ int recpu_run_next_instruction(struct RECPU* cpu) {
     // 理论上指令读取不会出错
     REGBA_ASSERT(cpu->bus->error == MEM_ERROR_NONE);
     
-    // uint32_t instruction
+    uint32_t instruction = cpu->bus->data;
+    printf("%x %x\n", cpu->regs.PC, instruction);
+    compile_arm(cpu, instruction);
     
     int cycle_count = 3;
     
     cpu->current_cycle_count += cycle_count;
     
     return cycle_count;
+}
+
+// 指令健康度检查
+bool conditionPassed(struct CPSR* cpsr, uint32_t instruction) {
+    
+    const int i = (instruction & 0xF0000000) >> 28;
+    switch (i) {
+        case 0:
+            // EQ
+            return cpsr->Z;
+        case 1:
+            // NE
+            return !cpsr->Z;
+        case 2:
+            // CS
+            return cpsr->C;
+        case 3:
+            // CC
+            return !cpsr->C;
+        case 4:
+            // MI
+            return cpsr->N;
+        case 5:
+            // PL
+            return !cpsr->N;
+        case 6:
+            // VS
+            return cpsr->V;
+        case 7:
+            // VC
+            return !cpsr->V;
+        case 8:
+            // HI
+            return cpsr->C && !cpsr->Z;
+        case 9:
+            // LS
+            return !cpsr->C || cpsr->Z;
+        case 10:
+            // GE
+            return !cpsr->N == !cpsr->V;
+        case 11:
+            // LT
+            return !cpsr->N != !cpsr->V;
+        case 12:
+            // GT
+            return !cpsr->Z && !cpsr->N == !cpsr->V;
+        case 13:
+            // LE
+            return cpsr->Z || !cpsr->N != !cpsr->V;
+        default:
+            // AL
+            break;
+    }
+    return true;
+}
+
+struct Instruction_OP{
+    bool writesPC, fixedJump;
+};
+
+void compile_arm(struct RECPU* cpu, uint32_t instruction/*, struct Instruction_OP* op*/) {
+    
+    const int i = instruction & 0x0E000000;
+    
+    // arm模式下，访问PC会返回提前两条指令的地址
+    uint32_t PC = cpu->regs.PC + 8;
+    
+    switch (i) {
+        case 0x0A000000:
+        {
+            // Branch
+            int immediate = instruction & 0x00FFFFFF;
+            if (immediate & 0x00800000) {
+                immediate |= 0xFF000000;
+            }
+            immediate <<= 2;
+            bool link = instruction & 0x01000000;
+            if (link) {
+                // BL
+                cpu->regs.LR = PC - 4;
+                PC += immediate;
+            } else {
+                // B
+                PC += immediate;
+            }
+            cpu->regs.PC = PC;
+            
+            //op->writesPC = true;
+            //op->fixedJump = true;
+            
+            break;
+        }
+        default:
+            REGBA_ASSERT(!"error");
+            break;
+    }
+    
+    
 }
