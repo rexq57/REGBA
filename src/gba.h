@@ -7,6 +7,7 @@ enum SYSTEM_EVENT{
     SYSTEM_EVENT_NONE = 0,      // 无
     SYSTEM_EVENT_BREAKPOINNT,   // 断点
     SYSTEM_EVENT_INTERRUPT,     // 中断
+    SYSTEM_EVENT_BAD_INSTRUCTION,   // 中断
 };
 
 struct REGBA{

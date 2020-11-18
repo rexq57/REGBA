@@ -125,7 +125,7 @@ void rebus_init(struct REBUS* bus, struct REMEM* mem) {
     bus->mem = mem;
 }
 
-void rebus_mem_access(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w) {
+void rebus_mem_access(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w, struct Data_OP* op) {
     
     // 读取数据可采用遮罩方式来屏蔽无效的位
     void* data;
@@ -163,37 +163,41 @@ void rebus_mem_access(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w)
             }
             
             if (read_size == acc_w) {
-                bus->error = MEM_ERROR_NONE;
+                op->error = MEM_ERROR_NONE;
             } else {
-                bus->error = MEM_ERROR_INCOMPLETE;
+                op->error = MEM_ERROR_INCOMPLETE;
             }
             
         } else {
-            bus->error = MEM_ERROR_WIDTH_LESS;
+            op->error = MEM_ERROR_WIDTH_LESS;
         }
     } else {
-        bus->error = MEM_ERROR_INVALID_ADDR;
+        op->error = MEM_ERROR_INVALID_ADDR;
     }
     
-    bus->addr   = addr;
-    bus->data   = output;
-    bus->cycles = cycles;
+    op->addr   = addr;
+    op->data   = output;
+    op->cycles = cycles;
 }
 
 void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w) {
     
+    struct Data_OP* op = &bus->op;
+    
     // BIOS内存不可读
     if (addr >= 0 && addr <= 0x01FFFFFF) {
-        bus->error = MEM_ERROR_INVALID_ADDR;
-        bus->addr   = addr;
-        bus->data   = 0;
-        bus->cycles = 0;
+        op->error = MEM_ERROR_INVALID_ADDR;
+        op->addr   = addr;
+        op->data   = 0;
+        op->cycles = 0;
     } else {
-        rebus_mem_access(bus, addr, acc_w);
+        rebus_mem_access(bus, addr, acc_w, op);
     }
 }
 
 void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t value, enum ACCESS_WIDTH acc_w) {
+    
+    struct Data_OP* op = &bus->op;
     
     void* data;
     int size;
@@ -229,19 +233,19 @@ void rebus_mem_write(struct REBUS* bus, uint32_t addr, uint32_t value, enum ACCE
             }
             
             if (write_size == acc_w) {
-                bus->error = MEM_ERROR_NONE;
+                op->error = MEM_ERROR_NONE;
             } else {
-                bus->error = MEM_ERROR_INCOMPLETE;
+                op->error = MEM_ERROR_INCOMPLETE;
             }
             
         } else {
-            bus->error = MEM_ERROR_WIDTH_LESS;
+            op->error = MEM_ERROR_WIDTH_LESS;
         }
     } else {
-        bus->error = MEM_ERROR_INVALID_ADDR;
+        op->error = MEM_ERROR_INVALID_ADDR;
     }
     
-    bus->addr = addr;
-    bus->data = value;
-    bus->cycles = cycles;
+    op->addr = addr;
+    op->data = value;
+    op->cycles = cycles;
 }

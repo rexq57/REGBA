@@ -14,9 +14,8 @@ enum MEM_ERROR{
     MEM_ERROR_INVALID_ADDR,     // 无效的地址
 };
 
-struct REBUS{
+struct Data_OP{
     
-    // 上一次请求的相关数据
     // 数值
     uint32_t data;
     
@@ -28,6 +27,12 @@ struct REBUS{
 
     // 错误
     enum MEM_ERROR error;
+};
+
+struct REBUS{
+    
+    // 上一次请求的相关数据
+    struct Data_OP op;
     
     // 连接内存
     struct REMEM* mem;
@@ -46,7 +51,7 @@ enum ACCESS_WIDTH{
 };
 
 // 内存访问
-void rebus_mem_access(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w);
+void rebus_mem_access(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w, struct Data_OP* op);
 
 // 内存读写 (读取BIOS内存会发生错误)
 void rebus_mem_read(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w);

@@ -168,6 +168,8 @@ struct RECPU{
     // 用户寄存器
     union REGS_USER regs;
     
+    uint32_t prev_PC; // 上一条指令的地址
+    
     uint32_t mode_SP[__PROCESSOR_MODE_COUNT];
     
     // 异常模式下的寄存器备份，这些寄存器不可被软件访问，只作为切换模式时的备份，切换回User/SYS后恢复
@@ -196,6 +198,6 @@ void recpu_init(struct RECPU* cpu, struct REBUS* bus);
 void recpu_set_mode(struct RECPU* cpu, enum PROCESSOR_MODE mode);
 
 // 执行一条指令，返回所需时钟周期
-int recpu_run_next_instruction(struct RECPU* cpu);
+int recpu_run_next_instruction(struct RECPU* cpu, bool* error);
 
-
+bool recpu_disassemble(struct REBUS* bus, uint32_t PC, char* buffer);

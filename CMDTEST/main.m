@@ -12,12 +12,18 @@
 #import "bus.h"
 
 void print_bus(struct REBUS* bus) {
-    printf("addr %p data %x cycles %d error %d\n", bus->addr, bus->data, bus->cycles, bus->error);
+    struct Data_OP* op = &bus->op;
+    printf("addr %p data %x cycles %d error %d\n", op->addr, op->data, op->cycles, op->error);
 }
 
 void regba_debug(struct REGBA* gba) {
     
-    printf("中断信息: event %d mode %d\n", gba->event, gba->cpu->cpsr.mode);
+    uint32_t PC = gba->cpu->prev_PC;
+    char buffer[50];
+    recpu_disassemble(gba->bus, PC, buffer);
+    printf("[DEBUG] [%x] %s\n", PC, buffer);
+    
+    printf("[DEBUG] 中断信息: event %d mode %d\n", gba->event, gba->cpu->cpsr.mode);
     
     bool exit = false;
     while (!exit) {
@@ -27,6 +33,9 @@ void regba_debug(struct REGBA* gba) {
         scanf("%s", input);
         
         if (strcmp("go", input) == 0) {
+            exit = true;
+        } else if (strcmp("next", input) == 0) {
+            regba_stop_at_next(gba);
             exit = true;
         } else if (strcmp("t0", input) == 0) {
             rebus_mem_write(gba->bus, 0x09FFFFFF-3, 0x11223344, ACCESS_WIDTH_BIT_32);
@@ -75,8 +84,6 @@ int main(int argc, const char * argv[]) {
         uint32_t a = 0x11223344;
         uint16_t b  = a;
         uint8_t c = a;
-        
-        
         
         struct REGBA* gba = regba_create();
         regba_init(gba, &regba_debug);

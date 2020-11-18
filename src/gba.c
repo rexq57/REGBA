@@ -5,29 +5,6 @@
 
 #include <unistd.h>
 
-static inline
-void process_event(struct REGBA* gba, bool interrupt_happend) {
-    
-    REGBA_ASSERT(gba->initialized);
-    
-    // 检查断点，触发事件
-    if (gba->stop_at_next) {
-        gba->event = SYSTEM_EVENT_BREAKPOINNT;
-        gba->stop_at_next = false;
-    } else {
-        // 检查中断
-        if (interrupt_happend) {
-            gba->event = SYSTEM_EVENT_INTERRUPT;
-        }
-    }
-    
-    // 处理事件
-    if (gba->event != SYSTEM_EVENT_NONE)
-        gba->cb_debug(gba);
-    
-    gba->event = SYSTEM_EVENT_NONE;
-}
-
 
 struct REGBA* regba_create() {
     struct REGBA* gba = (struct REGBA*)malloc(sizeof(struct REGBA));
@@ -94,22 +71,37 @@ void regba_run(struct REGBA* gba) {
     int exit = 0;
     do {
         
-        printf("[CPU] PC %p\n", gba->cpu);
-        
         const enum PROCESSOR_MODE mode = gba->cpu->cpsr.mode;
         
         // 执行下一条指令
-        int cycle_count = recpu_run_next_instruction(gba->cpu);
-        
-        // 检查模式变更
-        bool interrupt_happend = false;
-        const enum PROCESSOR_MODE current_mode = gba->cpu->cpsr.mode;
-        if (current_mode != mode && current_mode != PROCESSOR_MODE_USER && current_mode != PROCESSOR_MODE_SYS) {
-            interrupt_happend = true;
-        }
+        bool error;
+        int cycle_count = recpu_run_next_instruction(gba->cpu, &error);
         
         // 处理事件
-        process_event(gba, interrupt_happend);
+        {
+            // 先处理错误
+            if (error) {
+                gba->event = SYSTEM_EVENT_BAD_INSTRUCTION;
+            } else {
+                // 检查断点，触发事件
+                if (gba->stop_at_next) {
+                    gba->event = SYSTEM_EVENT_BREAKPOINNT;
+                    gba->stop_at_next = false;
+                } else {
+                    // 检查模式变更
+                    const enum PROCESSOR_MODE current_mode = gba->cpu->cpsr.mode;
+                    if (current_mode != mode && current_mode != PROCESSOR_MODE_USER && current_mode != PROCESSOR_MODE_SYS) {
+                        gba->event = SYSTEM_EVENT_INTERRUPT;
+                    }
+                }
+            }
+            
+            // 处理事件
+            if (gba->event != SYSTEM_EVENT_NONE)
+                gba->cb_debug(gba);
+            
+            gba->event = SYSTEM_EVENT_NONE;
+        }
         
         usleep(1000 * 1000);
         
