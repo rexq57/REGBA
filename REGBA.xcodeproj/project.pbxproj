@@ -83,6 +83,8 @@
 		21C6FF06255ADD1100656E9C /* mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mem.h; sourceTree = "<group>"; };
 		21C6FF07255ADD1100656E9C /* mem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mem.c; sourceTree = "<group>"; };
 		21C6FF0C255ADE5200656E9C /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
+		21FCC75D25A970E80015238B /* log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
+		21FCC76225A9755F0015238B /* log.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = log.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,8 @@
 				21C6FEF7255AD88400656E9C /* gba.c */,
 				21C6FEF5255AD88400656E9C /* gba.h */,
 				21C6FF0C255ADE5200656E9C /* type.h */,
+				21FCC75D25A970E80015238B /* log.h */,
+				21FCC76225A9755F0015238B /* log.c */,
 			);
 			path = src;
 			sourceTree = "<group>";

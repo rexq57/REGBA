@@ -200,4 +200,6 @@ void recpu_set_mode(struct RECPU* cpu, enum PROCESSOR_MODE mode);
 // 执行一条指令，返回所需时钟周期
 int recpu_run_next_instruction(struct RECPU* cpu, bool* error);
 
+// 反汇编指定地址的指令
 bool recpu_disassemble(struct REBUS* bus, uint32_t PC, char* buffer);
+

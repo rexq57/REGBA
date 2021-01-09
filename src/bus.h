@@ -50,7 +50,7 @@ enum ACCESS_WIDTH{
     ACCESS_WIDTH_BIT_32 = 1 << 2
 };
 
-// 内存访问
+// 直接的内存访问
 void rebus_mem_access(struct REBUS* bus, uint32_t addr, enum ACCESS_WIDTH acc_w, struct Data_OP* op);
 
 // 内存读写 (读取BIOS内存会发生错误)

@@ -9,9 +9,11 @@
 
 #ifdef DEBUG
 #define REGBA_ASSERT(...) assert(__VA_ARGS__)
-#define RENES_DEBUG
+#define REGBA_DEBUG
 #else
 #define REGBA_ASSERT(...)
 #endif
+
+#include "log.h"
 
 #define MEM_GAMEPAK_ROM 0x08000000

@@ -151,6 +151,7 @@ int recpu_run_next_instruction(struct RECPU* cpu, bool* error) {
  F:   NV     -             never (ARMv1,v2 only) (Reserved ARMv3 and up)
 
 */
+static inline
 bool conditionPassed(struct CPSR* cpsr, uint32_t instruction) {
     
     const int i = (instruction & 0xF0000000) >> 28;
@@ -529,6 +530,7 @@ bool compile_arm(struct RECPU* cpu, uint32_t instruction/*, struct Instruction_O
     return true;
 }
 
+// 反汇编指令
 bool disassemble(uint32_t instruction, uint32_t PC, char* buffer) {
     
     uint32_t i = instruction & 0x0E000000;

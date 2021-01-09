@@ -37,6 +37,7 @@ struct ADDR_SIZE{
     size_t size;
 };
 
+// 连续分配内存
 void re_malloc(struct ADDR_SIZE* addr_list, int count, bool vm) {
     
     // 统计需要申请的内存总数
@@ -117,7 +118,6 @@ void remem_init(struct REMEM* mem) {
      */
     
     // 优化成连续内存
-    
     struct ADDR_SIZE mem_list[] = {
         {&mem->bios_rom, 16 * 1024},
         {&mem->work_256k_ram, 256 * 1024},
