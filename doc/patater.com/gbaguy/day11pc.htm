@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 11</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 11</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Reading Chars</b></h2>
+<p style="color: green;"><pre><b>
+	Reading chars is fun. Let's get to it!
+
+<h2 align="center" style="color: LightCoral;"><b>DOS Service Function 1</b></h2>
+	The code:
+
+		mov ah,1
+		int 21h
+
+	That code will wait for a key to be pressed, output the char to the screen,
+and return the ASCII code of the key in AL.
+
+<h2 align="center" style="color: LightCoral;"><b>Keyboard BIOS Service Function 0</b></h2>
+	You have to use the BIOS (Basic Input Output System) if you need to get input from
+a non-ASCII char (like arrow keys). The ASCII code is returned in AL, with the scan code in
+AH. You'll know there's a scan code if the ASCII code is zero. This Function does not output
+the char to the screen.
+
+	Code:
+		mov ah,0
+		int 16h   ; 16h is BIOS Keyboard Services
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Input, very important!
+
+	Until Next Time!,
+		- Mike
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day12pc.htm">Day 12</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

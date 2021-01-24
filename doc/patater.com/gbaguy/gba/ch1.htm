@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="my head" />
+<title>GBA ASM Tutorial Chapter 1</title>
+<link rel="stylesheet" href="tutorial.css" type="text/css" />
+</head>
+<h1>Chapter 1</h1>
+<h3>Overview</h3>
+<body>
+<p>	The processor inside the GBA is a custom CPU created by Nintendo. Many people call it an ARM7tdmi. 
+That's mostly correct, but the ARM7 core is just that, a core. There are several other things 
+that share the same chip. Another interesting thing is that ARM (the company) doesn't make the chips, they just
+liscence out the design. But for all purposes (we don't have any intent ;) ), it's a 32bit ARM7tdmi in there.</p>
+<p>	The CPU has 2 instruction sets, called ARM and THUMB. (Note: this is just an overview, don't worry if you
+don't understand all of it.)</p>
+
+<p>The ARM instruction set's instructions are multifunctional, and most can incorporate a shift 
+instruction within, so that means stuff like <code>r3 = r2 + r1<<4</code> is possible in one instruction 
+(but won't look like that). Opcode length is also fixed at 32bits, which means if we want to load a 32bit 
+number, we have to do a memory access which can be slow, I'll show a way (or two, maybe) that can be faster.
+And get this, they can all be executed conditionally! Many instructions let you choose whether or not to update
+the condition codes (e.g. so you can subtract without messing your carry flag). Since most instructions can
+use the shifter, there are no stand-alone shift instructions.</p>
+
+<p>The THUMB instruction set's instructions are less multifunctional, infact, almost all are one function. THUMB
+opcode size is fixed at 16bits, which means the same code (most instructions have a similar counterpart
+in each instruction set) is faster when run from ROM (since ROM only has a 16bit bus). Only branches can
+be conditional, and you can't turn condition code setting off with these instructions (e.g. ADD always sets
+carry, overflow, zero, sign).</p>
+
+<p>The ARM7 processor has 16 32bit registers (even though only the first 7 (r0-r6) are easily available while
+in THUMB mode):
+<pre>
+	r0-r12: GPRs (General Purpose Registers)
+	r13: Typically used as a stack pointer, if you don't use the stack (small demo or something, then this
+		can be considered a GPR).
+	r14: Link register, can be used as a GPR, but its main purpose is to hold return addresses for the Branch
+		and Link Instruction (a sub-routine call).
+	r15: PC register, holds the address +8 of the current instruction (ARM7 has a 3 stage pipeline, so if
+		you read PC, it will have the address of 2 instructions a head of the one you used to read it).
+</pre></p>
+
+<p>There are pros and cons to each instruction set, they are (Any that could go either way are just my opinion):
+<center>	<table border="0">
+		<tr><th><u>ARM</u></th><th><u>THUMB</u></th></tr>
+		<tr><th>Pros:</th><th>Pros:</th></tr>
+		<tr><td>Multifunctional</td><td>Way faster than ARM in ROM.</td></tr>
+		<tr><td>All opcodes are conditional</td><td>Smaller opcode size</td></tr>
+		<tr><td>Choose to update conditional codes</td></tr>
+		<tr><th>Cons:</th><th>Cons:</th></tr>
+		<tr><td>Slower than THUMB in ROM.</td><td>Opcodes that can, always set condition codes</td></tr>
+		<tr><td></td><td>Only branches can be conditional</td></tr>
+		<tr><td></td><td>Most instructions can only use r0-r6</td></tr>
+	</table> </center>
+
+</body>
+
+That's all for now, How about <a href="ch2.htm">Chapter 2</a>? Or the <a href="../gbaasm.htm">GBA ASM</a> index?
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</html>

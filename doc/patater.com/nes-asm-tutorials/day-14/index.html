@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 14 - Sound Channels 1-3 - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 14 - Sound Channels 1-3</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>Intro</h2>
+<p>Yep, sound. It's actually not that hard to make the NES output a sound. One can
+make a simple (perhaps ugly) sound by just messing with the necessary mem. regs and
+turning on the channel in $4015.</p>
+
+<p>Please note that this pretty much just a rewording of <a href="http://nesdev.parodius.com/NESSOUND.txt">Brad Taylor's Sound Doc</a>
+in more words that will, hopefully, make it a small bit easier to understand.</p>
+
+<p>So please read that doc a few times and then come back. Don't worry, this isn't going anywhere! ;)</p>
+
+<p>One last thing before we begin, bits are <em>always</em> numbered from #0 on
+the right and #7 on the far left.</p>
+
+<h3>Square Wave/Channel #1</h3>
+
+<p>I'm not sure what the technical description of a square wave is, but it
+probably (based on the name) looks something like this: _|-|_|-|_ assuming the
+|s are shorter.</p>
+
+<p>The Square Wave Channel 1 has the following features:</p>
+<ol>
+    <li>54.6 Hz to 12.4 KHz in frequency.</li>
+    <li>Frequency sweep or constant tone.</li>
+    <li>output duty cycle adjustment (anyone have any idea what this means?).</li>
+</ol>
+
+<p>The easiest thing to do is get a constant tone. The second hardest is
+actually having control over the frequency, the most hardest is the frequency
+sweep as it took me several tries to get to work. Also, please note that I use
+2 emulators for code testing FCEU (FCE Ultra) and Rew if it works on either
+one, I consider the code "working".</p>
+
+<p>The registers that are for Channel #1 are $4000-$4003 and as usual $4015 for
+enabling the channel. Please use the sound doc for the specific bit
+definitions.</p>
+
+<h4>$4000</h4>
+
+<p>Register $4000 controls (as far as I can tell from all Taylor's tech mumbo-jumbo),
+starting frequency, and can enable/disable the channel. Most of the time I don't
+bother with it and just write #$FF to it like so:</p>
+<p><code class="block">
+    lda #$FF   ; typical
+    sta $4000  ; write
+</code></p>
+
+<p>The important bits here are #0-3 and #5, bits #0-3 (according to the doc)
+are the volume / envelope decay rate, I'm not sure exactly what this means so I
+just set all the bits. Bit #5 seems to enable and disable the channel (yes, you
+still need to enable the channel in $4015 for sound to come out). The others
+I'm assuming can be set so just send #$FF to $4000 if you don't want too much
+to worry about.</p>
+
+<h4>$4001</h4>
+
+<p>Register $4001 controls the sweep feature. Sweep (if you didn't know) is when the
+sound fades in or out.</p>
+
+<p>Because we need good control over individual bits here, we'll load A in binary instead
+of hex.</p>
+
+<dl>
+    <dt>Bits #0-2</dt><dd>control how much $4002 is shifted by to get the new frequency.</dd>
+    <dt>Bit #3</dt><dd>controls whether to increase or decrease frequency for sweep. (1=increase, 0=decrease).</dd>
+    <dt>Bits #4-6</dt><dd>control how fast the sweep runs (range is 0-7).</dd>
+    <dt>Bit #7</dt><dd>enables sweep, if sweep is off, the channel will output continuous tone.</dd>
+</dl>
+
+<p>So if we want a shift value of 3, the sweep to run at speed 5, increase frequency, and
+(of course) enable sweep, here's the code:</p>
+<p><code class="block">
+    lda #%11011011  ; % means binary number, remember the '#' for immediate values.
+    sta $4001  ; immediate means "not an address, just a number".
+</code></p>
+
+<h4>$4002</h4>
+
+<p>Register $4002 is just the first 8bits of the frequency. Set it to whatever
+ya want, the higher the number the lower the frequency (I think).</p>
+
+<p>I'll write $A5 to it (a rather low sound):</p>
+<p><code class="block">
+    lda #$A5
+    sta $4002
+</code></p>
+
+<h4>$4003</h4>
+<p>Register $4003 contains some wavelength stuff in bits #0-2, which I leave
+set to 2. And bits #3-7 load the down-counter (thing that tells NES when its
+time to shut off the sweep), with a value. I leave bits #3-7 loaded with
+13.</p>
+
+<p>I'm not too sure what any of the stuff in this register means, but #$AB seems
+to be a fairly good value to store in $4003. Code:</p>
+<p><code class="block">
+    lda #$AB
+    sta $4003
+</code></p>
+
+<h4>$4015</h4>
+<p>I'm just going to discuss register $4015 once in this "Day". $4015 controls
+which channels are enabled, the bit layout is as follows:</p>
+<dl>
+    <dt>Bit 0</dt><dd>= Square Wave Channel 1</dd>
+    <dt>Bit 1</dt><dd>= Square Wave Channel 2</dd>
+    <dt>Bit 2</dt><dd>= Triangle Wave Channel 3</dd>
+    <dt>Bit 3</dt><dd>= Noise Channel 4</dd>
+    <dt>Bit 4</dt><dd>= DMC/PCM Playback Channel</dd>
+    <dt>Bits 5-7</dt><dd>= unused</dd>
+</dl>
+
+<p>So to turn on Square Wave Ch. 1 we go like so:</p>
+<p><code class="block">
+    lda #%00000001
+    sta $4015
+</code></p>
+
+<h4>The Full Code</h4>
+<p>I think you should be able to put sample code into a skeleton code file by
+now, but I'll make a full code listing just because I'm way too much of a nice
+guy. Here it is:</p>
+<p><code class="block">
+    ;;---CODE START---;;</code></p>
+
+<pre><code>.inesprg 1
+.inesmap 0
+.inesmir 1
+.ineschr 0  ; note that we have no CHR-ROM bank in this code
+
+.bank 1
+.org $FFFA
+.dw 0 ; no VBlank routine
+.dw Start
+.dw 0 ; we'll get to this at a later time
+
+.bank 0
+.org $8000 ; note that I just copy/pasted code from the register sections Start:
+lda #$FF   ; typical
+sta $4000  ; write
+
+lda #%11011011  ; % means binary number, remember the '#' for immediate values.
+sta $4001  ; immediate means "not an address, just a number".
+
+lda #$A5
+sta $4002
+
+lda #$AB
+sta $4003
+
+lda #%00000001
+sta $4015
+</code></pre>
+
+<p>infinite:
+    jmp infinite</p>
+
+<pre><code>;;--- END OF CODE FILE ---;; &lt;/code&gt;
+</code></pre>
+
+<p>Assemble and <u>Listen</u>! Note that we don't even setup the PPU because we didn't
+do anything graphical. The code <em>should</em> output a nice rising sweep.</p>
+
+<h3>Square Wave Channel 2</h3>
+
+<p>Square Wave 2 is nearly exactly the same as Square Wave 1, we won't discuss
+the (VERY small difference) here. Square Wave 2 uses the exact same bit layout as
+Square Wave 1 except for different registers at $4004-4007. Here's how the registers
+compare to Square Wave 1's registers:</p>
+<ul>
+    <li>$4004 is same as $4000</li>
+    <li>$4005 is same as $4001</li>
+    <li>$4006 is same as $4002</li>
+    <li>$4007 is same as $4003</li>
+</ul>
+
+<p>And to turn on the channel, write a 1 to bit #2 of $4015.</p>
+
+<h3>Triangle Wave Channel 3</h3>
+
+<p>Ah, a new type of channel to discuss, I don't know the technical description
+of what a "Triangle Wave" is, but I'd bet it looks something like this: /\/\/\/\/\/</p>
+
+<p>The features of the Triangle Wave Channel are:</p>
+<ol>
+    <li>27.3 Hz to 55.9 KHz</li>
+    <li>analog triangle wave output (I don't know what this means)</li>
+    <li>linear counter (Taylor's doc infers that you can make timed tones with
+    this channel.)</li>
+</ol>
+
+<p>The Triangle Wave Channel's registers are at $4008-$400B.</p>
+
+<h4>$4008</h4>
+<p>Register $4008 contains whether or not to time the tone or make it continuous
+and the load to the timer that .. well, does the timing.</p>
+
+<dl>
+    <dt>Bits #0-6</dt><dd>is the timer load value.</dd>
+    <dt>Bit 7</dt><dd>enables/disables timing (1=enable)</dd>
+</dl>
+
+<p>As I haven't used the Triangle Wave Channel much yet I haven't tried this
+yet so this infered info should be considered *UNTESTED/POSSIBLY
+INACCURATE*.</p>
+
+<h4>$4009</h4>
+<p>Register $4009 is unused.</p>
+
+<h4>$400A</h4>
+<p>Register $400A is the same as $4002.</p>
+<p>Note: I'm not sure if Triangle Wave supports sweep or not.</p>
+
+<h4>$400B</h4>
+<p>Register $400B is the same as $4003.</p>
+
+<h4>Enabling Triangle Wave Channel 3</h4>
+<p>To enable the Triangle Wave Channel, set (to 1) bit #2 in $4015.</p>
+
+<p>You should be able to come up with something from that, I hope.</p>
+
+<h3>This Day In Review</h3>
+
+<p>I hope the code works for you, and that you enjoyed today's info.  I'll do
+the noise channel in a separate Day tomorrow (it may or may not be short).</p>
+
+<p>
+    Happy listenings,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-15/index.html">Day 15</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

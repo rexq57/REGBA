@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 2 - A Source Code File's Structure - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 2 - A Source Code File's Structure</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>What's Happening?</h2>
+<p>Well, you white-belt NES programer you, today we're going to learn the
+structure a NESASM code file. Unfortunately, our assembler is very finicky
+about the indentation of our code. All labels start right at the begining of a
+line and everything else gets tabbed in once. Even though this may sound bad,
+it really helps with readability and understanding of the code, especially in
+big programs.</p>
+
+<h3>About Banks</h3>
+<p>No, banks don't hold your money for you. They hold your program and all it's
+data. There are 3 banks that we will typically use, they are:</p>
+<dl>
+    <dt>Bank 0</dt><dd>- We're our code goes starting at $8000.</dd>
+    <dt>Bank 1</dt><dd>- An Interrupt Table. Important. Starts at $FFFA for us.</dd>
+    <dt>Bank 2</dt><dd>- Where we will be putting our sprite and background data. Starting at $0000.</dd>
+</dl>
+
+<p>I'm not sure how many banks there are, but it's obvious there's atleast 3.
+We will use the .bank instruction to move banks. And we'll use .org to tell the
+assembler where we are starting from in that bank.</p>
+
+<h3>The INES Header</h3>
+
+<p>The INES header comes at the beginning of every ROM file and tells the
+emulator several things. The header pieces are:</p>
+<dl>
+    <dt>.inesprg</dt><dd>- tells how many program code banks there are.</dd>
+    <dt>.ineschr</dt><dd>- tells how many picture data banks there are.</dd>
+    <dt>.inesmir</dt><dd>- tells something I don't remember, but will be always 1.</dd>
+    <dt>.inesmap</dt><dd>- We always use Mapper 0.</dd>
+</dl>
+
+<p>Our typical settings for these are:</p>
+<p><code class="block">
+    .inesprg 1   ; one (1) bank of program code
+    .ineschr 1   ; one (1) bank of picture data
+    .inesmap 0   ; we use mapper 0
+    .inesmir 1   ; Mirror setting always 1.
+</code></p>
+
+<p>Those four (4) lines will be at the (almost) very beginning of EVERY code
+file.</p>
+
+<h3>Bank 0 and .ORGing</h3>
+
+<p>We will use Bank 0 to hold our code and start it at location $8000.  Here's
+how we'll do it:</p>
+<p><code class="block">
+    .bank 0   ; bank 0.
+    .org $8000  ; goto location $8000.</code></p>
+
+<pre><code>; program's code would go here. &lt;/code&gt;
+</code></pre>
+
+<p>That's all there is to that. Note that a semi-colon (;) means comment and
+the assembler ignores anything past the semi-colon on the line.</p>
+
+<h3>Bank 1 And The 3 Interrupts</h3>
+
+<p>Instead of a long paragraph, how 'bout some yummy code:</p>
+<p><code class="block">
+    .bank 1     ; change to bank 1
+    .org $FFFA  ; start at $FFFA</code></p>
+
+<pre><code>.dw 0        ; location of NMI Interrupt
+.dw Start    ; code to run at reset, we give address of Start label that
+; we will eventually put in bank 0
+.dw 0        ; location of VBlank Interrupt I think. either way, we don't need
+; it right now. &lt;/code&gt;
+</code></pre>
+
+<p>Wasn't that easy, that's ALL that goes in bank 1, simple!</p>
+
+<h3>Bank 2 And Our Picture Data</h3>
+
+<p>Bank 2, we will be starting at $0000 and in it we will include our picture data
+for backgrounds and sprites. Here goes:</p>
+<p><code class="block">
+    .bank 2        ; change to bank 2
+    .org $0000    ; start at $0000</code></p>
+
+<pre><code>.incbin "our.bkg"  ; INClude BINary file that will contain our background pic
+; data.
+.incbin "our.spr"  ; INClude BINary file that will contain our sprite pic data &lt;/code&gt;
+</code></pre>
+
+<h3>This Day In Review</h3>
+
+<p>That's really all for today. I gotta go slow, as the NES is slightly more a
+pain in the @$$ to program for than the GBA. Tomorrow, we will find out
+somemore stuff.</p>
+
+<p>
+    See ya tomorrow!,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-3/index.html">Day 3</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

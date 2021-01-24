@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 2</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 2</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Interrupts</b></h2>
+<p style="color: green;"><pre><b>
+	Interrupts are exactly like they sound, they interrupt your program, do their thing, and
+then return to where your program left off. Unlike game consoles, interrupts on the IBM-PC compatibles
+are actually called by your program like an API or static library.
+
+<h2 align="center" style="color: LightCoral;"><b>The INT Instruction</b></h2>
+	The INT instruction calls an interrupt, it works like the following:
+
+	int 21h  ; a 'h' after a number means hexadecimal notation.
+		 ; 21h is the number for a DOS Interrupt Service routine.
+		 ; there are many functions that can be called with interrupt 21h
+
+	The number that follows the INT instruction (21h in the above example) is the <i>service</i> to
+call. The actual function number goes in AH, which brings me to something rather important:
+
+	I've said that all registers are 16bit, that's true except for one thing:
+		The High and Low 8bits of AX,BX,CX,and DX can be accessed by substituting the X for
+either H for High and L for Low, so the lower 8bits of the registers are AL,BL,CL,and DL, and the high
+8bits are AH,BH,CH,DH. The MOV instruction works the same for accessing the 8bit parts of the registers
+as well as the registers as their 16bit whole selves.
+
+	Please note that if you touch AH or AL for example, you'll be modifying AX's value. So watch out.
+
+<h2 align="center" style="color: LightCoral;"><b>A Character on the Screen</b></h2>
+	Here, we'll put together a program that outputs a letter to the screen and assemble it to the
+final COM program (a DOS EXE,sort of).
+
+;;---CODE START---;;
+mov ah,2  ; 2 is the function number of output char in the DOS Services.
+mov dl,'E' ; DL takes the letter to be outputted. note that "mov dl,'E'" will put 'E's ASCII code in DL.
+int 21h    ; will call DOS Services, DOS will notice that the function # is 2 and will then take the ASCII code
+		; in DL and output it to the screen at the currect cursor location.
+
+mov ah,4Ch   ; 4Ch is the function number for exit program in DOS Services.
+int 21h      ; function 4Ch doesn't care about anything in the registers.
+;;---CODE END---;;
+
+Put that in a file called first.asm, and open a DOS Prompt, type:
+
+a86 first.asm <i>Hit ENTER</i>
+
+It should output 2 files, keep the COM file and delete the other. Open a new DOS Prompt if you closed the old one.
+Type:
+
+first <i>Always hit enter after every line</i>
+
+A capital E should be outputted and the program should end.
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Tomorrow, we'll get to see pointers in action!
+
+	Hope you understood everything!,
+		-Mike H a.k.a GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day3pc.htm">Day 3</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

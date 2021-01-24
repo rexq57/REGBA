@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 23 - Attributes - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 23 - Attributes</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>How the palette works...</h2>
+<p>As you know, the palette is a table of 32 colors that exists at PPU address
+$3F00. Also, $3F00 and $3F10 will always be the same, so that brings it down to 31 colors
+to be more precise.</p>
+
+<p>However, I have not shown how to get more than just the first 4 colors on
+the screen. The tiles themselves will yield a 2 bit number (NES tiles are 2bpp
+for those of you who have used the old DOS Tile Layer Pro...). However, to be
+able to use any of the 16 colors we have available (remember 16 for sprites, 16
+for BGs), we have to use attributes.</p>
+
+<p>Attributes are the upper 2 bits of the palette index (the tiles themselves are the lower
+2 bits). With the Attributes and the tiles themselves, we get a 16 bit number. You can think
+of how it works in two ways:</p>
+<ol>
+    <li>Just an index into a 16 color palette.</li>
+    <li>The palette being split into 4, with each fourth having 4 colors in it.
+    The Attribute would select which set of 4, and the actual tile using its
+    2bit number to create its gfx from the 4 colors (as usual).</li>
+</ol>
+
+<h3>Where to put BG Attributes</h3>
+
+<p>BG Attributes go in the $40 bytes after each Name Table in PPU memory:
+For example (from <a href="http://fms.komkon.org/EMUL8/NES.html">Marat's doc</a>):</p>
+<pre>
+--------------------------------------- $2800
+ Attribute Table 1
+--------------------------------------- $27C0
+ Name Table 1 (32x30 tiles)
+--------------------------------------- $2400
+ Attribute Table 0
+--------------------------------------- $23C0
+ Name Table 0 (32x30 tiles)
+--------------------------------------- $2000
+</pre>
+
+<h3>Where to put Sprite Attributes</h3>
+
+<p>Sprite Attributes go in the special byte of a sprite's OAM entry. To be specific:
+Bits 0 and 1 of byte 2 (remember, always count from 0). Here's the OAM format from Marat's doc:</p>
+<pre>
+Sprite Attribute RAM:
+| Sprite#0 | Sprite#1 | ... | Sprite#62 | Sprite#63 |
+     |          |
+     +---- 4 bytes: 0: Y position of the left-top corner - 1
+                    1: Sprite pattern number
+                    2: Color and attributes:
+                       bits 1,0: two upper bits of color
+                       bits 2,3,4: Unknown (???)
+                       bit 5: if 1, display sprite behind background
+                       bit 6: if 1, flip sprite horizontally
+                       bit 7: if 1, flip sprite vertically
+                    3: X position of the left-top corner
+</pre>
+
+<p>(NOTE: Always check Marat's doc when in doubt (or not :) ), when programming, leave it open.)</p>
+
+<h3>This Day In Review</h3>
+
+<p>I finally did attributes, yay! Perhaps it would be useful to write a new BMP2NES utility...</p>
+
+<p>
+    Have fun!,<br />
+        -GbaGuy
+<p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-24/index.html">Day 24</a>
+</div>
+</p></p>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

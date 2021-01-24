@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 23</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 23</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Inputting Numbers</b></h2>
+<p style="color: green;"><pre><b>
+	Inputting numbers was asked for recently on the Win32ASM boards, I figured
+I should mention it here.
+
+<h2 align="center" style="color: LightCoral;"><b>Services Used</b></h2>
+
+	We will use INT 21h, Function 1. INT 16h can also be used, it would probably
+be better to use INT 16h, because it's a BIOS call (not dependant on DOS), but we'll use
+INT 21h anyway...
+
+
+<h2 align="center" style="color: LightCoral;"><b>The Code</b></h2>
+
+	Here it is:
+
+;--CODE START--;
+	mov ah,1
+	int 21h ; returns ASCII code in AL
+	sub al,30h ; '1' the char, -30h will equal 1 (the number)
+;--CODE END--;
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Very simple. Although this only works with 1 digit numbers, there's no reason
+why you can't write a subroutine to input longer numbers...
+
+	Happy Coding!,
+		- GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <!--<a href="day24pc.htm">-->Day 24<!--</a>--></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

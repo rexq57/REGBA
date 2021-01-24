@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 1 - Beginning NES Assembly - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 1 - Beginning NES Assembly</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>About NES Assembly</h2>
+<p>Oh, my, GOD! You are actually planning to learn to program the NES in
+assembly?  Well, if you really want to, this hopefully will help. Maybe you've
+read my ongoing series about GameBoy Advanced Assembly. In my GBA assembly
+tutorial, it says that you should know GBA programming in C first, before you
+attempt assembly. I'd say the same about NES assembly, except there aren't any
+good C compilers targetting the NES's CPU. So I'm just going to say now, either
+know GBA assembly or Intel x86 assembly BEFORE you attempt to write code for
+the NES as coding for the NES is a little more difficult than either of the
+others mentioned.</p>
+
+<p>We will be using NESASM.exe as our assembler. Get it <a href="../../gbaguy/nesasm.zip">here!</a> and unzip it to C:
+esasm or whereever you want.
+Good. It also contains serveral other programs we will be using. But before we
+get coding, we need to know about our little old (REALLY old) friend the
+Nintendo Entertainment System (NES).</p>
+
+<h3>About The NES</h3>
+
+<p>The NES is a complicated piece of 8bit machinery. That's right, the NES is
+an 8bit system if you didn't know already. The NES uses a customised Motorola
+6502 processor more similar to the Intel x86 chips than to the ARM series. The
+NES was released some time before I was born, so I have no idea when (late 70's
+maybe) (I'm 15).</p>
+
+<p>For it's picture processing needs, the NES has a PPU (Picture Processing
+Unit) chip that we program indirectly through memory registers similar to how
+the GBA works, but still quite different.</p>
+
+<p>In the world of sprites, the NES does have hardware sprites, but not have
+nearly the same extent of features that the GBA does for it's sprites.</p>
+
+<p>It's really hard to explain without some code, so how 'bout we learn 6502
+assembly!?!</p>
+
+<h3>NES Assembly Langauge</h3>
+
+<p>The first of all the CPU registers, on the NES the 3 we are concerned about
+are:</p>
+<dl>
+    <dt>A</dt><dd>- the Accumulator, all math operations implicitly use this register.</dd>
+    <dt>X</dt><dd>- an index register, used for indexing memory addressings.</dd>
+    <dt>Y</dt><dd>- an indes register, used for indexing memory addressings.</dd>
+</dl>
+
+<p>Note that all 3 registers can be loaded with numbers or values from memory.
+The uses listed above are just their special abitities like register super
+powers. :) There are a few others, but as so far we don't need to know about
+them.</p>
+
+<p>The instruction we will learn first is LDk , where k is one of the 3 registers listed
+above. So here's some code to demonstrate:</p>
+<p><code class="block">
+    lda #$50  ; loads A with 50 in hex.
+    ldx #$60  ; loads X with 60 in hex.
+    ldy #$70  ; loads Y with 70 in hex.
+</code></p>
+
+<p>Note that these are, in fact, 8bit registers. You may be wondering what the
+<code>#$</code> means. The <code>#</code> symbol means immediate value, as in
+the number is just a number and not an address in memory to load from. The
+<code>$</code> symbol means the number is in hexadecimal. If the <code>$</code>
+was a <code>%</code> then the number would be taken as a binary number. If
+there was no <code>$</code> or <code>%</code> then it would be a decimal
+number.  Examples:</p>
+<p><code class="block">
+    lda #%00100011  ; loads A with a binary number.
+    ldx #50         ; loads X with 50 in decimal.
+    ldy #$50        ; loads Y with 50 in hex.
+</code></p>
+
+<p>I hope this is clear, if not, <a href="mailto:vbnetprogramer@hotmail.com">email me</a>.</p>
+
+<h3>Memory Address Addressing</h3>
+
+<p>For a number to be interpreted as a memory address by the assembler, all
+that needs to be done is to leave off the <code>#</code>. Now also keep in mind
+that addresses are usually represented as 16bit hex numbers, so to load a
+register with a value from memory, we would do this:</p>
+<p><code class="block">
+    lda $2002   ; load A with the value at memory location 2002 hex.
+    ldx 2002    ; load X with the value at memory location 2002 decimal.
+    ldy 2002    ; load Y with value at location 2002 decimal.
+</code></p>
+
+<p>Not too difficult, eh?</p>
+<p>Now for the next instruction you need to know.</p>
+
+<h3>Storing Values In Memory</h3>
+
+<p>The next instruction we will learn is STk, where k is one of the 3 registers.
+The store instruction cannot to my knowledge take a immediate value as a
+parameter/operand.  I'll let some code examples explain:</p>
+<p><code class="block">
+    sta $2004  ; stores A in memory location 2004 hex.
+    sty $2002 ; stores Y in memory location 2002 hex.
+    stx $FF   ; stores X in memory location 00FF hex.
+</code></p>
+
+<p>Note that addresses are usually represented as hex numbers. If you use a 2
+digit number in a store instruction, it is interpreted as 00xx where xx is the
+2 digit number you used.</p>
+
+<p>Also note that what we've done so far is called Direct Addressing, were we
+just give the actual address we want to put something into.</p>
+
+<h3>This Day In Review</h3>
+
+<p>Today we learn't the 2 instructions that will make up 50% of our code. A good
+achievement, don't you think?</p>
+
+<p>
+    Until Next Time,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-2/index.html">Day 2</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

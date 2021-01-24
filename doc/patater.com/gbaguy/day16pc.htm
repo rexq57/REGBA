@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 16</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 16</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Mischief #1</b></h2>
+<p style="color: green;"><pre><b>
+	Today, we will be mischievious! This following program will crash any DOS/Win9x computer so
+bad you'll need a reboot and ctrl+alt+del isn't going to help.
+
+<h2 align="center" style="color: LightCoral;"><b>The Program</b></h2>
+	This program won't harm anything, but don't take my word on that. I take no responsibility for
+this program. Code:
+
+	;;---CODE START---;;
+		mov ah,0
+		mov al,13h
+		int 10h
+label:
+		cli    ; disable interrupts from happening
+		jmp label
+	;;---CODE END---;;
+
+The CLI instruction CLears Interrupts from happening, including the internal keyboard interrupts that
+happen every time a key is pressed.
+
+You don't use CLI too often, but it's good to know about.
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	I just had to tell about this!
+
+	Have fun!,
+		-Mike
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day17pc.htm">Day 17</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Patater</title>
+    <description>Patater is my outlet for my free and open works.</description>
+    <link>https://patater.com/</link>
+    <atom:link href="https://patater.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 23 May 2020 07:57:43 +0100</pubDate>
+
+      <item>
+        <title>A Random QSO Generator</title>
+        <description>&lt;h3&gt;Purpose&lt;/h3&gt;
+&lt;p&gt;Existing Koch-method Morse code training software waits until all symbols are learned before giving a Morse code student practice with Morse code conversations (known QSOs in amateur radio parlance). The point of this program is to generate random QSOs given a subset of symbols, so that the student can gain practice with the QSO format even before they know all the Morse code symbols.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h3&gt;Function&lt;/h3&gt;
+&lt;p&gt;Using functions from this program, we can generate random callsigns; word-level similar texts; letter-level similar texts; texts that resemble the original, but are created with a subset of the original alphabet; and random QSOs given partial alphabets.&lt;/p&gt;
+
+&lt;h3&gt;Motivation&lt;/h3&gt;
+&lt;p&gt;I was reading &lt;a href=&quot;http://lambda-the-ultimate.org/&quot;&gt;Lambda the
+Ultimate&lt;/a&gt; one evening and found out about a programming competition called
+&lt;a href=&quot;http://lispinsummerprojects.org/&quot;&gt;Lisp in Summer Projects&lt;/a&gt;. They were giving a free t-shirt to all participants, so I thought, &quot;Why not?&quot; I decided to give the ancient language Lisp a try.&lt;/p&gt;
+
+&lt;p&gt;I heard Lisp was good at natural language processing (NLP) tasks, so I decided to do a project that involves NLP. &lt;i&gt;A Random QSO Generator&lt;/i&gt; is my one and only entry into the competition.&lt;/p&gt;
+
+&lt;h3&gt;Audience&lt;/h3&gt;
+&lt;p&gt;I wrote this for myself, for later use as part of a Morse code training program that uses the Koch method of learning.&lt;/p&gt;
+
+&lt;h3&gt;How it Works&lt;/h3&gt;
+&lt;p&gt;The program works by following a set of production rules to produce a random QSO.&lt;/p&gt;
+
+&lt;p&gt;A QSO usually contains the callsigns of those involved in the QSO.The first thing the program does, when asked to produce a random QSO via generate-random-qso, is generate two callsigns, one for each participant in the conversation.&lt;/p&gt;
+
+&lt;p&gt;Callsigns are generated according to another set of production rules. They are made up of a country prefix, a separating numeral, and a suffix. As best as can be done given a partial alphabet, we attempt to create a callsign-looking string according to rules imposed upon us by the official callsign format.&lt;/p&gt;
+
+&lt;p&gt;After the callsigns are generated, we generate the body (main text) of the QSO. We construct a hierarchical Markov chain from our QSO corpus. The hierarchical Markov chain is composed of a 2-word Markov chain, a 1-word Markov chain, a 3-letter Markov chain, a 2-letter Markov chain, and a 1-letter Markov chain.&lt;/p&gt;
+
+&lt;p&gt;We use a hierarchical Markov chain so that if there is no valid transition (i.e. a transition to a new state that remains within our alphabet) at the highest level Markov chain, we will fall back onto the lower level chain to see if there is a valid transition there. If none of the chains have a valid transition, we will select a random symbol from our alphabet to be used to compose the next state. This allows us to make a best effort to generate text that looks like a QSO while remaining within our alphabet.&lt;/p&gt;
+
+&lt;p&gt;In order to combat repetitious looking output and to give more exposure to all symbols within the alphabet (for the sake of practice), we will, with a 20% chance, fall back to a lower level chain, even when the higher level chain contains a valid transition.&lt;/p&gt;
+
+&lt;p&gt;It is also possible for us to progress back up from a lower level chain to a higher level chain. The program keeps track of a history for each level of the hierarchical chain, no matter which chain is actually used to transition to the next state. The next time the hierarchical Markov chain is used, it checks for valid transitions starting from the highest level chain, which allows for getting back up into the higher order chains.&lt;/p&gt;
+
+&lt;p&gt;The hierarchical Markov chain history is generated as follows:
+&lt;ul&gt;
+&lt;li&gt;For word-level chains when a word is generated:&lt;br /&gt;
+The new history for the chain is the new word appended to the previous history with the first word removed.&lt;/li&gt;
+&lt;li&gt;For letter-level chains when a word is generated:&lt;br /&gt;
+The new history for the chain is last n letters of the previous history with all letters of the new word appended to it, where n is the size of the previous history (which is only one state back, no more).&lt;/li&gt;
+&lt;li&gt;For word-level chains when a letter is generated:&lt;br /&gt;
+The new history for the chain is the previous history with the new letter appended to the last word of the previous history. If the new letter is a space, then a new blank word is appended to the previous history with the first word removed.&lt;/li&gt;
+&lt;li&gt;For letter-level chains when a letter is generated:&lt;br /&gt;
+The new history for the chain is the new letter appended to the previous history with the first letter removed.&lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;
+
+&lt;p&gt;After the hierarchical Markov chain is created, we the value of generate-random-qso as a new string composed from the introduction of the QSO, the main body of the QSO, and the conclusion of the QSO.&lt;/p&gt;
+
+&lt;h3&gt;Retrospective&lt;/h3&gt;
+&lt;p&gt;Letter substitutions would also help to create a more similar text. For instance, instead of emitting a disallowed letter C, we could allow a K where the C would have been used. The issue with this is that the history and context information would need to be maintained as if a C were actually emitted. This sounds a bit tricky.&lt;/p&gt;
+
+&lt;p&gt;We have some structure to the QSO, but we could have done better.
+The generated text sounds like somebody schizophrenic with very short term memory loss. They say, &quot;GOOD COPY EDWARD. MY NAME IS VICKY. MY NAME IS LARRY. HOW COPY JOHNNY.&quot; messing up names so much. Markov chains are famous for being bad at this sort of thing, so I might have to help it out a bit similar to how how I helped with the callsigns. To do this, I could use hierarchical Markov chains not for the entire text, but for chunks, where the chunks are approximately: &quot;the radio I am using&quot;, &quot;my name&quot;, &quot;you name&quot;, &quot;where I live&quot;, &quot;what the weather is like&quot;, &quot;how well I am copying you&quot;, &quot;asking how I am being copied&quot;.&lt;/p&gt;
+
+&lt;p&gt;As for the language, Lisp, I really liked describing my program as a set of production rules. As a C programmer with experience using Bison, it was a breath of fresh air to be have my main source code resemble EBNF as opposed to only the source code consumed by Bison resembling EBNF. It's nice to have the ability to express the higher level ideas in the main language of the program, instead of scattered about in various other languages.&lt;/p&gt;
+
+&lt;p&gt;I made an attempt to make the Markov functions as general as possible and not limited to just strings, but for the sake of time I just implemented the hierarchical Markov chain history code to work with lists that contain only strings. Everything else was intended to be general enough to work with heterogeneous lists.&lt;/p&gt;
+
+&lt;p&gt;I started out writing unit tests for most of my functions, but after I started creating functions that used variables from their parent scope, I found it much more difficult to write tests for everything. I also didn't like having to choose between running the unit tests all the time in my main program, and having to export internal-use-only functions for my test program to use. There must be a better way to unit test that I'm not yet aware of. &lt;a href=&quot;/contact&quot;&gt;Feel free to contact me if you have some advice on this problem.&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;Instructions&lt;/h3&gt;
+&lt;h4&gt;Build Instructions&lt;/h4&gt;
+&lt;p&gt;The program runs interactive with &lt;a href=&quot;http://racket-lang.org/&quot;&gt;DrRacket&lt;/a&gt;, so all that needs to be done is to press the run button in &lt;a href=&quot;http://racket-lang.org/&quot;&gt;DrRacket&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4&gt;Test Instructions&lt;/h4&gt;
+&lt;p&gt;Run any of the *-test.rkt files in DrRacket to test *.&lt;/p&gt;
+
+&lt;h3&gt;Fun Things&lt;/h3&gt;
+
+&lt;p&gt;Here are some fun things you can do with it. Open &quot;qso-generate.rkt&quot; and run it. Then run some of these commands.&lt;/p&gt;
+
+&lt;p&gt;Generate new, 20-word long, text in the style of the included QSO corpus, using a typical word-level Markov-chain (size 2).&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;(display (string-join (generate-similar-corpus 2 (string-split (file-&amp;gt;string
+&quot;corpora/qso.txt&quot;) &quot; &quot;) 20) &quot; &quot;))&lt;/code&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;Generate new text in the style of three different texts using a typical word-level Markov-chain (size 2).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;(display (string-join (generate-similar-corpus 2 (string-split (string-append
+(file-&amp;gt;string &quot;corpora/navy-seal-copypasta.txt&quot;) (file-&amp;gt;string
+&quot;corpora/dont-copy-that-floppy.txt&quot;) (file-&amp;gt;string &quot;corpora/bel-air.txt&quot;)) &quot; &quot;)
+200) &quot; &quot;))&lt;/code&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;Generate a line that is similar to any line from a text file, but without using the letter E or e, using hierarchical Markov chains.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;
+(display (generate-random-text
+ (build-hierarchical-markov-chain-from-file &quot;corpora/king-lear.txt&quot;)
+ '(#\A #\B #\C #\D #\F #\G #\H #\I #\J #\K #\L #\M #\N #\O #\P #\Q #\R #\S #\T
+ #\U #\V #\W #\X #\Y #\Z #\a #\b #\c #\d #\f #\g #\h #\i #\j #\k #\l #\m #\n
+ #\o #\p #\q #\r #\s #\t #\u #\v #\w #\x #\y #\z #\. #\, #\' #\; #\? #\!
+ #\space)
+ 200
+ ))&lt;/code&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;Aside from all those other fun things, here's the main point of this program. Generate a random QSO-like message with a few differently sized alphabets. The alphabets are in N1IRZ's learning order.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;(display (generate-random-qso '(#\K #\M)))&lt;/code&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;(display (generate-random-qso '(#\K #\M #\R #\S #\U #\A #\P #\T #\L
+#\O)))&lt;/code&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;(display (generate-random-qso '(#\K #\M #\R #\S #\U #\A #\P #\T #\L #\O #\W #\I
+#\. #\N #\J #\E #\F #\0 #\Y #\V)))&lt;/code&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;(display (generate-random-qso '(#\K #\M #\R #\S #\U #\A #\P #\T #\L #\O #\W #\I
+#\. #\N #\J #\E #\F #\0 #\Y #\V #\, #\G #\5 #\/ #\Q #\9 #\Z #\H #\3
+#\8)))&lt;/code&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;(display (generate-random-qso '(#\K #\M #\R #\S #\U #\A #\P #\T #\L #\O #\W #\I
+#\. #\N #\J #\E #\F #\0 #\Y #\V #\, #\G #\5 #\/ #\Q #\9 #\Z #\H #\3 #\8 #\B #\?
+#\4 #\2 #\7 #\C #\1 #\D #\6 #\X)))&lt;/code&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;(display (generate-random-qso '(#\K #\M #\R #\S #\U #\A #\P #\T #\L #\O #\W #\I
+#\. #\N #\J #\E #\F #\0 #\Y #\V #\, #\G #\5 #\/ #\Q #\9 #\Z #\H #\3 #\8 #\B #\?
+#\4 #\2 #\7 #\C #\1 #\D #\6 #\X #\# #\@ #\! #\$)))&lt;/code&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3&gt;Thanks&lt;/h3&gt;
+&lt;p&gt;Thanks to Lisp In Summer Projects of the LispNYC for getting me off my butt and finally taking the time to learn a Lispy language.&lt;/p&gt;
+
+&lt;p&gt;A special thanks goes out to Dave Finley, N1IRZ, for the QSO corpus and for helping me to learn morse code.&lt;p&gt;
+
+&lt;h2&gt;Source Code&lt;/h2&gt;
+&lt;a href=&quot;https://github.com/Patater/qso-generator&quot;&gt;Grab the source code from GitHub&lt;/a&gt;
+&lt;/p&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 05 Oct 2013 00:43:51 +0100</pubDate>
+        <link>https://patater.com/qso-generator/</link>
+        <guid isPermaLink="true">https://patater.com/qso-generator/</guid>
+
+        <category>project</category>
+
+        <category>blarg</category>
+
+        <category>lisp</category>
+
+        <category>programming</category>
+
+        <category>qso</category>
+
+        <category>morse-code</category>
+
+        <category>markov-chains</category>
+
+
+        <category>projects</category>
+
+      </item>
+
+      <item>
+        <title>Introduction to Nintendo DS Programming is Now on GitHub</title>
+        <description>&lt;p&gt;After all these years, I finally got around to releasing the manuscript for the Introduction to Nintendo DS Programming. I converted the manual from Subversion to git and &lt;a href=&quot;https://github.com/Patater/manual&quot;&gt;placed it up on GitHub&lt;/a&gt;. I hope that it brings some more life to the document, as I haven't updated it in years. It's been a good resource for the Nintendo DS homebrew community, but it wasn't fair for me to be a bottleneck on all change and updates to the manual; that's a recipe for going out of date.&lt;/p&gt;
+&lt;!--break--&gt;
+&lt;p&gt;I've specified the license as &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by-sa/3.0/deed.en_US&quot;&gt;Creative Commons Attribution-ShareAlike 3.0 Unported License&lt;/a&gt;. It's my hope that the manual will provide a good starting point for anyone in the community to use to document homebrew Nintendo DS programming.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reposturgeon.png&quot; alt=&quot;The reposurgeon&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The conversion from Subversion to git went very well. I'm thankful to Eric S. Raymond (esr) and his &lt;a href=&quot;http://www.catb.org/esr/reposurgeon/reposurgeon.html&quot;&gt;reposurgeon&lt;/a&gt; tool. With it, I was able to convert the entire history of the manual (with all its dirty warts) to git in just a few hours. This was my first time using &lt;a href=&quot;http://www.catb.org/esr/reposurgeon/reposurgeon.html&quot;&gt;reposurgeon&lt;/a&gt;, and I found it to have a bit of a learning curve. It all clicked when I figured out that the arguments to &lt;a href=&quot;http://www.catb.org/esr/reposurgeon/reposurgeon.html&quot;&gt;reposurgeon&lt;/a&gt; are just a list of commands to execute, and that changes are kept in memory until written with the &quot;write&quot; command.&lt;/p&gt;
+
+&lt;p&gt;If you are curious how the conversion was done, please have a look at my &lt;a href=&quot;/projects/manual-conversion.xz&quot;&gt;manual conversion archive&lt;/a&gt;. I basically followed &lt;a hre=&quot;http://www.catb.org/esr/dvcs-migration-guide.html&quot;&gt;esr's guide&lt;/a&gt;. I modified his &lt;a href=&quot;http://catb.org/~esr/reposurgeon/conversion.mk&quot;&gt;conversion.mk&lt;/a&gt; file to suit my needs (setting some options and renaming it to Makefile) and wrote a script called &quot;manual.lift&quot; to massage the Subversion history into beauty. All the details are in the &lt;a href=&quot;//static.patater.com/projects/manual-conversion.xz&quot;&gt;manual conversion archive&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Share and enjoy!&lt;/p&gt;
+</description>
+        <pubDate>Thu, 30 May 2013 13:54:21 +0100</pubDate>
+        <link>https://patater.com/blarg/manual-on-github/</link>
+        <guid isPermaLink="true">https://patater.com/blarg/manual-on-github/</guid>
+
+        <category>blarg</category>
+
+        <category>nintendo-ds</category>
+
+        <category>manual</category>
+
+        <category>programming</category>
+
+        <category>github</category>
+
+        <category>source</category>
+
+        <category>code</category>
+
+
+        <category>blarg</category>
+
+      </item>
+
+      <item>
+        <title>Pokia</title>
+        <description>&lt;h2&gt;Play with the Pokia&lt;/h2&gt;
+&lt;p&gt;First off, &lt;a href=&quot;/pokia/pokia.html&quot;&gt;go play with it&lt;/a&gt;. You'll need &lt;a href=&quot;https://caniuse.com/#feat=audio-api&quot;&gt;a browser with Web Audio&lt;/a&gt;. I
+think you might enjoy composing a song or two.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Now that you are back, I can tell you a story all about how I made this thing.&lt;/p&gt;
+
+&lt;h3&gt;Why did you make this?&lt;/h3&gt;
+&lt;p&gt;I recently bought a new phone. It is a Nokia 1100b. I bought it because I wanted a phone with a monochrome (sunlight readable, high contrast) screen and excellent battery life. (The Nokia 1100 models get &quot;up to 400 hours&quot; of standby battery life.) Also, they still make new batteries for this phone: that was another important consideration. I also wanted a ringtone composer. The 1100 was still being sold new for TracFone until recently, so I picked up a brand new one off of eBay.&lt;/p&gt;
+
+&lt;p&gt;I played around with composer, entering in stuff like &quot;8#f3 8#g3 16#c3 8#d3 16#c3 16d3 16#c3 8b2 8b2 8#c3 8d3 16d3 16#c3 16b2 16#c3 16#d3 16#f3 16#g3 16#d3 16#f3 16#c3 16#d3 16b2 16#c3 16b2 8#d3 8#f3 16#g3 16#d3 16#f3 16#c3 16#d3 16b2 16#c3 16#d3 16d3 16#c3 16b2 16#c3 8d3 16b2 16#c3 16#d3 16#f3 16#c3 16d3 16#c3 16b2 8#c3 8b2&quot; and &quot;8a1 8- 16a1 32a1 32a1 32g1 16a1 32- 8a1 8- 16a1 32a1 32a1 32g1 16a1 32- 8a1 16- 8c2 8a1 8g1 16f1 16- 16d1 16d1 16e1 16f1 16d1&quot;. I'm not very good at composing music, so I just found some ringtones on &lt;a href=&quot;http://www.youtube.com/watch?v=oHg5SJYRHA0&quot;&gt;YouTube&lt;/a&gt; or &lt;a href=&quot;http://nokia.nigelcoldwell.co.uk/tunes.html&quot;&gt;various&lt;/a&gt; &lt;a href=&quot;http://arcadetones.emuunlim.com/&quot;&gt;ringtone&lt;/a&gt; &lt;a href=&quot;http://www.freewebs.com/mgsb/ringindex.htm&quot;&gt;websites&lt;/a&gt;. I mostly had a lot of fun with it, but sometimes a ringtone was no good: out of tune, missing notes, piece of sound trash.&lt;/p&gt;
+
+&lt;p&gt;It is the ultimate prank. Make someone spend 10 minutes entering the ringtone into their phone and then punish them with crap like this &quot;4- 8e1 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 4e1 8- 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 4e1 8e1 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 8e1 4#d1 4e1 4- 8e1 8#f1 8#g1 8#f1 16e1 8#d1&quot;. It's all bad, but the ending of that is totally yuck. The ending should be more like &quot;4- 8e1 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 4e1 8- 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 4e1 8e1 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 8e1 4#d1 4e1 4- 8e1 8#f1 8#g1 4#f1 8e1 4.#d1&quot;, I think.&lt;/p&gt;
+
+&lt;p&gt;Anyhow, at first I set out to make a Unix program that you send text to and it makes your PC speaker beep. I stopped when I thought that that wouldn't be that cross-platform and I discovered something called &lt;a href=&quot;http://www.w3.org/TR/webaudio/&quot;&gt;Web Audio&lt;a&gt;. Like &lt;a href=&quot;/life&quot;&gt;my GPGPU project&lt;/a&gt;, this was a way to make something cross-platform with hot new web technologies. But most importantly, it was a way to synthesize any sound I wanted! PC speakers don't sound much like any monochromatic Nokia phones, you know. So that's what I set out to make this thing.&amp;lt;/p&amp;gt;
+
+&lt;p&gt;At first, it was just a simple page with an image of an 1100 on it. When you load the page, it played a song. This was a bit boring, so I made the whole thing interactive. Gradually, it got more and more like the real phone until it became the horrible skeuomorphic ringtone player you see today.&lt;/p&gt;
+
+&lt;h3&gt;How does it sound like a real Nokia?&lt;/h3&gt;
+&lt;p&gt;Short answer: by using Web Audio's wave table synthesizer. A longer answer is to follow.&lt;/p&gt;
+
+&lt;img src=&quot;/images/pokia-spectrogram.png&quot; /&gt;
+
+&lt;p&gt;I looked at a spectrogram of some recordings I made of my Nokia 1100b playing back the chromatic scale. I didn't see much of interest in the frequency domain, so I had a look in the time domain. Each note looked like a damped sine wave. After trying to take the Fourier transform of an equation for a damped sine wave and failing (as I've been away from math for too long), I just used &lt;a href=&quot;http://www.spectraplus.com/&quot;&gt;SpectraPLUS&lt;/a&gt; to take an FFT of a single note. I then popped those coefficients into a &lt;a href=&quot;http://www.w3.org/TR/webaudio/#dfn-setWaveTable&quot;&gt;Web Audio oscillator's wave table&lt;/a&gt; and bam, a nice Nokia sound.&lt;/p&gt;
+
+&lt;h3&gt;Pokia? I thought it was Nokia?&lt;/h3&gt;
+&lt;p&gt;Pokia is Patater's Nokia. It is a portmanteau. And don't end non-questions in question marks, silly.&lt;/p&gt;
+
+&lt;h3&gt;This Sucks&lt;/h3&gt;
+&lt;p&gt;If you didn't notice, it does have some limitations, unfortunately. On a real phone, you'd have to navigate some menus to change the tempo or even to play the song. I wanted to have a simpler interface, so some sacrifice was thought necessary. &lt;a href=&quot;/contact&quot;&gt;Feel free to complain about it.&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;iframe-wrapper&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/TAT9bC4YIWs&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;Play&lt;/h2&gt;
+&lt;a href=&quot;/pokia/pokia.html&quot;&gt;Play with the Pokia&lt;/a&gt;
+&lt;h2&gt;Source Code&lt;/h2&gt;
+&lt;a href=&quot;https://github.com/Patater/Pokia&quot;&gt;Pokia is on GitHub&lt;/a&gt;
+&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 20 Oct 2012 04:32:52 +0100</pubDate>
+        <link>https://patater.com/pokia/</link>
+        <guid isPermaLink="true">https://patater.com/pokia/</guid>
+
+        <category>project</category>
+
+        <category>blarg</category>
+
+        <category>nokia</category>
+
+        <category>music</category>
+
+        <category>composer</category>
+
+        <category>pokia</category>
+
+        <category>ringtones</category>
+
+
+        <category>projects</category>
+
+      </item>
+
+      <item>
+        <title>Conway's Game of Life on the GPU</title>
+        <description>&lt;h2&gt;Play&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;/life.html&quot;&gt;Conway's Game of Life with WebGL&lt;/a&gt;&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;&lt;a href=&quot;/life.html&quot;&gt;&lt;image src=&quot;/images/life-2up.png&quot; alt=&quot;A squiggle and some life drawn in Conway's Game of Life&quot;&gt;&lt;/image&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;Motivation&lt;/h3&gt;
+&lt;p&gt;I am very interested in simple systems that exhibit complexity, and Conway's
+Game of Life has some very simple rules. If a living cell has two or three
+neighbors, it keeps on living. If a dead cell has three neighbors, it becomes
+alive. The rules are that simple, yet its world is capable of great
+complexity.&lt;/p&gt;
+
+&lt;p&gt;The GPU is a wonderful resource for performing parallel tasks, and Life is
+very parallel. Every cell is changed at once in parallel based on how many
+neighboring cells it has. I set out to use the GPU to implement the Game of
+Life&lt;/p&gt;
+
+&lt;p&gt;I first implemented it using OpenCL on Mac OS X. I thought OpenCL would be
+cross platform enough. However, I was disappointed by the runtimes available on
+Windows and Linux. The skeleton code required for each platform was different.
+Some runtimes only ran code on the CPU and not the GPU, and some not on their
+creator's competitor's GPUs. I got fed up with the mess and decided not to
+publish anything.&lt;/p&gt;
+
+&lt;p&gt;Then, a few weeks ago, I heard about WebCL. It sounded nice, but it
+unfortunately isn't very well supported in browsers, currently. It requires
+plugins from Nokia or Samsung. Nokia's plugin only works with Firefox and
+Samsung's only works with Safari. Again, I was disappointed.&lt;/p&gt;
+
+&lt;p&gt;I had just seen &lt;a href=&quot;http://www.chromeexperiments.com/detail/arms-globe/?f=webgl&quot;&gt;a cool,
+interactive infographic that displays global small arms imports and exports&lt;/a&gt;
+when I thought that I could do Life in WebGL. I did some learning and found
+WebGL to be very well suited for what I wanted to make: it provides access to
+the GPU in a platform agnostic way.&amp;lt;/a&amp;gt;
+
+&lt;p&gt;I grabbed &lt;a href=&quot;http://ricardocabello.com/blog/post/714&quot;&gt;a WebGL example
+from mr.doob&lt;/a&gt;. Thank you, mr.doob. His example contained a bit of
+boilerplate to get me started. I then set out to write my first GLSL compute
+shader.&lt;/p&gt;
+
+
+&lt;h3&gt;How it Works&lt;/h3&gt;
+&lt;p&gt;Here's how it works. &lt;a href=&quot;http://mrdoob.com/lab/javascript/webgl/glsl/04/&quot;&gt;mr.doob's example&lt;/a&gt; is
+of a single texture on a single quad. We would like to do some computation
+before rendering, though. We create two textures for use as frame buffers (so
+we can render to them). We also need a new fragment shader to perform the
+computation. This shader will alternatively read from one, previous state, texture (to count
+neighbors of all the cells) and write to the other, current state, texture; the game world is
+double buffered. Our rendering fragment shader will take whatever texture is
+ready and sample it in order to generate pretty pictures.&lt;/p&gt;
+
+&lt;div class=&quot;iframe-wrapper&quot;&gt;
+&lt;iframe src=&quot;https://www.youtube.com/embed/hTaAgUB7i44&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;How to Play&lt;/h3&gt;
+&lt;p&gt;How you play is up to you. I've given you the game world and a 2x2 mouse
+cursor. You can draw stuff in the box. That is all. Enjoy!&lt;/p&gt;
+
+&lt;p&gt;I've also given you the source code, so you can hack around with it and make
+something interesting. Use it for whatever you want, but be nice.&lt;/p&gt;
+
+&lt;h2&gt;Play&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;/life.html&quot;&gt;Conway's Game of Life with WebGL&lt;/a&gt;&lt;/p&gt;
+&lt;/p&gt;
+</description>
+        <pubDate>Mon, 27 Aug 2012 03:21:30 +0100</pubDate>
+        <link>https://patater.com/life/</link>
+        <guid isPermaLink="true">https://patater.com/life/</guid>
+
+        <category>project</category>
+
+        <category>blarg</category>
+
+        <category>life</category>
+
+        <category>gpu</category>
+
+        <category>webgl</category>
+
+        <category>web</category>
+
+        <category>gpgpu</category>
+
+        <category>conway</category>
+
+
+        <category>projects</category>
+
+      </item>
+
+      <item>
+        <title>Cache Control</title>
+        <description>&lt;p&gt;Are you sick of the cache included with your old Macintosh? Probably not, but if so, you can disable it with this nice utility.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cache-control-ui.png&quot; alt=&quot;A Screenshot of Cache Control Running on a Macintosh&quot; /&gt;&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;There are a number of reasons you might want to disable the cache. One such use is to see how much slower a Dhrystone benchmark gets when run with the cache disabled. Caches add non-deterministic behavior to systems, too. If you are running some real-time control application, you may want to disable the cache in order to achieve better determinism (at the expense of average execution speed). Some software bugs only rear their ugly heads when a cache is present; there are probably some old Macintosh programs that don't work well with the caches present in newer systems. Another reason might be that you feel your Macintosh is has been running too quickly of late and you just want to slow things down and take it easy.
+
+&lt;p&gt;When the application starts, you'll notice a File menu (and not much else). You can enable and disable the cache from that menu. Keyboard shortcuts are provided, too.&lt;/p&gt;
+
+&lt;p&gt;Cache Control works by calling SwapInstructionCache and SwapDataCache, as documented in Apple Technical Note HW06 &quot;Cache as Cache Can&quot;. It should work on any Macintosh where that technical note applies.&lt;/p&gt;
+
+&lt;p&gt;I hope you find this program to be fun, if not somewhat useful.&lt;/p&gt;
+
+&lt;p&gt;Cache Control is released under the MIT License. Source code is provided.&lt;/p&gt;
+&lt;/p&gt;
+</description>
+        <pubDate>Sun, 22 Apr 2012 21:54:23 +0100</pubDate>
+        <link>https://patater.com/cache-control/</link>
+        <guid isPermaLink="true">https://patater.com/cache-control/</guid>
+
+        <category>project</category>
+
+        <category>68k-adventures</category>
+
+        <category>blarg</category>
+
+        <category>68k</category>
+
+        <category>macintosh</category>
+
+        <category>mac</category>
+
+        <category>macplus</category>
+
+
+        <category>projects</category>
+
+      </item>
+
+      <item>
+        <title>Dhrystone for 68k Macintosh</title>
+        <description>&lt;p&gt;Some guy named Landon Rodgers asked me to build the Dhrystone benchmarker for 68k Macintosh, so I did. I built it with THINK C 5, using 4-byte ints (instead of the default 2-byte ones), and without global optimizations. I had to modify the source a little bit to get it to build and run properly. (The source code and project file is included in the download.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/dhrystone-68k-runs.png&quot; alt=&quot;Dhrystone running on a 68k Macintosh with 40000 runs entered&quot; /&gt;&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;When the application starts, it will ask you to enter a number of runs. You should select a fairly large value here. The faster the computer you have, the larger this value should be. The more accurate measurement you want, the larger this value should be. On a Macintosh Plus, it doesn't take too long to get through 20000 runs. On a faster computer, that same number of runs would happen too quickly relative to the resolution of the system clock, so a larger value should be used. The application will tell you when you have selected too small of a value.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/dhrystone-68k-result.png&quot; alt=&quot;Dhrystone running on a 68k Macintosh with 40000 runs completed&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After the runs have been completed, you'll either be asked to enter a larger number of runs or you'll be presented with the benchmark results.&lt;/p&gt;
+
+&lt;p&gt;I hope you find this program to be fun, if not somewhat useful.&lt;/p&gt;
+
+&lt;p&gt;The source code license of Dhrystone 68k is the same as Dhrystone C 2.1, which I was told is in the public domain.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 22 Feb 2012 06:34:22 +0000</pubDate>
+        <link>https://patater.com/dhrystone-68k/</link>
+        <guid isPermaLink="true">https://patater.com/dhrystone-68k/</guid>
+
+        <category>project</category>
+
+        <category>68k-adventures</category>
+
+        <category>blarg</category>
+
+        <category>68k</category>
+
+        <category>macintosh</category>
+
+        <category>mac</category>
+
+        <category>macplus</category>
+
+
+        <category>projects</category>
+
+      </item>
+
+      <item>
+        <title>68K Adventures</title>
+        <description>&lt;p&gt;I've had this habit of fixing up old Macintosh computers. Whenever I
+resurrect a dead mac, or upgrade one to be super awesome, I'll document the
+project in this series. I'll document some of my past projects, too.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;section class=&quot;posts&quot;&gt;
+  &lt;h2 class=&quot;section&quot;&gt;Adventure Log&lt;/h2&gt;
+
+  &lt;div class=&quot;entries&quot;&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/cache-control/&quot;&gt;
+  
+      &lt;img src=&quot;/images/cache-control-icon.png&quot; alt=&quot;Cache Control Icon&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;Cache Control&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2012-04-22&lt;/h4&gt;
+  
+        &lt;p&gt;Are you sick of the cache included with your old Macintosh? Probably not, but if so, you can disable it with this nice utility.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/dhrystone-68k/&quot;&gt;
+  
+      &lt;img src=&quot;/images/dhrystone-68k-icon.png&quot; alt=&quot;Dhrystone 68k Icon&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;Dhrystone for 68k Macintosh&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2012-02-22&lt;/h4&gt;
+  
+        &lt;p&gt;Benchmark the integer performance of your amazingly powerful Macintosh Plus.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/naked-and-nasty-macintosh-portable-4/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;A Naked and Nasty Macintosh Portable - Part 4&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-08-01&lt;/h4&gt;
+  
+        &lt;p&gt;As I stripped down this old girl, she's shown herself to be very nasty, part 4.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/dual-floppy-mac-portable-6/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;Building a Dual Floppy Mac Portable - Part 6&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-07-25&lt;/h4&gt;
+  
+        &lt;p&gt;Have you ever seen a dual floppy Macintosh Portable? I haven't. Let's make one, part 6.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/dual-floppy-mac-portable-5/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;Building a Dual Floppy Mac Portable - Part 5&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-07-24&lt;/h4&gt;
+  
+        &lt;p&gt;Have you ever seen a dual floppy Macintosh Portable? I haven't. Let's make one, part 5.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/naked-and-nasty-macintosh-portable-3/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;A Naked and Nasty Macintosh Portable - Part 3&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-07-24&lt;/h4&gt;
+  
+        &lt;p&gt;As I stripped down this old girl, she's shown herself to be very nasty, part 3.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/dual-floppy-mac-portable-4/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;Building a Dual Floppy Mac Portable - Part 4&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-07-23&lt;/h4&gt;
+  
+        &lt;p&gt;Have you ever seen a dual floppy Macintosh Portable? I haven't. Let's make one, part 4.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/naked-and-nasty-macintosh-portable-2/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;A Naked and Nasty Macintosh Portable - Part 2&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-07-17&lt;/h4&gt;
+  
+        &lt;p&gt;As I stripped down this old girl, she's shown herself to be very nasty, part 2.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/dual-floppy-mac-portable-3/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;Building a Dual Floppy Mac Portable - Part 3&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-03-28&lt;/h4&gt;
+  
+        &lt;p&gt;Have you ever seen a dual floppy Macintosh Portable? I haven't. Let's make one, part 3.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/dual-floppy-mac-portable-2/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;Building a Dual Floppy Mac Portable - Part 2&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-03-28&lt;/h4&gt;
+  
+        &lt;p&gt;Have you ever seen a dual floppy Macintosh Portable? I haven't. Let's make one, part 2.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/dual-floppy-mac-portable/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;Building a Dual Floppy Mac Portable - Part 1&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-03-28&lt;/h4&gt;
+  
+        &lt;p&gt;Have you ever seen a dual floppy Macintosh Portable? I haven't. Let's make one.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/naked-and-nasty-macintosh-portable/&quot;&gt;
+  
+      &lt;img src=&quot;/images/thumb-face.png&quot; alt=&quot;Potato Face - Non-project Image&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;A Naked and Nasty Macintosh Portable - Part 1&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-03-12&lt;/h4&gt;
+  
+        &lt;p&gt;As I stripped down this old girl, she's shown herself to be very nasty.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;entry&quot; href=&quot;/lc-iii-restoration/&quot;&gt;
+  
+      &lt;img src=&quot;/files/pictures/thumb/lciii.jpg&quot; alt=&quot;/files/pictures/lciii.jpg&quot;&gt;
+  
+      &lt;div class=&quot;entry-proper&quot;&gt;
+  
+        &lt;h3&gt;LC III Restoration&lt;/h3&gt;
+  
+        &lt;h4 class=&quot;date&quot;&gt;2010-03-07&lt;/h4&gt;
+  
+        &lt;p&gt;This was the first Macintosh I restored since high school.&lt;/p&gt;
+  
+      &lt;/div&gt;
+    &lt;/a&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;
+</description>
+        <pubDate>Wed, 02 Feb 2011 03:34:24 +0000</pubDate>
+        <link>https://patater.com/68k-adventures/</link>
+        <guid isPermaLink="true">https://patater.com/68k-adventures/</guid>
+
+        <category>project</category>
+
+        <category>blarg</category>
+
+        <category>nes</category>
+
+        <category>asm</category>
+
+        <category>tutorial</category>
+
+
+        <category>projects</category>
+
+      </item>
+
+      <item>
+        <title>Books</title>
+        <description>&lt;p&gt;I have added &lt;a href=&quot;/books&quot;&gt;a new section to my site, called books&lt;/a&gt;. The books page will detail my collection of books. For every book there, I'll also describe why I got that book or why I like it. I hope that you'll be able to learn a bit about who I am through exploring this internet manifestation of my bookshelf.&lt;/p&gt;
+
+&lt;p&gt;Each book page links to the book on Amazon, using my referral code. If you find a book you like on my shelf, or if you were already planning to buy one of the books in my collection, please use those links. At no cost to you, you can help a buddy out and grant him more free time to work on the projects that benefit you most.&lt;/p&gt;
+
+&lt;p&gt;The book collection isn't complete yet, but I think it is far enough along to launch anyway. I'll slowly be adding books to the page as I have time. I can add around 15 books per day, including writing up my recommendation or condemnation of the book.&lt;/p&gt;
+
+&lt;p&gt;Please enjoy!&lt;/p&gt;
+</description>
+        <pubDate>Thu, 27 Jan 2011 04:49:16 +0000</pubDate>
+        <link>https://patater.com/blarg/books/</link>
+        <guid isPermaLink="true">https://patater.com/blarg/books/</guid>
+
+        <category>blarg</category>
+
+        <category>patater</category>
+
+
+        <category>blarg</category>
+
+      </item>
+
+      <item>
+        <title>The Links are Back</title>
+        <description>&lt;p&gt;I used to run &lt;a href=&quot;/links&quot;&gt;the world’s best Nintendo DS links page&lt;/a&gt;.
+Since that time, I’ve migrated my website from static pages, through a few
+different custom content management systems. Some of these systems didn’t
+support links pages. My latest website architecture does, but my content is
+still old, not having been updated since 2007.&lt;/p&gt;
+
+&lt;p&gt;To help recover the goodness that once was, and to protect future goodness, I
+will write a cron job to check for broken links. Checking for squatted links
+will be a more difficult problem, I think.&lt;/p&gt;
+
+&lt;p&gt;I hope you can &lt;a href=&quot;/links&quot;&gt;enjoy the links&lt;/a&gt; still. They may provide a
+nice nostalgic feeling. If you need to, you can use &lt;a href=&quot;http://www.archive.org/web/web.php&quot;&gt;archive.org’s WayBack Machine&lt;/a&gt; to
+view many of these pages that have left the modern internet.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 17 Dec 2010 18:21:42 +0000</pubDate>
+        <link>https://patater.com/blarg/the-links-are-back/</link>
+        <guid isPermaLink="true">https://patater.com/blarg/the-links-are-back/</guid>
+
+        <category>blarg</category>
+
+        <category>nds</category>
+
+        <category>links</category>
+
+
+        <category>blarg</category>
+
+      </item>
+
+      <item>
+        <title>Version 6.1 of Introduction to Nintendo DS Programming</title>
+        <description>&lt;p&gt;After a four day wait lag time, &lt;a href=&quot;/manual&quot;&gt;the manual is back&lt;/a&gt; and
+its source code is ready to compile with libnds 1.3.1. Thanks for waiting.
+Enjoy!&lt;/p&gt;
+
+&lt;p&gt;This release is meant to simply get the code compiling again. I don’t yet use
+the new high level APIs that this version of libnds introduces. I’m saving that
+work for the next version of the manual. I have a few new chapters in the works
+that I’ll be slipping in next time, as well.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 15 Dec 2008 02:20:16 +0000</pubDate>
+        <link>https://patater.com/blarg/version-61-introduction-nintendo-ds-programming/</link>
+        <guid isPermaLink="true">https://patater.com/blarg/version-61-introduction-nintendo-ds-programming/</guid>
+
+        <category>blarg</category>
+
+        <category>nds</category>
+
+        <category>manual</category>
+
+        <category>libnds</category>
+
+
+        <category>blarg</category>
+
+      </item>
+
+      <item>
+        <title>New devkitARM toolchain. New Introduction to Nintendo DS Programming underway.</title>
+        <description>&lt;p&gt;The new version (r24) of &lt;a href=&quot;http://www.devkitpro.org/&quot;&gt;devkitARM&lt;/a&gt; is
+here. Along with it comes the highly anticipated libnds 1.3.1 release. A new
+libnds means a broken &lt;em&gt;Introduction to Nintendo DS Programming&lt;/em&gt; and a lot more
+other broken source code.&lt;/p&gt;
+
+&lt;p&gt;This new release of libnds introduces more high-level APIs and some all new low
+level APIs. This release renames some registers, preventing the source code
+included with &lt;em&gt;Introduction to Nintendo DS Programming&lt;/em&gt; from building
+successfully. It also changes how the interrupt system is initialized, no
+longer requiring (and breaking if you do use) &lt;code&gt;irqInit&lt;/code&gt; in
+&lt;code&gt;main&lt;/code&gt;. I do like the new register names, as they match the names as
+documented in &lt;a href=&quot;http://nocash.emubase.de/gbatek.htm&quot;&gt;GBATEK&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;One reason I started writing the manual was because all the other tutorials
+(all two of them, at that time) were out of date. I feel strongly about having
+fresh information available to potential members of the homebrew community; an
+out of date tutorial is very useless and can be very frustrating. Users of such
+tutorials blame themselves for the failures and have no idea where to go next,
+as everything explaining to them where to go no longer applies. Without some
+positive reinforcement (in the form of a successful build and a graphic on the
+screen), many would be community members give up. As such, I’m working on
+updating the &lt;em&gt;Introduction to Nintendo DS Programming&lt;/em&gt; source code and will
+have a new release out soon.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 13 Dec 2008 02:35:10 +0000</pubDate>
+        <link>https://patater.com/blarg/new-devkitarm-toolchain-new-introduction-nintendo-ds-programming-underway/</link>
+        <guid isPermaLink="true">https://patater.com/blarg/new-devkitarm-toolchain-new-introduction-nintendo-ds-programming-underway/</guid>
+
+        <category>blarg</category>
+
+        <category>nds</category>
+
+        <category>manual</category>
+
+        <category>devkitarm</category>
+
+
+        <category>blarg</category>
+
+      </item>
+
+      <item>
+        <title>Patater Forums</title>
+        <description>&lt;p&gt;I desire to bring nübs together and lift them from their flounderings in muddy
+puddles of newbdom, strap them to orange spaceships (not alien ones), and
+launch them into the Nintendo DS homebrew community. A &lt;a href=&quot;http://forum.gbadev.org/viewforum.php?f=24&quot;&gt;forum&lt;/a&gt; dedicated to doing
+this is the most effective method.&lt;/p&gt;
+
+&lt;p&gt;I often get email from readers of my &lt;a href=&quot;/manual&quot;&gt;Introduction to Nintendo
+DS Programming&lt;/a&gt; manual. A lot of interesting questions are asked, and a lot
+of interesting answers are given. Sometimes the same question is asked numerous
+times. While I view this as a shortcoming of my manual, and use all email I
+receive (pertaining to the manual) as a means to improve the manual, it takes
+me a while to get a new version of the manual out into the open.&lt;/p&gt;
+
+&lt;p&gt;A forum dedicated to the cutting edge of user problems particular to my manual
+will be a benefit to the Nintendo DS homebrew community. I’ll be monitoring &lt;a href=&quot;http://forum.gbadev.org/viewforum.php?f=24&quot;&gt;the forum&lt;/a&gt; constantly to
+ensure that it is responsive enough to meet the knowledge needs of the now for
+all readers of the manual.&lt;/p&gt;
+
+&lt;p&gt;When you have a question about anything in the manual, I’m sure that many
+others too shy to ask have the same question. I want all to benefit from the
+question and answer exchange.&lt;/p&gt;
+
+&lt;p&gt;A forum is less personal and private than email, but the questions and answers
+exchanged will benefit all, and not just the parties involved in the email. In
+order to benefit other users who may be too shy to send an email my way, I’ve
+decided to create the &lt;a href=&quot;http://forum.gbadev.org/viewforum.php?f=24&quot;&gt;a
+forum dedicated to &lt;em&gt;Introduction to Nintendo DS Programming&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you are having trouble with something in the manual, need some more guidance
+on getting started, are sick of grit acting funny, have suggestions to improve
+the manual, or anything else relevant, please post. Let knowledge flow more
+freely among more people.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 27 Nov 2008 02:34:11 +0000</pubDate>
+        <link>https://patater.com/blarg/patater-forums/</link>
+        <guid isPermaLink="true">https://patater.com/blarg/patater-forums/</guid>
+
+        <category>blarg</category>
+
+        <category>forum</category>
+
+        <category>nds</category>
+
+        <category>manual</category>
+
+
+        <category>blarg</category>
+
+      </item>
+
+      <item>
+        <title>Apologies and the Future</title>
+        <description>&lt;p&gt;This downtime has been the longest that this site has experienced. For that, I
+apologize.&lt;/p&gt;
+
+&lt;p&gt;It is quite surprising when you see a user on your server that you know isn’t
+supposed to be privileged running about eight wget and eight sendmail processes
+simultaneously (new ones being created and destroyed all the time), using up a
+good portion of my CPU time. I came to the obvious conclusion that I had my
+server broken into (electronically) and immediately shut down the server,
+locking everyone out, even me.&lt;/p&gt;
+
+&lt;p&gt;I contacted my kick ass host and had them send me an archive of my box in a tar
+ball (tgz). They were very empathetic and set me up a new box with a clean OS
+install. The response was quick and the transactions smooth. From there, I
+spend the last few weeks rebuilding my server.&lt;/p&gt;
+
+&lt;p&gt;I began researching more deeply into computer security during my rebuild. I’ve
+been reading the NSA’s guide to securing my operating system and hope that my
+implementation of many of its recommendations will benefit this site’s
+security. That said, be nice and don’t test it maliciously please. But feel
+free to &lt;a href=&quot;/contact&quot;&gt;alert me&lt;/a&gt; if you find anything that looks a bit
+off, if you do feel like auditing this site.&lt;/p&gt;
+
+&lt;p&gt;On a lighter note, it looks like devkitPro is going to be updating a lot of
+their toolchains and libraries, devkitARM and libnds included. The
+&lt;em&gt;Introduction to Nintendo DS Programming&lt;/em&gt; manual is alive and well and far from
+the deadness this site has been in. It is being updated to support the new
+toolchain and libraries. If you feel you need a certain feature of the new
+library (perhaps the use of the FIFO, aside from its uses for sound or perhaps
+libwifi or libfat) covered or feel that something was left out in the previous
+(currently shipping) version of the manual, &lt;a href=&quot;/contact&quot;&gt;I’m open and
+able to implement some new ideas at this time&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Thanks to nyarla of #dsdev for putting up a copy of the manual for people to
+download during the downtime.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 16 Nov 2008 17:33:30 +0000</pubDate>
+        <link>https://patater.com/blarg/apologies-and-the-future/</link>
+        <guid isPermaLink="true">https://patater.com/blarg/apologies-and-the-future/</guid>
+
+        <category>blarg</category>
+
+        <category>patater</category>
+
+        <category>downtime</category>
+
+        <category>security</category>
+
+        <category>hacked</category>
+
+        <category>nsa</category>
+
+        <category>manual</category>
+
+
+        <category>blarg</category>
+
+      </item>
+
+  </channel>
+</rss>

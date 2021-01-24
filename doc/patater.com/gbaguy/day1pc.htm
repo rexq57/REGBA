@@ -1,0 +1,94 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 1</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 1</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>x86 Assembly ?</b></h2>
+<p style="color: green;"><pre><b>
+	Yep, Assembly Language on the PC. More specifically, 16bit Assembly using BIOS
+and MS-DOS. I'll assume that you are using A86, which you can get <a href="http://www.eji.com/">here</a>.
+
+<h2 align="center" style="color: LightCoral;"><b>Some Assumptions</b></h2>	
+	In addition to the A86 Assembler, I assume that you either are good at learning
+new instructions/syntax from context of other things. It wouldn't hurt to know ASM on another
+platform either.
+
+<h2 align="center" style="color: LightCoral;"><b>The x86 Processors</b></h2>
+	The x86 processors are a group that run anywhere from 10-3000 MHz (Note: That
+I include the Pentium chips in these.). They have much less CPU registers than CPUs used
+in other systems (such as game consoles), the registers are:
+
+	AX - Accumulator, implicitly used in some math instructions.
+	BX - Base register, also used in some math instructions.
+	CX - Count register, used implicitly with the Loop instruction.
+	DX - Data register, also used in some math instructions.
+	CS - Points to the current memory segment that is currently being executed.
+	DS - Points to the data segment of the program (same as CS for us.)
+	SS - Points to the stack segment of the program (")
+	ES - A scratch segment pointer.
+	BP - Points to the base of the built-in CPU stack.
+	SP - Points to the top of the built-in CPU stack.
+	IP - Points to the location of the currently executing statement (can't explicitly access IP).
+
+	All registers can really be used by us for anything, except for certain instructions leave
+their results in certain registers. Also, IP you can't do anything to with code explicitly, the only
+way to change it is with JUMPing instructions, and you can't read it either.
+
+<h2 align="center" style="color: LightCoral;"><b>Registers and Numbers</b></h2>
+	The single most important instruction is MOV (for MOVe), MOV moves anything between registers.
+Here's some examples:
+	
+	mov ax,3 ; Anything that follows a ';' is a comment and is ignored by the assembler. This is AX = 3.
+	mov ax,bx  ; AX = BX;
+	mov ax,[bx] ; AX = *BX; if you know C, if you don't, go away before I hit you with a trout.
+	; More on ^ this later.
+
+I hope you get the idea by now, however, there's one small thing you should know:
+
+	<s>mov es,3</s> ; you can't just put a number into a segment register, you have to do it like this:
+
+				mov ax,3
+				mov es,ax  ; you don't have to use AX, of course, you could use any. (AX,BX,CX,DX).
+
+<h2 align="center" style="color: LightCoral;"><b>The Stack</b></h2>
+	I'll assume you know what a stack is, you put a number at the beginning, (a push), and then
+when you're done putting numbers ontop of one another, you start taking them off the top (a pop). So
+when you finish they are in reverse order. (If you know what a stack is, skip to next paragraph). Image
+a stack of lunch trays, you put one on, put another on. The first one to go on, is the last one to come
+off. FILO (First In Last Out) is the semi-techinical word/description for a stack.
+
+	The 2 most important instructions for the Stack (quite well named, in fact) are PUSH and POP, 
+	examples:
+		push ax ; AX onto stack
+		push dx ; DX onto stack
+
+		pop bx  ; pop into BX
+		pop cx  ; pop into CX
+	
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Tomorrow, we'll get to assembling a program that actually gives output!
+
+	Happy coding,
+		-Mike H a.k.a GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day2pc.htm">Day 2</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

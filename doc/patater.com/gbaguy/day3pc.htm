@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 3</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 3</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Pointers</b></h2>
+<p style="color: green;"><pre><b>
+	Pointers in ASM are really just memory addresses.
+
+<h2 align="center" style="color: LightCoral;"><b>Memory layout for 16bit DOS COM</b></h2>
+	Memory in 16bit DOS is segmented into 65,536 65,536 byte segments accessed like so:
+
+		0001:0800h  ; segment:offset (in bytes) , usually hex even if you don't see an 'h'.
+
+A program (the way we're doing it) is limited to the space inside of one segment, much later, perhaps
+we will assemble to an object file and link to an unlimited, multisegment EXE file.
+
+A pointer is usually accessed with a segment register holding the segment and either an explicit number
+or BX or DX holding the offset.
+
+<h2 align="center" style="color: LightCoral;"><b>"Variables"</b></h2>
+	Variables in ASM are just labels for memory addresses. You also want to jump over variable
+declarations, but we'll learn jumps later.
+
+	Here's some code:
+
+		var1 dw 0   ; var1 labels the currect 16bits location in memory.
+
+	Note that if you do:
+
+		mov dx,30  ; just something to make my point
+		k db 90h   ; (db is define byte), 90h is machine code for a do nothing instructin (NOP).
+		mov ax,4   ; The 90h will be run by the CPU as an instruction before the MOV happens.
+
+That's to show you that these are just labels for memory and not special things like in High Level Languages. 
+
+<h2 align="center" style="color: LightCoral;"><b>Making a Pointer</b></h2>
+	Here's the code:
+
+		var1 dw 0
+		mov bx,offset var1 (the offset operator gives the offset part of the address)
+
+	now with that, we could just use [bx] to access what is at the address in BX, because everything that
+we're using should be in our single segment.
+
+	Other times that's not so good, sometimes we need to get the segment also. The segment of the currently
+running code is always in CS. DON'T EVER CHANGE CS!!, but you can read CS like so:
+
+		mov ds,cs   ; put CS's value into DS.
+
+<h2 align="center" style="color: LightCoral;"><b>Accessing the Pointer</b></h2>
+	Here's code:
+
+		var dw 0
+		mov bx,offset var  ; give BX var's address
+		mov [bx],6   ; put 6 into the address in BX
+
+	Note that only Bx and DX can be used as offset pointers. If you had a segment also you needed to use then
+it would go like this: (assuming the segment was in ES)
+
+		mov [es:bx],6 ; put 6 into address at segment ES with offset BX.
+
+<h2 align="center" style="color: LightCoral;"><b>A better way for variables</b></h2>
+	If you have just a simple number to put into/or read from a variable, then there's an easier way to accomplish
+it. Just:
+
+	var dw 0
+	mov ax,7
+	mov var,ax ; I think you have to use a variable, you can't just put a number in. not sure...
+			; that will put AX's value into var.
+	mov dx,var  ; will take var's value into DX.
+
+Easy, right?
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Tomorrow, some math instructions!
+
+	Until Next Time!,
+		-GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day4pc.htm">Day 4</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

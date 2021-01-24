@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Building a Dual Floppy Mac Portable - Part 6 - Patater</title>
+
+        <meta name="description" content="Have you ever seen a dual floppy Macintosh Portable? I haven't. Let's make one, part 6.">
+
+
+        <meta name="author" content="Jaeden Amero">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+        <link rel="manifest" href="../site.webmanifest">
+        <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../projects/index.html">Projects</a>
+        <a href="../blarg/index.html">Blarg</a>
+        <a href="../links/index.html">Links</a>
+        <a href="../about/index.html">About</a>
+        <a href="../books/index.html">Books</a>
+        <a href="../donate/index.html">Donate</a>
+    </nav>
+    <a href="../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Building a Dual Floppy Mac Portable - Part 6</h1>
+<p class="minimeta">
+Published: 2010-07-25<br/>
+Updated: 2011-02-04<br/>
+Author: Jaeden Amero
+</p>
+</div>
+
+<div class="post">
+
+<p>I've learned that the PowerBook 100 adapter is good for charging as well as running without the battery. I've also verified that it is a switching type.</p>
+
+<p>There doesn't seem to be any special rigging required in order to run off of a 9V supply. I was able to boot into a sad mac with just the 9V battery. A lot of 9V supplies are meant to replace 9V batteries and so come with a 9V battery connector on them. The only 9V power supply I have is a 300mA type, so that won't do me any good on this. With my PowerBook 100 adapter dead, I'm now on the market for a compatible power adapter.</p>
+
+<p>I had this 6V battery laying around, so I decided to hook it up. The cables for the Macintosh Portable battery didn't give me much slack, but I was able to hook it up and run the machine without the case on. This experiment should validate whether or not the sad mac is due to flaky power.</p>
+
+<p><a href="../files/pictures/macportable-battery_connection_1.jpg"><img src="../files/pictures/thumb/macportable-battery_connection_1.jpg" alt="Battery Connection 1" /></a></p>
+
+<p><a href="../files/pictures/macportable-battery_connection_2.jpg"><img src="../files/pictures/thumb/macportable-battery_connection_2.jpg" alt="Battery Connection 2" /></a></p>
+
+<p><a href="../files/pictures/macportable-without_case.jpg" class="postlink"><img src="../files/pictures/thumb/macportable-without_case.jpg" alt="Without Case" /></a></p>
+
+<p>Unfortunately, I still get the sad mac. However, the code is pretty consistently 03001300:00001FFA. This $1300 code might be a CPU exception code, indicating that I'm receiving an interrupt too early in the boot process (<a href="http://myoldmac.net/FAQ/SADerror-portable.htm">as per myoldmac</a>). That in turn might mean that an interrupt line is being permanently asserted. As I'm not sure which caps are in the interrupt path (if any). I'll just look over all my work again carefully and hopefully I'll find something.</p>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

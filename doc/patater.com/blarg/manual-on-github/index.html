@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Introduction to Nintendo DS Programming is Now on GitHub - Patater</title>
+
+        <meta name="description" content="After all these years, I finally got around to releasing the manuscript.">
+
+
+        <meta name="author" content="Jaeden Amero">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Introduction to Nintendo DS Programming is Now on GitHub</h1>
+<p class="minimeta">
+Published: 2013-05-30<br/>
+Updated: 2013-05-30<br/>
+Author: Jaeden Amero
+</p>
+</div>
+
+<div class="post">
+
+  
+<p><img class="post-graphic" src="../../images/rocket-code.png" alt="Orange Spaceship flying over code" /></p>
+  
+
+<p>After all these years, I finally got around to releasing the manuscript for the Introduction to Nintendo DS Programming. I converted the manual from Subversion to git and <a href="https://github.com/Patater/manual">placed it up on GitHub</a>. I hope that it brings some more life to the document, as I haven't updated it in years. It's been a good resource for the Nintendo DS homebrew community, but it wasn't fair for me to be a bottleneck on all change and updates to the manual; that's a recipe for going out of date.</p>
+<!--break-->
+<p>I've specified the license as <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. It's my hope that the manual will provide a good starting point for anyone in the community to use to document homebrew Nintendo DS programming.</p>
+
+<p><img src="../../images/reposturgeon.png" alt="The reposurgeon" /></p>
+
+<p>The conversion from Subversion to git went very well. I'm thankful to Eric S. Raymond (esr) and his <a href="http://www.catb.org/esr/reposurgeon/reposurgeon.html">reposurgeon</a> tool. With it, I was able to convert the entire history of the manual (with all its dirty warts) to git in just a few hours. This was my first time using <a href="http://www.catb.org/esr/reposurgeon/reposurgeon.html">reposurgeon</a>, and I found it to have a bit of a learning curve. It all clicked when I figured out that the arguments to <a href="http://www.catb.org/esr/reposurgeon/reposurgeon.html">reposurgeon</a> are just a list of commands to execute, and that changes are kept in memory until written with the "write" command.</p>
+
+<p>If you are curious how the conversion was done, please have a look at my <a href="../../projects/manual-conversion.xz">manual conversion archive</a>. I basically followed <a hre="http://www.catb.org/esr/dvcs-migration-guide.html">esr's guide</a>. I modified his <a href="http://catb.org/~esr/reposurgeon/conversion.mk">conversion.mk</a> file to suit my needs (setting some options and renaming it to Makefile) and wrote a script called "manual.lift" to massage the Subversion history into beauty. All the details are in the <a href="https://static.patater.com/projects/manual-conversion.xz">manual conversion archive</a>.</p>
+
+<p>Share and enjoy!</p>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

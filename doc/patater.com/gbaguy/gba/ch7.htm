@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="my head" />
+<title>GBA ASM Tutorial Chapter 7</title>
+<link rel="stylesheet" href="tutorial.css" type="text/css" />
+</head>
+<h1>Chapter 7</h1>
+<h3>Multiplication</h3>
+<body>
+<p>Lucky us, the GBA processor has several multiplication instructions. They are:
+MUL, MLA, UMULL, UMLAL, SMULL, SMLAL. All of these can set the status flags with <b>S</b>. Also note that you can only use registers 
+with these instructions, and none of them use the shifter.</p>
+
+<p>The MUL instruction is the most basic. It does a 32bit multiply with the format we've seen before:<br />
+<code>MUL DEST, OP1, OP2</code> - DEST = OP1 * OP2. Note that a multiplication could generate a result bigger than 32bits.
+With MUL, these bits are lost. Simple, eh?</p>
+
+<p>The MLA instruction is similar to MUL, except it takes another operand. Take a look:<br />
+<code>MLA DEST, OP1, OP2, OP3</code> - DEST = (OP1 * OP2) + OP3. That's right the first two are
+multiplied, then the last is added. MLA stands for MuLtiply with Accumulate. Example:<br />
+<code>MLA r9, r0, r1, r2</code> - r9 = (r0 * r1) + r2. Doesn't get any harder than that!</p>
+
+<p>The UMULL and SMULL instructions do 32bit unsigned and signed multiplies respectively. The difference between these and
+MUL, is that they allow for a 64bit result. The format looks like this:<br />
+<code>UMULL DEST(upper 32), DEST(lower 32), OP1, OP2</code> - The first register takes the upper 32bits of the result, second, the lower.
+The OP1 and OP2 registers are multiplied.</p>
+
+<p>The UMLAL and SMLAL instructions are like 64bit versions of MLA. They do a multiply allowing for a 64bit result, then do a 64bit add with
+the value made up of the destination registers. Examples:<br />
+<code>UMLAL r0, r1, r2, r3</code> - r0 and r1 make up a 64bit value. r2 and r3 are multiplied together and the 64bit result is added to the 64bit value in r0/r1.
+The result is put into r0 and r1.</p>
+
+<p>I hope you all get that when I say "format" and you see DEST, OPx, etc... I mean that you can put any registers there. OP1, OP2, DEST, etc. aren't real registers. You probably knew that, but this is just to make sure.</p>
+
+<p>I'd show you division here, but there aren't any division instructions in our CPU... <i>insert creepy music here</i>. Don't be afraid to use these instructions, unlike division, these are quite fast.<p>
+
+</body>
+
+That's all for now, How about <a href="ch8.htm">Chapter 8</a>? Or the <a href="../gbaasm.htm">GBA ASM</a> index?
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</html>

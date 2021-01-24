@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Dhrystone for 68k Macintosh - Patater</title>
+
+        <meta name="description" content="Benchmark the integer performance of your amazingly powerful Macintosh Plus.">
+
+
+        <meta name="author" content="Jaeden Amero">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+        <link rel="manifest" href="../site.webmanifest">
+        <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../projects/index.html">Projects</a>
+        <a href="../blarg/index.html">Blarg</a>
+        <a href="../links/index.html">Links</a>
+        <a href="../about/index.html">About</a>
+        <a href="../books/index.html">Books</a>
+        <a href="../donate/index.html">Donate</a>
+    </nav>
+    <a href="../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Dhrystone for 68k Macintosh</h1>
+<p class="minimeta">
+Published: 2012-02-22<br/>
+Updated: 2012-02-22<br/>
+Author: Jaeden Amero
+</p>
+</div>
+
+<div class="post">
+
+  
+<p><img class="post-graphic" src="../images/dhrystone-68k-icon.png" alt="Dhrystone 68k Icon" /></p>
+  
+
+<p>Some guy named Landon Rodgers asked me to build the Dhrystone benchmarker for 68k Macintosh, so I did. I built it with THINK C 5, using 4-byte ints (instead of the default 2-byte ones), and without global optimizations. I had to modify the source a little bit to get it to build and run properly. (The source code and project file is included in the download.)</p>
+
+<p><img src="../images/dhrystone-68k-runs.png" alt="Dhrystone running on a 68k Macintosh with 40000 runs entered" /></p>
+
+<!--break-->
+
+<p>When the application starts, it will ask you to enter a number of runs. You should select a fairly large value here. The faster the computer you have, the larger this value should be. The more accurate measurement you want, the larger this value should be. On a Macintosh Plus, it doesn't take too long to get through 20000 runs. On a faster computer, that same number of runs would happen too quickly relative to the resolution of the system clock, so a larger value should be used. The application will tell you when you have selected too small of a value.</p>
+
+<p><img src="../images/dhrystone-68k-result.png" alt="Dhrystone running on a 68k Macintosh with 40000 runs completed" /></p>
+
+<p>After the runs have been completed, you'll either be asked to enter a larger number of runs or you'll be presented with the benchmark results.</p>
+
+<p>I hope you find this program to be fun, if not somewhat useful.</p>
+
+<p>The source code license of Dhrystone 68k is the same as Dhrystone C 2.1, which I was told is in the public domain.</p>
+
+</div>
+
+
+<div>
+    <h2>Download</h2>
+    <a href="../projects/dhrystone-68k.sit">Download Dhrystone for 68k Macintosh</a>
+</div>
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

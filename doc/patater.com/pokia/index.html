@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Pokia - Patater</title>
+
+        <meta name="description" content="Ever spend like 10 minutes entering a ring tone into your phone just to press play and hear it sound like garbage? I've got just the tool for you, baby.">
+
+
+        <meta name="author" content="Jaeden Amero">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+        <link rel="manifest" href="../site.webmanifest">
+        <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../projects/index.html">Projects</a>
+        <a href="../blarg/index.html">Blarg</a>
+        <a href="../links/index.html">Links</a>
+        <a href="../about/index.html">About</a>
+        <a href="../books/index.html">Books</a>
+        <a href="../donate/index.html">Donate</a>
+    </nav>
+    <a href="../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Pokia</h1>
+<p class="minimeta">
+Published: 2012-10-20<br/>
+Updated: 2020-05-09<br/>
+Author: Jaeden Amero
+</p>
+</div>
+
+<div class="post">
+
+  
+<a href="pokia.html">
+  
+<p><img class="post-graphic" src="../images/pokia.png" alt="Composing music with Pokia" /></p>
+  
+</a>
+  
+
+<h2>Play with the Pokia</h2>
+<p>First off, <a href="pokia.html">go play with it</a>. You'll need <a href="https://caniuse.com/#feat=audio-api">a browser with Web Audio</a>. I
+think you might enjoy composing a song or two.</p>
+
+<!--break-->
+
+<p>Now that you are back, I can tell you a story all about how I made this thing.</p>
+
+<h3>Why did you make this?</h3>
+<p>I recently bought a new phone. It is a Nokia 1100b. I bought it because I wanted a phone with a monochrome (sunlight readable, high contrast) screen and excellent battery life. (The Nokia 1100 models get "up to 400 hours" of standby battery life.) Also, they still make new batteries for this phone: that was another important consideration. I also wanted a ringtone composer. The 1100 was still being sold new for TracFone until recently, so I picked up a brand new one off of eBay.</p>
+
+<p>I played around with composer, entering in stuff like "8#f3 8#g3 16#c3 8#d3 16#c3 16d3 16#c3 8b2 8b2 8#c3 8d3 16d3 16#c3 16b2 16#c3 16#d3 16#f3 16#g3 16#d3 16#f3 16#c3 16#d3 16b2 16#c3 16b2 8#d3 8#f3 16#g3 16#d3 16#f3 16#c3 16#d3 16b2 16#c3 16#d3 16d3 16#c3 16b2 16#c3 8d3 16b2 16#c3 16#d3 16#f3 16#c3 16d3 16#c3 16b2 8#c3 8b2" and "8a1 8- 16a1 32a1 32a1 32g1 16a1 32- 8a1 8- 16a1 32a1 32a1 32g1 16a1 32- 8a1 16- 8c2 8a1 8g1 16f1 16- 16d1 16d1 16e1 16f1 16d1". I'm not very good at composing music, so I just found some ringtones on <a href="http://www.youtube.com/watch?v=oHg5SJYRHA0">YouTube</a> or <a href="http://nokia.nigelcoldwell.co.uk/tunes.html">various</a> <a href="http://arcadetones.emuunlim.com/">ringtone</a> <a href="http://www.freewebs.com/mgsb/ringindex.htm">websites</a>. I mostly had a lot of fun with it, but sometimes a ringtone was no good: out of tune, missing notes, piece of sound trash.</p>
+
+<p>It is the ultimate prank. Make someone spend 10 minutes entering the ringtone into their phone and then punish them with crap like this "4- 8e1 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 4e1 8- 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 4e1 8e1 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 8e1 4#d1 4e1 4- 8e1 8#f1 8#g1 8#f1 16e1 8#d1". It's all bad, but the ending of that is totally yuck. The ending should be more like "4- 8e1 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 4e1 8- 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 4e1 8e1 8e1 8#g1 8#g1 4#f1 4e1 4#g1 4#d1 4#d1 8e1 4#d1 4e1 4- 8e1 8#f1 8#g1 4#f1 8e1 4.#d1", I think.</p>
+
+<p>Anyhow, at first I set out to make a Unix program that you send text to and it makes your PC speaker beep. I stopped when I thought that that wouldn't be that cross-platform and I discovered something called <a href="http://www.w3.org/TR/webaudio/">Web Audio<a>. Like <a href="../life/index.html">my GPGPU project</a>, this was a way to make something cross-platform with hot new web technologies. But most importantly, it was a way to synthesize any sound I wanted! PC speakers don't sound much like any monochromatic Nokia phones, you know. So that's what I set out to make this thing.&lt;/p&gt;
+
+<p>At first, it was just a simple page with an image of an 1100 on it. When you load the page, it played a song. This was a bit boring, so I made the whole thing interactive. Gradually, it got more and more like the real phone until it became the horrible skeuomorphic ringtone player you see today.</p>
+
+<h3>How does it sound like a real Nokia?</h3>
+<p>Short answer: by using Web Audio's wave table synthesizer. A longer answer is to follow.</p>
+
+<img src="../images/pokia-spectrogram.png" />
+
+<p>I looked at a spectrogram of some recordings I made of my Nokia 1100b playing back the chromatic scale. I didn't see much of interest in the frequency domain, so I had a look in the time domain. Each note looked like a damped sine wave. After trying to take the Fourier transform of an equation for a damped sine wave and failing (as I've been away from math for too long), I just used <a href="http://www.spectraplus.com/">SpectraPLUS</a> to take an FFT of a single note. I then popped those coefficients into a <a href="http://www.w3.org/TR/webaudio/#dfn-setWaveTable">Web Audio oscillator's wave table</a> and bam, a nice Nokia sound.</p>
+
+<h3>Pokia? I thought it was Nokia?</h3>
+<p>Pokia is Patater's Nokia. It is a portmanteau. And don't end non-questions in question marks, silly.</p>
+
+<h3>This Sucks</h3>
+<p>If you didn't notice, it does have some limitations, unfortunately. On a real phone, you'd have to navigate some menus to change the tempo or even to play the song. I wanted to have a simpler interface, so some sacrifice was thought necessary. <a href="../contact/index.html">Feel free to complain about it.</a></p>
+
+<div class="iframe-wrapper">
+<iframe src="https://www.youtube.com/embed/TAT9bC4YIWs" frameborder="0" allowfullscreen=""></iframe>
+</div>
+
+<h2>Play</h2>
+<a href="pokia.html">Play with the Pokia</a>
+<h2>Source Code</h2>
+<a href="https://github.com/Patater/Pokia">Pokia is on GitHub</a>
+</a></a></p>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

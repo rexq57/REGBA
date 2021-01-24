@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> NES ASM Tutorials - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+        <link rel="manifest" href="../site.webmanifest">
+        <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../projects/index.html">Projects</a>
+        <a href="../blarg/index.html">Blarg</a>
+        <a href="../links/index.html">Links</a>
+        <a href="../about/index.html">About</a>
+        <a href="../books/index.html">Books</a>
+        <a href="../donate/index.html">Donate</a>
+    </nav>
+    <a href="../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>NES ASM Tutorials</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2020-05-10<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<div class="warning">
+<h2>Webmaster's Note</h2>
+<p>This tutorial sucks. Don't read it. <a href="https://nerdy-nights.nes.science/">Please read a real tutorial like Nerdy
+Nights, instead.</a> This tutorial is hosted for archival purposes and
+shouldn't be trusted for anything.</p>
+</div>
+
+<p>This tutorial is about coding for the Nintendo Entertainment System
+using the NESASM Assembler. The tutorial is designed to go slow and
+make it easier to learn NES assembly. You ALMOST ABSOLUTELY need to
+know another assembly language before you attempt this as it does
+assume certain small (tiny) amount of basic assembly knowledge.  Such
+as knowing GBA or Intel x86 assembly will be a big help in
+understanding the basics.</p>
+
+<p>Good luck with your NES assembly programming journey!</p>
+
+<p>NOTE: Info on my age WAS accurate at time of writting in 2002.</p>
+
+<section class="posts">
+
+  <div class="entries">
+
+    <a class="entry" href="day-1/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 1 - Beginning NES Assembly</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-2/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 2 - A Source Code File's Structure</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-3/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 3 - About NES Programming</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-4/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 4 - Making and Loading a Palette</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-5/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 5 - Displaying a Sprite</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-6/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 6 - Jumps and Key Presses</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-7/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 7 - Using Memory</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-8/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 8 - Comparing Stuff</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-9/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 9 - A Moving Sprite Program</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-10/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 10 - Sprite DMA</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-11/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 11 - The JSR Instruction</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-12/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 12 - VBlank and Interrupts</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-13/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 13 - Backgrounds</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-14/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 14 - Sound Channels 1-3</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-15/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 15 - The Noise Channel</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-16/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 16 - Bit Masking/Toggling</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-17/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 17 - The Sprite Attribute Byte</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-18/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 18 - BG Scrolling</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-19/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 19 - Easy Large Loads</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-20/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 20 - Using SRAM</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-21/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 21 - The Stack</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-22/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 22 - Mapper 2</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-23/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 23 - Attributes</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-24/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 24 - Full Byte of Keys</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+    <a class="entry" href="day-25/index.html">
+  
+      <img src="../images/thumb-face.png" alt="Potato Face - Non-project Image" />
+  
+      <div class="entry-proper">
+  
+        <h3>Day 25 - Other Instructions</h3>
+  
+        <h4 class="date">2005-07-22</h4>
+  
+      </div>
+    </a>
+
+  </div>
+</section>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

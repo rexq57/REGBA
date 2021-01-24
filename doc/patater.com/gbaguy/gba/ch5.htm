@@ -1,0 +1,138 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="my head" />
+<title>GBA ASM Tutorial Chapter 5</title>
+<link rel="stylesheet" href="tutorial.css" type="text/css" />
+</head>
+<h1>Chapter 5</h1>
+<h3>The Gfx System</h3>
+<body>
+<p>There are 6 modes that you can use to create your graphics, 3 are bitmapped (like DOS, you set individual
+pixels). 3 are tile modes (You specify 8x8 tiles to put together a picture, most 8bit (NES) and 16bit (SNES/Genesis)
+consoles use tiles exclusively). There are 4 Background layers that you can use to display a scene. These can be overlapped
+and given different priorities so that lower BGs can be seen thru transparent areas of higher priority backgrounds.</p>
+<p>Let's take a look at bitmapped modes (3, 4, 5) first (easier):</p>
+<p><b>Mode 3</b> - Mode 3 gives you a 16bit color bitmap. Just poke a halfword (16bits) to VRAM and you'll see
+a dot on the screen. Note that there's no <a href="ch5.htm#definition0">backbuffer</a> and that mode 3 cuts into
+the available sprite (moving pictures upto 64x64 pixels, more later) data area. Mode 3 is really good for
+displaying a still screen (like the picture we displayed in the last chapter).</p>
+<p><b>Mode 4</b> - Mode 4 is similar to mode 3, except what you write to VRAM are 8bit references (think DOS's mode 13h)
+to a palette (a table of colors). Since you can't write only 8bits to VRAM (no 8bit bus, VRAM is 16/32bit only), the
+usefulness of this mode is limited (you have to write at least 2 pixels at a time in this mode). It does have a backbuffer 
+however, since the picture takes up less room than storing 16bit values for each dot. Anybody have good uses for Mode 4?</p>
+<p><b>Mode 5</b> - Mode 5 is a 16bit color bitmap like Mode 3, except it has a backbuffer. Because of the huge amount of space
+needed for full screen, mode 5 is cut down to 160x128. Many 3d demos use this mode (note that all 3d on the gba are
+software, there is no 3d hardware in the gba). It is also likely that simple animations use this mode. Many people
+rotate the background 90 degrees and scale it so it takes up the full 240x160 (Bitmap modes use BG 2 only, which supports hardware
+rotate/scale 'ing in these modes).</p>
+<p>As you can see, the bitmapped modes all have their special place, however, that's only half of the screen modes. Let's
+see the tile modes now:</p>
+<p><b>Mode 0</b> - All the background layers (4 of them) are available, however, none of them support rotate/scale in this mode.
+You can however, create backgrounds bigger than the screen and use hardware <i>scrolling</i> to move around. Something
+I've never gotten around to do is create an RPG engine specially for this mode. Lowest BG layer would be things below
+the player, next BG would be things that the player bumps into, next BG would be things above the player, next BG would
+serve as the text box for talking to people in the game.</p>
+<p><b>Mode 1</b> - 3 background layers, BG 2 can rotate/scale, while BGs 0 and 1 are of the "text" or scrolling/non-scale/rotate
+variety.</p>
+<p><b>Mode 2</b> - 2 layers. BGs 2 and 3 are both of the scale/rotate variety.</p>
+<p>Now that we've had our overview, let's see some hardware register layouts!</p>
+<p>For those that haven't seen these before, hardware registers are mapped to specific areas of memory. (It's like the I/O on Intel
+chips, except you're writting to RAM like a normal store operation.)</p>
+
+You may be wondering how I knew how to enable Mode 3 and Background 2, well, it's one of those many registers:
+(From the <a href="http://www.cs.rit.edu/~tjh8300/CowBite/CowBiteSpec.htm">CowBite Spec</a>)<br />
+Address: 0x4000000 - REG_DISPCNT (The display control register)</B></P><PRE>                        <FONT COLOR="#FF0000">   R</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0<FONT COLOR="#BBBBBB"> </FONT>
+<FONT COLOR="#008800">W</FONT> <FONT COLOR="#0099FF">V</FONT> <FONT COLOR="#9900CC">U</FONT> <FONT COLOR="#FF0099">S</FONT>  <FONT
+COLOR="#FF3300">L</FONT> <FONT COLOR="#008800">K</FONT> <FONT COLOR="#0099FF">J</FONT> <FONT COLOR="#9900CC">I</FONT>  <FONT
+COLOR="#FF0099">F</FONT><FONT COLOR="#009999"> </FONT><FONT COLOR="#FF3300">D</FONT> <FONT COLOR="#008800">B</FONT><FONT
+COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C</FONT> <FONT COLOR="#FF0099">M M M</FONT> </PRE>
+<PRE>0-2 <FONT COLOR="#FF0099">(M)</FONT> = The video mode. See video modes list above. 
+3 <FONT COLOR="#9900CC">  (C)</FONT> = Game Boy Color mode. Read only - should stay at 0. 
+4 <FONT COLOR="#0099FF">  (A)</FONT> = This bit controls the starting address of the bitmap in bitmapped modes
+          and is used for page flipping. See the description of the specific
+          video mode for details. 
+5   <FONT COLOR="#008800">(B)</FONT> = Force processing during hblank. Setting this causes the display
+          controller to process data earlier and longer, beginning from the end of
+          the previous scanline up to the end of the current one. This added
+          processing time can help prevent flickering when there are too many
+          sprites on a scanline.
+6   <FONT COLOR="#FF3300">(D)</FONT> = Sets whether sprites stored in VRAM use 1 dimension or 2.
+          1 - 1d: tiles are are stored sequentially 
+          0 - 2d: each row of tiles is stored 32 x 64 bytes in from the start of the
+          previous row.</PRE>
+<PRE>7   (<FONT COLOR="#FF0099">F)</FONT> = Force the display to go blank when set. This can be used to save power 
+          when the display isn't needed, or to blank the screen when it is being
+          built up (such as in mode 3, which has only one framebuffer). On the SNES,
+          transfers rates to VRAM were improved during a forced blank; it is logical
+          to assume that this would also hold true on the GBA.
+
+8 <FONT COLOR="#9900CC">  (I)</FONT> = If set, enable display of BG0. 
+9   <FONT COLOR="#0099FF">(J)</FONT> = If set, enable display of BG1. 
+A <FONT COLOR="#008800">  (K)</FONT> = If set, enable display of BG2. 
+B   (<FONT COLOR="#FF3300">L)</FONT> = If set, enable display of BG3. 
+C <FONT COLOR="#FF0099">  (S)</FONT> = If set, enable display of OAM (sprites). 
+D <FONT COLOR="#9900CC">  (U</FONT>) = Enable Window 0
+E <FONT COLOR="#0099FF">  (V)</FONT> = Enable Window 1 
+F <FONT COLOR="#008800">  (W)</FONT> = Enable Sprite Windows </PRE>
+
+Take a look for yourself. You may notice that there's things we haven't discussed yet, that's OK. Pay attention to the
+bits that set the gfx mode and the bits that enable backgrounds (BGs). You may catch the fact that there's 3 bits for
+the mode. 3 bits, that's 8 possible values. Only 6 gfx modes.. Yep, setting all those bits to 6 or 7 is bound to be <i>really</i>
+bad (just like crossing the streams on GhostBusters, except there's less chance of a nuclear blast resulting).
+
+<p>You may want to print out and stable and/or bind copies of the CowBite Spec and GBAtek.htm, they are the best resources
+to have since they explain things slightly differently (GBAtek.htm uses more technical language). If you need the address
+of a hardware register or need to see what they do, that's the place to look.</p>
+
+<h3>VBlank and The Rendering Process</h3>
+<p>Now we'll dive in and see what's happening as the screen is being drawn.</p>
+<p>There are 160 scanlines (horizontal groups of pixels across the screen). You may recognize the number as the
+vertical resolution of the GBA's screen. Well... Even though the GBA's screen is an LCD, it's interface with us
+makes it look like a CRT (e.g. TV). It renders a line (called HDraw), then there's some small time while it moves
+to the start of the next line (call HBlank). This isn't as important as it was on consoles like the Atari and the NES
+with much more simplistic TV interfaces. What is important is what happens after the 160<sup>th</sup> line. This time
+is called VBlank, there are 67 scanlines worth of VBlank, so you have a fair amount of time to do what you should be doing
+during vblank; updating the screen. It used to be (on older consoles) that writting to VRAM during rendering would mess up
+the display. While this isn't so on the GBA, if you and the LCD access the same memory at the same time, the LCD will take
+priority and your program will wait a couple nanoseconds (something like 1 cpu cycle penalty). Typically, games will do
+their calculations during screen rendering, and then update the graphics during VBlank.</p>
+<p>In order to only update during VBlank, you have to know <i>when</i> that is, right? Absolutely! There's a register specially
+for that.<br /> REG_VCOUNT (16bits at 0x4000006) always contains the number of the scanline being drawn, if this number is over
+160, then we know we are in vblank. So we can wait for vblank with the following loop:<listing>
+ldr r0,=#0x4000006  @ This will actually make the assembler put the number 0x4000006 in the "pool" and
+		    @ the actual operation performed is a load from memory (likely ROM if you're not writting code to be
+		    @ copied to RAM). This is an operation you want to avoid if you want speed (in that case, mov 0x4000000
+		    @ and then add 6. The C compiler chooses this over an LDR quite often).
+waitVBlank:
+	ldrh r1, [r0]  @ read 0x4000006
+	cmp r1, #161  @ 161 is, of course, the first scanline of vblank
+	bne waitVBlank  @ loop if r1 is not equal to (NE condition) 161
+		       @ (CMP does a compare (it's purpose is to set the status)).</listing>
+
+<p>There is also a bit in the REG_DISPSTAT register that indicates VBlank. However, there is a better method than looping. It's called interrupts.
+With interrupts, we don't have to care about looping. We just do all the calculations for our frame, and then go into a
+low power mode using a BIOS call. Much of the previous sentence could either sound like gibberish, or something you've done before in C. Either
+way, we'll get there eventually.</p>
+
+<p>In Chapter 6, we'll take a look at several more ARM instructions. Then in 7, we'll do some experiments with
+tile modes using mode 0 (zero).</p>
+
+<p>And! As promised, the <a href="ch4_challenge.zip">answer</a> to Chapter 4's challenge. Or at least my implementation. If yours works, call it a success :).
+I would like to see them, especially if you are relatively new to ASM. With your permission I'll also post it on a 
+Challenge Implementation Page perhaps.</p>
+
+</body>
+
+That's all for now, how about <a href="ch6.htm">Chapter 6</a>? Or the <a href="../gbaasm.htm">GBA ASM</a> index?
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</html>

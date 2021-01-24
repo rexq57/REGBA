@@ -2,14 +2,10 @@
 
 #include <stdio.h>
 #include <stdarg.h>
-
-#ifdef REGBA_DEBUG
-#define log(...) _log(__VA_ARGS__)
-#else
-#define log(...)
-#endif
+#include <stdbool.h>
 
 typedef void (*log_callback_t)(const char*);
 
-void regba_set_logcallback(log_callback_t callback);
-void regba_set_log(bool enabled);
+bool re_log(const char* format, ...);
+void re_set_logcallback(log_callback_t callback);
+void re_set_log(bool enabled);

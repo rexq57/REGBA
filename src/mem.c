@@ -61,9 +61,9 @@ void re_malloc(struct ADDR_SIZE* addr_list, int count, bool vm) {
     
     // check
 #ifdef DEBUG
-    printf("[re_malloc] 申请内存 %zu 虚拟内存 %d\n", total, vm);
+    re_log("[re_malloc] 申请内存 %zu 虚拟内存 %d\n", total, vm);
     for (int i=0; i<count; i++) {
-        printf("[%d]addr %p\n", i, *addr_list[i].addr);
+        re_log("[re_malloc] [%d] %p\n", i, *addr_list[i].addr);
     }
 #endif
 }

@@ -1,0 +1,23 @@
+body {
+Background-color: lavender; //#FFF7ED;
+}
+
+h1,h2,h3,h4,h5,h6 {
+text-align: center;
+}
+
+p {
+text-indent: 2em;
+}
+
+code {
+Background-color: #CCCCCC;
+}
+
+listing {
+Background-color: #CCCCCC;
+}
+
+hr {
+color: green;
+}

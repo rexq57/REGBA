@@ -1,0 +1,693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11"><script src="https://archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app100.us.archive.org';v.server_ms=155;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="https://web.archive.org/_static/js/playback.bundle.js?v=SOX25l-I" charset="utf-8"></script>
+<script type="text/javascript" src="https://web.archive.org/_static/js/wombat.js?v=cRqOKCOw" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://6bit.net:80/shonumi/2015/04/19/emulating-the-gba/","20150428041044","https://web.archive.org/","web","/_static/",
+	      "1430194244");
+</script>
+<link rel="stylesheet" type="text/css" href="https://web.archive.org/_static/css/banner-styles.css?v=bsmaklHF" />
+<link rel="stylesheet" type="text/css" href="https://web.archive.org/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+
+	<title>Shonumi&#039;s Blog &raquo; Emulating the GBA</title>
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0 - all posts" href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/feed/"/>
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0 - all comments" href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/comments/feed/"/>
+	<link rel="pingback" href="http://6bit.net/shonumi/xmlrpc.php"/>
+
+	<!-- style START -->
+	<!-- default style -->
+	<style type="text/css" media="screen">@import url( "https://web.archive.org/web/20150428041044cs_/http:/6bit.net/shonumi/wp-content/themes/inove/style.css" );</style>
+	<!-- for translations -->
+		<!--[if IE]>
+		<link rel="stylesheet" href="http://6bit.net/shonumi/wp-content/themes/inove/ie.css" type="text/css" media="screen" />
+	<![endif]-->
+	<!-- style END -->
+
+	<!-- script START -->
+	<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/themes/inove/js/base.js"></script>
+	<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/themes/inove/js/menu.js"></script>
+	<!-- script END -->
+
+	<link rel="alternate" type="application/rss+xml" title="Shonumi's Blog » Emulating the GBA Comments Feed" href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2015/04/19/emulating-the-gba/feed/"/>
+<link rel="stylesheet" id="tfg_style-css" href="https://web.archive.org/web/20150428041044cs_/http:/6bit.net/shonumi/wp-content/plugins/twitter-facebook-google-plusone-share/tfg_style.css?ver=3.5.1" type="text/css" media="all"/>
+<link rel="stylesheet" id="ccf-jquery-ui-css" href="https://web.archive.org/web/20150428041044cs_/http:/6bit.net/shonumi/wp-content/plugins/custom-contact-forms/css/jquery-ui.css?ver=3.5.1" type="text/css" media="all"/>
+<link rel="stylesheet" id="CCFStandardsCSS-css" href="https://web.archive.org/web/20150428041044cs_/http:/6bit.net/shonumi/wp-content/plugins/custom-contact-forms/css/custom-contact-forms-standards.css?ver=3.5.1" type="text/css" media="all"/>
+<link rel="stylesheet" id="CCFFormsCSS-css" href="https://web.archive.org/web/20150428041044cs_/http:/6bit.net/shonumi/wp-content/plugins/custom-contact-forms/css/custom-contact-forms.css?ver=3.5.1" type="text/css" media="all"/>
+<link rel="stylesheet" id="wp-ui-css" href="https://web.archive.org/web/20150428041044cs_/http:/6bit.net/shonumi/wp-content/plugins/wp-ui/wp-ui.css?ver=3.5.1" type="text/css" media="all"/>
+<link rel="stylesheet" id="wpui-light-css" href="https://web.archive.org/web/20150428041044cs_/http:/6bit.net/shonumi/wp-content/plugins/wp-ui/css/wpui-light.css?ver=3.5.1" type="text/css" media="all"/>
+<link rel="stylesheet" id="wpui-multiple-css" href="https://web.archive.org/web/20150428041044cs_/http:/6bit.net/shonumi/wp-content/plugins/wp-ui/css/css.php?styles=wpui-light%7Cwpui-blue%7Cwpui-red%7Cwpui-green%7Cwpui-dark%7Cwpui-quark%7Cwpui-alma%7Cwpui-macish%7Cwpui-redmond%7Cwpui-sevin&ver=3.5.1" type="text/css" media="all"/>
+<script type="text/javascript">
+/* <![CDATA[ */
+window.CKEDITOR_BASEPATH = "https://web.archive.org/web/20150428041044/http://6bit.net/shonumi/wp-content/plugins/ckeditor-for-wordpress/ckeditor/";
+var ckeditorSettings = { "textarea_id": "comment", "pluginPath": "https:\/\/web.archive.org\/web\/20150428041044\/http:\/\/6bit.net\/shonumi\/wp-content\/plugins\/ckeditor-for-wordpress\/", "autostart": true, "qtransEnabled": false, "outputFormat": { "indent": true, "breakBeforeOpen": true, "breakAfterOpen": false, "breakBeforeClose": false, "breakAfterClose": true }, "configuration": { "height": "120px", "skin": "kama", "scayt_autoStartup": false, "entities": true, "entities_greek": true, "entities_latin": true, "toolbar": "WordpressBasic", "templates_files": [ "https:\/\/web.archive.org\/web\/20150428041044\/http:\/\/6bit.net\/shonumi\/wp-content\/plugins\/ckeditor-for-wordpress\/ckeditor.templates.js" ], "contentsCss": [ "" ], "stylesCombo_stylesSet": "wordpress:http:\/\/6bit.net\/shonumi\/wp-content\/themes\/inove\/ckeditor.styles.js", "customConfig": "https:\/\/web.archive.org\/web\/20150428041044\/http:\/\/6bit.net\/shonumi\/wp-content\/plugins\/ckeditor-for-wordpress\/ckeditor.config.js" }, "externalPlugins": [  ], "additionalButtons": [  ] }
+/* ]]> */
+</script>        <style type="text/css">
+            #content table.cke_editor { margin:0; }
+            #content table.cke_editor tr td { padding:0;border:0; }
+        </style>
+        <script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-includes/js/jquery/jquery.js?ver=1.8.3"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/plugins/custom-contact-forms/js/custom-contact-forms-datepicker.js?ver=3.5.1"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/plugins/custom-contact-forms/js/jquery.tools.min.js?ver=3.5.1"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/plugins/custom-contact-forms/js/custom-contact-forms.js?ver=3.5.1"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/https:/ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js?ver=1.8.16"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpUIOpts = {"wpUrl":"https:\/\/web.archive.org\/web\/20150428041044\/http:\/\/6bit.net\/shonumi","pluginUrl":"https:\/\/web.archive.org\/web\/20150428041044\/http:\/\/6bit.net\/shonumi\/wp-content\/plugins\/wp-ui\/","enableTabs":"on","enableAccordion":"on","enableSpoilers":"on","enableDialogs":"on","enablePagination":"on","tabsEffect":"slide","effectSpeed":"400","accordEffect":"slide","alwaysRotate":"stop","tabsEvent":"click","collapsibleTabs":"off","accordEvent":"click","topNav":"","accordAutoHeight":"on","accordCollapsible":"off","accordEasing":"false","mouseWheelTabs":"false","bottomNav":"on","tabPrevText":"Prev","tabNextText":"Next","spoilerShowText":"Click to show","spoilerHideText":"Click to hide","cookies":"on","hashChange":"on","docWriteFix":"on"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/plugins/wp-ui/js/wp-ui.js?ver=WPUI_DIR"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/plugins/ckeditor-for-wordpress/ckeditor/ckeditor.js?ver=3.5.1"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/plugins/ckeditor-for-wordpress/includes/ckeditor.utils.js?ver=3.5.1"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://6bit.net/shonumi/xmlrpc.php?rsd"/>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://6bit.net/shonumi/wp-includes/wlwmanifest.xml"/> 
+<link rel="prev" title="Emulating Game Boy Games With Custom/Colorized Sprites" href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2013/07/18/emulating-game-boy-games-with-customcolorized-sprites/"/>
+<meta name="generator" content="WordPress 3.5.1"/>
+<link rel="canonical" href="index.html"/>
+<link rel="shortlink" href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/?p=117"/>
+
+<!-- Bad Behavior 2.2.2 run time: 3.840 ms -->
+<script type="text/javascript">
+<!--
+function bb2_addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() {
+			oldonload();
+			func();
+		}
+	}
+}
+
+bb2_addLoadEvent(function() {
+	for ( i=0; i < document.forms.length; i++ ) {
+		if (document.forms[i].method == 'post') {
+			var myElement = document.createElement('input');
+			myElement.setAttribute('type', 'hidden');
+			myElement.name = 'bb2_screener_';
+			myElement.value = '1430194243 204.236.235.245';
+			document.forms[i].appendChild(myElement);
+		}
+	}
+});
+// --></script>
+		
+
+<!-- Thumbnail for facebook like -->
+<link rel="image_src" href="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/MrSVVZ0.png"/>
+
+<link type="text/css" rel="stylesheet" href="https://web.archive.org/web/20150428041044cs_/http:/6bit.net/shonumi/wp-content/plugins/popularpostsbars/style.css"/>
+</head>
+
+
+<body><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  /*min-width:800px !important;*/
+}
+</style>
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display:none;direction:ltr;">
+<div id="wm-ipp" style="position:fixed;left:0;top:0;right:0;">
+<div id="wm-ipp-inside">
+  <div style="position:relative;">
+    <div id="wm-logo" style="float:left;width:110px;padding-top:12px;">
+      <a href="https://web.archive.org/web/" title="Wayback Machine home page"><img src="https://web.archive.org/_static/images/toolbar/wayback-toolbar-logo-200.png" srcset="/_static/images/toolbar/wayback-toolbar-logo-100.png, /_static/images/toolbar/wayback-toolbar-logo-150.png 1.5x, /_static/images/toolbar/wayback-toolbar-logo-200.png 2x" alt="Wayback Machine" style="width:100px" border="0" /></a>
+    </div>
+    <div class="r" style="float:right;">
+      <div id="wm-btns" style="text-align:right;height:25px;">
+                  <div id="wm-save-snapshot-success">success</div>
+          <div id="wm-save-snapshot-fail">fail</div>
+          <a id="wm-save-snapshot-open" href="index.html#"
+	     title="Share via My Web Archive" >
+            <span class="iconochive-web"></span>
+          </a>
+          <a href="https://archive.org/account/login.php"
+             title="Sign In"
+             id="wm-sign-in"
+          >
+            <span class="iconochive-person"></span>
+          </a>
+          <span id="wm-save-snapshot-in-progress" class="iconochive-web"></span>
+        	<a href="http://faq.web.archive.org/" title="Get some help using the Wayback Machine" style="top:-6px;"><span class="iconochive-question" style="color:rgb(87,186,244);font-size:160%;"></span></a>
+	<a id="wm-tb-close" href="index.html#close" onclick="__wm.h(event);return false;" style="top:-2px;" title="Close the toolbar"><span class="iconochive-remove-circle" style="color:#888888;font-size:240%;"></span></a>
+      </div>
+      <div id="wm-share">
+          <a href="https://web.archive.org/web/20150428041044/http:/web.archive.org/screenshot/http:/6bit.net/shonumi/2015/04/19/emulating-the-gba/"
+             id="wm-screenshot"
+             title="screenshot">
+            <span class="wm-icon-screen-shot"></span>
+          </a>
+	<a id="wm-share-facebook" href="index.html#" data-url="https://web.archive.org/web/20150428041044/http://6bit.net:80/shonumi/2015/04/19/emulating-the-gba/" title="Share on Facebook" style="margin-right:5px;" target="_blank"><span class="iconochive-facebook" style="color:#3b5998;font-size:160%;"></span></a>
+	<a id="wm-share-twitter" href="index.html#" data-url="https://web.archive.org/web/20150428041044/http://6bit.net:80/shonumi/2015/04/19/emulating-the-gba/" title="Share on Twitter" style="margin-right:5px;" target="_blank"><span class="iconochive-twitter" style="color:#1dcaff;font-size:160%;"></span></a>
+      </div>
+    </div>
+    <table class="c" style="">
+      <tbody>
+	<tr>
+	  <td class="u" colspan="2">
+	    <form target="_top" method="get" action="/web/submit" name="wmtb" id="wmtb"><input type="text" name="url" id="wmtbURL" value="http://6bit.net/shonumi/2015/04/19/emulating-the-gba/" onfocus="this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20150428041044" /><input type="submit" value="Go" /></form>
+	  </td>
+	  <td class="n" rowspan="2" style="width:110px;">
+	    <table>
+	      <tbody>
+		<!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+		<tr class="m">
+		  <td class="b" nowrap="nowrap">Mar</td>
+		  <td class="c" id="displayMonthEl" title="You are here: 04:10:44 Apr 28, 2015">APR</td>
+		  <td class="f" nowrap="nowrap"><a href="https://web.archive.org/web/20160306163037/http:/6bit.net/shonumi/2015/04/19/emulating-the-gba" title="06 Mar 2016"><strong>Mar</strong></a></td>
+		</tr>
+		<!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+		<tr class="d">
+		  <td class="b" nowrap="nowrap"><a href="https://web.archive.org/web/20150427015314/http:/6bit.net:80/shonumi/2015/04/19/emulating-the-gba/" title="01:53:14 Apr 27, 2015"><img src="https://web.archive.org/_static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a></td>
+		  <td class="c" id="displayDayEl" style="width:34px;font-size:24px;white-space:nowrap;" title="You are here: 04:10:44 Apr 28, 2015">28</td>
+		  <td class="f" nowrap="nowrap"><a href="https://web.archive.org/web/20160306163037/http:/6bit.net/shonumi/2015/04/19/emulating-the-gba" title="16:30:37 Mar 06, 2016"><img src="https://web.archive.org/_static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0" /></a></td>
+		</tr>
+		<!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+		<tr class="y">
+		  <td class="b" nowrap="nowrap">2014</td>
+		  <td class="c" id="displayYearEl" title="You are here: 04:10:44 Apr 28, 2015">2015</td>
+		  <td class="f" nowrap="nowrap"><a href="https://web.archive.org/web/20160825235326/http:/6bit.net/shonumi/2015/04/19/emulating-the-gba/" title="25 Aug 2016"><strong>2016</strong></a></td>
+		</tr>
+	      </tbody>
+	    </table>
+	  </td>
+	</tr>
+	<tr>
+	  <td class="s">
+	    	    <div id="wm-nav-captures">
+	      	      <a class="t" href="https://web.archive.org/web/20150428041044*/http:/6bit.net/shonumi/2015/04/19/emulating-the-gba/" title="See a list of every capture for this URL">8 captures</a>
+	      <div class="r" title="Timespan for captures of this URL">26 Apr 2015 - 08 Nov 2020</div>
+	      </div>
+	  </td>
+	  <td class="k">
+	    <a href="" id="wm-graph-anchor">
+	      <div id="wm-ipp-sparkline" title="Explore captures for this URL" style="position: relative">
+		<canvas id="wm-sparkline-canvas" width="650" height="27" border="0"></canvas>
+	      </div>
+	    </a>
+	  </td>
+	</tr>
+      </tbody>
+    </table>
+    <div style="position:absolute;bottom:0;right:2px;text-align:right;">
+      <a id="wm-expand" class="wm-btn wm-closed" href="index.html#expand" onclick="__wm.ex(event);return false;"><span id="wm-expand-icon" class="iconochive-down-solid"></span> <span style="font-size:80%">About this capture</span></a>
+    </div>
+  </div>
+    <div id="wm-capinfo" style="border-top:1px solid #777;display:none; overflow: hidden">
+                    <div id="wm-capinfo-collected-by">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center">COLLECTED BY</div>
+    <div style="padding:3px;position:relative" id="wm-collected-by-content">
+            <div style="display:inline-block;vertical-align:top;width:50%;">
+			<span class="c-logo" style="background-image:url('https://archive.org/services/img/alexacrawls');"></span>
+		Organization: <a style="color:#33f;" href="https://archive.org/details/alexacrawls" target="_new"><span class="wm-title">Alexa Crawls</span></a>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  Starting in 1996, <a href="http://www.alexa.com/">Alexa Internet</a> has been donating their crawl data to the Internet Archive.  Flowing in every day, these data are added to the <a href="http://web.archive.org/">Wayback Machine</a> after an embargo period.
+	</div>
+	      </div>
+      <div style="display:inline-block;vertical-align:top;width:49%;">
+			<span class="c-logo" style="background-image:url('https://archive.org/services/img/alexacrawls')"></span>
+		<div>Collection: <a style="color:#33f;" href="https://archive.org/details/alexacrawls" target="_new"><span class="wm-title">Alexa Crawls</span></a></div>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  Starting in 1996, <a href="http://www.alexa.com/">Alexa Internet</a> has been donating their crawl data to the Internet Archive.  Flowing in every day, these data are added to the <a href="http://web.archive.org/">Wayback Machine</a> after an embargo period.
+	</div>
+	      </div>
+    </div>
+    </div>
+    <div id="wm-capinfo-timestamps">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center" title="Timestamps for the elements of this page">TIMESTAMPS</div>
+    <div>
+      <div id="wm-capresources" style="margin:0 5px 5px 5px;max-height:250px;overflow-y:scroll !important"></div>
+      <div id="wm-capresources-loading" style="text-align:left;margin:0 20px 5px 5px;display:none"><img src="https://web.archive.org/_static/images/loading.gif" alt="loading" /></div>
+    </div>
+    </div>
+  </div></div></div></div><div id="donato" style="position:relative;width:100%;">
+  <div id="donato-base">
+    <iframe id="donato-if" src="https://archive.org/includes/donate.php?as_page=1&platform=wb&referer=https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2015/04/19/emulating-the-gba/"
+	    scrolling="no" frameborder="0" style="width:100%; height:100%">
+    </iframe>
+  </div>
+</div><script type="text/javascript">
+__wm.bt(650,27,25,2,"web","http://6bit.net/shonumi/2015/04/19/emulating-the-gba/","20150428041044",1996,"/_static/",["/_static/css/banner-styles.css?v=bsmaklHF","/_static/css/iconochive.css?v=qtvMKcIJ"]);
+  __wm.rw(1);
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+<!-- wrap START -->
+<div id="wrap">
+
+<!-- container START -->
+<div id="container">
+
+<!-- header START -->
+<div id="header">
+
+	<!-- banner START -->
+		<!-- banner END -->
+
+	<div id="caption">
+		<h1 id="title"><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/">Shonumi&#039;s Blog</a></h1>
+		<div id="tagline">Just another 6bit.net Gaming &amp; Emulation site</div>
+	</div>
+
+	<div class="fixed"></div>
+
+
+</div>
+<!-- header END -->
+
+<!-- navigation START -->
+<div id="navigation">
+	<!-- menus START -->
+	<ul id="menus">
+		<li class="page_item"><a class="home" title="Home" href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/">Home</a></li>
+				<li><a class="lastmenu" href="javascript:void(0);"></a></li>
+	</ul>
+	<!-- menus END -->
+
+	<!-- searchbox START -->
+	<div id="searchbox">
+					<form action="https://web.archive.org/web/20150428041044/http://6bit.net/shonumi" method="get">
+				<div class="content">
+					<input type="text" class="textfield" name="s" size="24" value=""/>
+					<input type="submit" class="button" value=""/>
+				</div>
+			</form>
+			</div>
+<script type="text/javascript">
+//<![CDATA[
+	var searchbox = MGJS.$("searchbox");
+	var searchtxt = MGJS.getElementsByClassName("textfield", "input", searchbox)[0];
+	var searchbtn = MGJS.getElementsByClassName("button", "input", searchbox)[0];
+	var tiptext = "Type text to search here...";
+	if(searchtxt.value == "" || searchtxt.value == tiptext) {
+		searchtxt.className += " searchtip";
+		searchtxt.value = tiptext;
+	}
+	searchtxt.onfocus = function(e) {
+		if(searchtxt.value == tiptext) {
+			searchtxt.value = "";
+			searchtxt.className = searchtxt.className.replace(" searchtip", "");
+		}
+	}
+	searchtxt.onblur = function(e) {
+		if(searchtxt.value == "") {
+			searchtxt.className += " searchtip";
+			searchtxt.value = tiptext;
+		}
+	}
+	searchbtn.onclick = function(e) {
+		if(searchtxt.value == "" || searchtxt.value == tiptext) {
+			return false;
+		}
+	}
+//]]>
+</script>
+	<!-- searchbox END -->
+
+	<div class="fixed"></div>
+</div>
+<!-- navigation END -->
+
+
+
+<!-- content START -->
+<div id="content">
+
+	<!-- main START -->
+	<div id="main">
+
+
+	<div id="postpath">
+		<a title="Go to homepage" href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/">Home</a>
+		 &gt; <a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/category/emu-dev/" title="View all posts in Emulation Development" rel="category tag">Emulation Development</a>		 &gt; Emulating the GBA	</div>
+
+	<div class="post" id="post-117">
+		<h2>Emulating the GBA</h2>
+		<div class="info">
+			<span class="date">April 19th, 2015</span>
+			<span class="author"><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/author/shonumi/" title="Posts by shonumi" rel="author">shonumi</a></span>										<span class="addcomment"><a href="index.html#respond">Leave a comment</a></span>
+				<span class="comments"><a href="index.html#comments">Go to comments</a></span>
+						<div class="fixed"></div>
+		</div>
+		<div class="content">
+			<div class="bottomcontainerBox" style="background-color:#F0F4F9;">
+			<div style="float:left; width:85px;padding-right:10px; margin:4px 4px 4px 4px;height:30px;">
+			<iframe src="https://web.archive.org/web/20150428041044if_/http:/www.facebook.com/plugins/like.php?href=http://6bit.net/shonumi/2015/04/19/emulating-the-gba/&layout=button_count&show_faces=false&width=85&action=like&font=verdana&colorscheme=light&height=21" style="border:none; overflow:hidden; width=85px; height:21px;"></iframe></div>
+			<div style="float:left; width:80px;padding-right:10px; margin:4px 4px 4px 4px;height:30px;">
+			<g:plusone size="medium" href="http://6bit.net/shonumi/2015/04/19/emulating-the-gba/"></g:plusone>
+			</div>
+			<div style="float:left; width:95px;padding-right:10px; margin:4px 4px 4px 4px;height:30px;">
+			<a href="https://web.archive.org/web/20150428041044/http:/twitter.com/share" class="twitter-share-button" data-url="https://web.archive.org/web/20150428041044/http://6bit.net/shonumi/2015/04/19/emulating-the-gba/" data-text="Emulating the GBA" data-count="horizontal">Tweet</a>
+			</div><div style="float:left; width:105px;padding-right:10px; margin:4px 4px 4px 4px;height:30px;"><script type="in/share" data-url="http://6bit.net/shonumi/2015/04/19/emulating-the-gba/" data-counter="right"></script></div>			
+			<div style="float:left; width:85px;padding-right:10px; margin:4px 4px 4px 4px;height:30px;"><script src="https://web.archive.org/web/20150428041044js_/http:/www.stumbleupon.com/hostedbadge.php?s=1&r=http://6bit.net/shonumi/2015/04/19/emulating-the-gba/"></script></div>			
+			</div><div style="clear:both"></div><div style="padding-bottom:4px;"></div><p><strong>Emulating the GBA</strong></p>
+<p style="text-align: center;font-size: 80%;margin-top: 25px;margin-bottom: 25px">
+<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/MrSVVZ0.png" alt="yolo"/>
+</p>
+<p>So it&#8217;s been nearly two years since I wrote anything on this blog, not because of lack of content, but lack of time. It&#8217;s nice to write about emulation, but frankly I&#8217;ve been busy making emulators (and playing them as well). I think it&#8217;s time to change that, so I&#8217;m going to discuss my latest work: emulating the Gameboy Advance. Around this time last year, April 9th to be exact, I began coding the basics of what would become my GBA emulator. Most of it was written from scratch with a few bits taken from the old GB Enhanced project. After constant programming, I&#8217;ve come away with something that will decently handle a number of GBA games. In this article, I will share my experiences, trials, and knowledge that I gained this past year.</p>
+<p><strong>Advanced Emulation 201</strong></p>
+<p>After more or less completing DMG and GBC emulation in <a href="https://web.archive.org/web/20150428041044/http:/code.google.com/p/gb-enhanced/">GB Enhanced</a>, my Gameboy emulator (GBE for short), I actually began to feel a bit bored. At the time I was working on implementing custom graphics for GBC games, which required a more sophisticated approach <a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2013/07/18/emulating-game-boy-games-with-customcolorized-sprites/">than what I previously wrote about</a>. Custom graphics is a fascinating subject, but I&#8217;d been working on it for months, and I wanted something to break up the pace. Having tackled the Gameboy, what would be more worthwhile than tackling its successor? I had been looking at Martin Korth&#8217;s GBATEK for some time, and I felt ready to emulate the GBA in some capacity. </p>
+<p>Unlike the DMG and GBC, however, there were no easy coding tutorials online. Articles like Imran Nazar&#8217;s <a href="https://web.archive.org/web/20150428041044/http:/imrannazar.com/GameBoy-Emulation-in-JavaScript">GB Emulation in Javascript</a> or Codeslinger&#8217;s <a href="https://web.archive.org/web/20150428041044/http:/www.codeslinger.co.uk/pages/projects/gameboy/beginning.html">series of articles</a> about the same subject simply don&#8217;t exist for the GBA. I&#8217;d be going in blind with no hand-holding. Granted, there are many open source GBA emulators to reference, but looking at someone else&#8217;s code doesn&#8217;t magically mean you understand how a game console actually works. I&#8217;d just have to rely on what I&#8217;d previously learned, apply it to a new system, make a few mistakes along the way, and ultimately progress from there.</p>
+<p>Probably the first major step anyone takes when emulating a system is to establish a working CPU. Without that, nothing else will run as it was designed to. The Gameboy Advance uses a 32-bit ARM7TDMI CPU, running an ARMv4 architecture, clocking in at a whopping 16.78MHz or 2^24 Hz  (impressive for its time, especially as a mobile device). It also had a Z80 style CPU for backwards compatibility with DMG and GBC games, but that was unavailable to GBA software. The ARM7TDMI is also based on Reduced Instruction Set Computing (RISC). </p>
+<p>This CPU, like many ARM CPUs, has two modes of processing instructions called ARM and THUMB. ARM instructions are encoded as 32-bit opcodes, while THUMB instructions are encoded as 16-bit opcodes. Most GBA games generally used ARM instructions when inside the GBA&#8217;s 32KB Work RAM, while THUMB was used everywhere else, especially in memory areas with 16-bit buses (a 32-bit ARM instruction would require two reads while using a 16-bit bus, leading to reduced performance).</p>
+<p>ARM opcodes provide a higher level of flexibility as it concerns the instruction itself. A single ARM instruction could, for example, copy one register shifted by another register into a third register. THUMB can match ARM&#8217;s functionality for the most part, except it may take multiple THUMB instructions to achieve the same result in some cases. Furthermore, THUMB opcodes only have access to a limited number of the CPU&#8217;s registers. THUMB opcodes always set the CPU&#8217;s condition flags (such as when a mathematical instruction results in zero), but for ARM instructions this is optional. </p>
+<p>ARM instructions are always executed conditionally as well, that is to say the instruction does not run unless certain CPU flags are set based on the outcome of previous operations. To some extent, this can be used for psuedo-branching code, but it shouldn&#8217;t be abused; unexecuted instructions still run for one CPU cycle. Overall, in layman&#8217;s terms, ARM instructions can be thought of as longer but more advanced with lots of features; THUMB instructions can be thought of as smaller with concise features.</p>
+<p>One more thing about the CPU I should mention: it has a surprising number of registers. It has 13 General Purpose Registers (R0-R12), a Stack Pointer (R13), a Link Register (R14), and a Program Counter (R15), a Current Program Status Register and a Saved Program Status Register. But wait, there&#8217;s more! Some of these registers are banked depending on the state of the CPU. For example, the Stack Pointer used during normal operations will be different from the Stack Pointer used during interrupt handling. It sounds confusing, but in reality, generally only the Link Register and Stack Pointers are banked across different CPU modes. For those curious, the Link Register&#8217;s job is to record the PC when branching so the program can return to it at a later point.</p>
+<p>Coming from the Gameboy&#8217;s Z80-style CPU, I was pretty overwhelmed by the GBA&#8217;s CPU and ARM in general, especially when it came to decoding the instructions. I expected something like the GB&#8217;s extended <strong>0xCBxx</strong> 16-bit opcodes, but nothing like ARM/THUMB. Instruction encodings are all over the map to say the least. At any rate, I started trying to implement some ARM instructions, but I eventually switched to THUMB due to its simplicity. I chose to decode each instruction, determine if it belonged to a particular opcode group, then call a function specifically written to handle that opcode group. Opcode groups describe a family of instructions such as THUMB.1, THUMB.2, ARM.5, and ARM.6, as specified in ARM&#8217;s documentation.</p>
+<p>This was perhaps the hardest and least interesting part of emulator development for me. I spent a lot of hours just plugging away at my keyboard trying to recreate a CPU from the ground up. It&#8217;s just not sexy work. There are no graphics, no sound, and hardly anything but console-based output. You can&#8217;t get to the exciting things however until you&#8217;ve built up the emulated CPU enough. At this time, I was only doing GBA emu-dev as a side project, something to do whenever I wasn&#8217;t playing video games. From April to August, not a lot happened. My emulated CPU could run at least, but a lot of instructions were missing or incorrectly implemented. At the end of the summer though, I felt it was enough to take the next step: graphical output.</p>
+<p><strong>Graphics: The Fun Stuff</strong></p>
+<p>Obviously I could have tried running my emulator on any number of commercial games, but since the emulated CPU was incomplete, it was bound to exit due to an opcode that couldn&#8217;t be handled. I wanted to see something on screen, to know that my efforts were at least heading in the right direction. The answer, I decided, was to whip up some homebrew of my own. Usually it helps to be involved with homebrew before jumping into an emulator, since you have to learn the system in order to successfully program on it. The reverse holds true to some degree, however; in making an emulator, you learn how to make homebrew. </p>
+<p>After studying the GBA in GBATEK, I figured what was necessary to get the screen to change colors. From there, it was only a matter of writing the ARM/THUMB assembly code. Fun fact, I did this all in a hex editor, using a text file to keep track of what I&#8217;m doing. While this seems silly, my emulator at the time could only run a handful of instructions; I had to be sure the ROM file I was creating executed only the exact instructions I needed.</p>
+<p>The first thing I did was change the whole screen to green. After that, I started working with the GBA&#8217;s tile-based graphics to create simple black and white stripes, and an image in the vein of old TV test patterns, specifically the <a href="https://web.archive.org/web/20150428041044/http:/en.wikipedia.org/wiki/SMPTE_color_bars">SMPTE color bars.</a> After that, I messed around with implementing interrupts on a small scale, mainly the VBlank interrupt. The demo for this simply cycled through every possible color the GBA can display in an endless loops, going through ~60 colors a second. Initial errors effectively lead to potentially seizure inducing explosions of color, unfortunately.</p>
+<p style="text-align: center;font-size: 80%;margin-top: 25px;margin-bottom: 25px">
+<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/6Vovolw.png" alt="yolo"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/2dFuK30.png" alt="yolo"/><br/>
+Some of my earlier tests
+</p>
+<p>Before I continue, now would be a good time to discuss some the graphical capabilities of the GBA (which covers a lot, but I&#8217;ll try to condense this as much as possible). The GBA&#8217;s LCD has 6 distinct video modes; these modes determine what kind of tiles or pixel data can be displayed, how many layers are present, how large those layers are, and what kinds of effects can be applied to them (scaling, rotation, tile flipping, etc). Modes 0-2 are tile-based. Most games operate in Mode 0, which allows for 4 BG layers. Mode 1 allows for the 3rd BG layer to be scaled and rotated (but not the others, 4th is disabled). Mode 2 allows both the 3rd and 4th to be scaled and rotated (disabling the 1st and 2nd BGs, however). Modes 3-5 are different implementations of bitmap based graphics. These were used for displaying detailed still images or in some cases used for software rendering graphics on-screen.</p>
+<p style="text-align: center;font-size: 80%;margin-top: 25px;margin-bottom: 25px">
+<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/hhTiPwa.png" alt="yolo"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/jlKpMqx.png" alt="yolo"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/dQDRqah.png" alt="yolo"/><br/>
+Metroid Fusion uses Mode 0, allowing for many complex layers and scenes. Sonic Advance uses Mode 1 for the title screen; the logo rapidly shrinks creating a zooming effect. V-Rally 3 renders its 3D graphics entirely in software and uses Mode 4 to display the frame as a bitmap.
+</p>
+<p>The GBA had an impressive number of sprites (or OBJs), 128, doubling the amount found on the DMG and GBC. The newer handheld does away with old sprite limit of 8 per-scanline. Under the most ideal circumstances all 128 could be rendered on a single scanline, but more often than not the number was less due to several factors (how many CPU cycles were available for OBJ rendering at any given time, how many cycles it takes the hardware to process OBJs of various types). </p>
+<p>All sprites on the GBA can be rotated and scaled as well, however, the hardware only had 32 unique &#8220;slots&#8221; that defined scaling/rotation parameters. That is to say, while all 128 sprites could rotate at an angle, you could only define 32 different angles at any given moment. Also of great advantage were new variable sprite sizes. On the DMG and GBC, sprites were only 8&#215;8 or 8&#215;16. On the GBA you get 8&#215;8, 8&#215;16, 16&#215;8, 16&#215;16, 32&#215;8, 8&#215;32, 32&#215;32, 32&#215;16, 16&#215;32, 64&#215;64, 64&#215;32, and 32&#215;64! That&#8217;s quite a lot of options, and the increased flexibility went on to allow developers to be more creative in art styles, overall game design, and programming.</p>
+<p>Lastly, the GBA provided hardware to process so called &#8220;special&#8221; effects, comparable to the color math operations from the SNES. The GBA could decrease an image&#8217;s brightness (making the pixels closer to black), increase its brightness (making the pixels closer to white), or perform alpha blending between two layers for transparency. The first two are often used for fade-ins and fade-outs; previously games on the DMG and GBC had to manually manipulate palettes themselves to recreate the same results. Some GBA games do this anyway (see Riviera: The Promised Land&#8217;s logo screens), but not often. Alpha transparency, as one can imagine, proves very helpful in creating a number of visual effects; the very first scenes of Golden Sun impressively use it for lighting that even interacts the player&#8217;s sprites.</p>
+<p style="text-align: center;font-size: 80%;margin-top: 25px;margin-bottom: 25px">
+<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/W98zDDg.png" alt="yolo"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/yAP8Lcp.png" alt="yolo"/><br/>
+Sonic Advance actually darkens the screen, leaving some sections at normal brightness to create the impression of lights. Super Dodge Ball Advance shows alpha transparency at its full potential: fancy text boxes!
+</p>
+<p>While these special effects can be applied to the entire screen, often they were limited to certain areas of the screen thanks to the GBA&#8217;s Window functionality. For those that know the DMG/GBC Window, the GBA&#8217;s Window system is quite different. A window basically dictates a virtual rectangle on the LCD. The GBA then decides what will be displayed inside that window (which background layers are enabled, if sprites are enabled, and if the special effects applies to this area). Even more powerfully, windows determine what is enabled/disabled <strong>outside</strong> the rectangle as well! The GBA has 2 rectangular windows, but it also offers a third called the Object Window. Some sprites may change into Object Window Mode based on their parameters in OAM; the sprite is not displayed, however, any pixels that the GBA would have displayed basically act as a mini window. </p>
+<p>This was often used to create masking effects, most notably done in Pokemon Ruby/Emerald/Sapphire and Fire Red/Leaf Green. These games actually have 2 copies of a Pokemon&#8217;s sprite in battle, one in Object Window Mode on top, and a regular one on bottom. The top one is not displayed, but instead it is used as a window that draws a colored background in the shape of the sprite. This is then alpha blended over the normal Pokemon&#8217;s sprite on the bottom. That&#8217;s how Pokemon change colors whenever a stat changing move like &#8220;Growl&#8221; or &#8220;Leer&#8221; are performed. Pretty neat, huh?</p>
+<p style="text-align: center;font-size: 80%;margin-top: 25px;margin-bottom: 25px">
+<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/lzMmIdp.gif" alt="yolo"/><br/>
+Step 1: Draw a regular Pokemon + an invisible &#8220;shadow&#8221; copy on top. Step 2: Take the BG (shown here for demonstration, not like that on a real GBA). Step 3: Draw the BG in the form of the &#8220;shadow&#8221; copy. Step 4: Blend the result with the regular Pokemon. Huzzah!
+</p>
+<p><strong>Black Screens of Death</strong></p>
+<p>So at this point of my adventure, I had limited working homebrew. It was time to take the dive into booting commercial games. To me this was a major step, one that I took seriously. I gave myself a deadline for October 15th, 2014, roughly 2 and a half weeks. The thing about emulating video game systems is that there are a number of &#8220;moving parts&#8221; that all need to work together in order to get anywhere. </p>
+<p>In an emulator&#8217;s infancy, a lot of those parts are marked TODO or skipped over for the sake of getting something working, even at the cost of glitches. The foremost thing for some emu-devs is to put something, anything, on-screen. If emulators were ships, mine was in no shape to sail, but I set off anyway.</p>
+<p>I picked one game that didn&#8217;t crash or exit or otherwise explode in my emulator: Super Dodge Ball Advance. It seemed to keep running in an infinite loop, which at that time was a good sign. It didn&#8217;t abort due to unimplemented opcodes, and it didn&#8217;t start running code from invalid memory regions. Those two factors alone were all I needed to make this game my go-to choice. I jumped in, making my way through one of the most tedious parts of emu-dev: debugging. </p>
+<p>The first time I ran Super Dodge Ball Advance, not much of the emulated code was correct. Register values in the CPU were off, memory values were seemingly random, and weird instructions were being executed. Some of the ARM/THUMB instructions I did emulate weren&#8217;t even accurate, and that caused a lot of headaches early on.</p>
+<p>The process of debugging basically involved sitting in front of my would-be emulator and a working emulator such as VBA-M or no$gba, stepping through various instructions, trying to see what was going wrong. It was a seemingly never-ending quest to vanquish all sorts of nasty bugs. I thought I&#8217;d never see this thing running; the black screen began to taunt me day after day. Eventually, however, I reached a breakhrough. </p>
+<p>After enabling two or three Software Interrupts (SWIs, also known as BIOS functions) via High Level Emulation, and after adding basic Direct Memory Accesses (DMAs, essentially quick/automated memory transfers), I got my first image, the Atlus title screen. After that, my emulator promptly showed nothing but garbage, but it was a start nonetheless. From there, I clawed my way to the title screen by improving LCD emulation. After that, I implemented input so I could actually go in game. I could in fact start matches, but the sprites were badly rendered and the ball could not be thrown due to unimplemented math-related SWIs.</p>
+<p style="text-align: center;font-size: 80%;margin-top: 25px;margin-bottom: 25px">
+<img src="https://web.archive.org/web/20150428041044im_/http:/i.imgur.com/ABWsgLQ.gif" alt="yolo"/><br/>
+Ah, the good ol&#8217; glitchy days, when nothing worked&#8230;
+</p>
+<p>Still, with this success, I started working on other games. A lot of my early efforts were focused on simply getting games to boot. I figured I&#8217;d take care of any outstanding issues once the emulator was advanced enough to tackle more games. One of the best motivations for emu-devs is seeing their favorite games brought back to life. Of course there are plenty of existing solutions, but it&#8217;s a completely different feeling when you&#8217;re seeing code that <strong>you</strong> wrote running games like the real thing. </p>
+<p>I went after Kirby: Nightmare in Dreamland, Bomberman Tournament, and Riviera: The Promised Land, the classics of my teenage years. After much hard work, I saw them booting and playing, although imperfectly at first. Many games continued to plague me with their black screens, and it was only after hours of debugging that I saw progress at all. Today, most games will run with minor issues thanks to all the time I spent going through hell during these months.</p>
+<p>Some of the specific highlights and milestones of my journey<br/>
+* Booted Super Dodge Ball Advance -&gt; October 9th, 2014<br/>
+* Booted Bomberman Tournament -&gt; October 22nd, 2014<br/>
+* Booted Final Fantasy Tactics Advance -&gt; November 2nd, 2014<br/>
+* Booted Advance Wars, Megaman Zero, and Megaman &amp; Bass -&gt; November 14th, 2014<br/>
+* Added SRAM saving -&gt; November 15th, 2014<br/>
+* Booted Megaman Battle Network 1 &amp; 2 -&gt; November 22nd, 2014<br/>
+* Booted Final Fantasy: DoS, Lunar Legend, Golden Sun -&gt; December 12th, 2014<br/>
+* Added EEPROM saving -&gt; December 17th, 2014<br/>
+* Added FLASH RAM saving, booted Pokemon games! -&gt; January 26-28th, 2015</p>
+<p><strong>Sound: The Final Boss</strong></p>
+<p>Last time I tackled sound, I saved it for last. Relatively speaking, although sound is one of the easier things to get right, personally I like to wait until I know most of the emulator is in good shape. Also, sound programming is not my forte. Pixels, sure, I get them, but I when I programmed the sound code for the original GBE project, I was new to things like &#8220;frequencies&#8221; and &#8220;amplitudes&#8221; and &#8220;periods&#8221;. So to say the least, I avoided it because it&#8217;s not my strong point; I didn&#8217;t feel like bashing my head trying to get things right when I could have been working on other parts of the emulator. Eventually, I ran out of other parts to code, so around March of this year I took a breath and dove right in.</p>
+<p>The GBA has an almost exact replica of the DMG/GBC sound controller as it relates to its Sound Channels 1-4. Channel 1 generates a square wave with an envelope and sweep function. Channel 2 generates a plain square wave, no envelope, no sweep. Channel 3 plays 4-bit digital samples. Channel 4 generates white noise with an envelope function. For the most part, I copy+pasted my old code from GBE and renamed variables as necessary. This proved enough 9/10 times. </p>
+<p>What&#8217;s interesting about the GBA is that Sound Channel 3 was actually improved in functionality. The DMG/GBC only allowed for a total of 32 4-bit samples to be stored in RAM. The GBA expands this by adding a second bank. Sound Channel 3 can freely switch between banks, meaning two different sounds can rapidly play without much effort once the sample data is loaded. Channel 3 can also play all 64 samples as a single sound. Aside from those changes though, the Sound Channels do not significantly deviate from their predecessors. Some GBA games don&#8217;t even use them; instead they exclusively rely on the DMA sound channels.</p>
+<p>There are two such DMA sound channels on the GBA, simply called Direct Sound A and B. The GBA has 4 DMAs channels, DMA0, DMA1, DMA2, and DMA3. DMA1 and DMA2, however, have a special mode that the others don&#8217;t called Sound FIFO. Essentially, every time one of the GBA&#8217;s hardware timers overflows (always Timer 0 or Timer 1), the GBA pushes 8-bit signed samples to the sound controller from a FIFO buffer. DMAs add data to the FIFO automatically, meaning no intervention is necessary from software. Whereas the 4-bit samples on Sound Channel 3 can only express 16 different amplitudes, the 8-bit samples for the DMA channels can express 256 different amplitudes making for much richer sound quality. Their output frequency was determined by the hardware timers, so it was possible to have 22KHz audio, albeit at the cost of cartridge space. </p>
+<p>The DMA channels were new territory for me, but they actually turned out to be much easier than expected. All I had to do was keep feeding my code the samples and play them back. Having said that, sound quality is only acceptable at this time; it&#8217;s not perfect, and the code could definitely use a lot more love. Even so, with sound roughly complete, I largely had a functional, albeit basic GBA emulator in my hands. I could play many of my old games from start to finish.</p>
+<p><strong>Why do all of this?</strong></p>
+<p>There are already plenty of great GBA emulators on many platforms. What&#8217;s the purpose in spending hours of my time to make yet another one? I&#8217;m not looking for people to use my work over VBA-M or mGBA. I have no pretensions about becoming &#8220;the next big emu&#8221; or usurping popular ones. I don&#8217;t care about that; it&#8217;s of absolutely zero interest to me. </p>
+<p>I&#8217;m just someone who loves video games, loves emulation, and loves a challenge. I wouldn&#8217;t have learned half as much as I did through this ongoing experience if I had just read GBATEK and looked at someone else&#8217;s source code. I&#8217;ve now gained valuable insight into how one of my favorite systems from yesteryear works on a low-level. When it comes down to it, the process was thrilling, frustrating, wonderous, daunting, <strong>but ultimately fun</strong>.</p>
+<p>But, I would be lying if I said there wasn&#8217;t some larger motive at play. Having established the basics of <a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2013/07/18/emulating-game-boy-games-with-customcolorized-sprites/">custom tile replacement</a> for DMG games, I want to see the same applied to the GBA, to prove that it can be done on other systems. I have dabbled experimentally with custom tile replacement and GBC games, so I&#8217;m quite hopeful the same can be done on the GBA.</p>
+<p>However, I&#8217;m a little more ambitious than just that. <a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2013/02/25/true-internal-resolution-in-nintendo-ds-emulators/">In my first article</a>, I wrote about true &#8220;internal resolution&#8221; in Nintendo DS emulators at a time before we had amazing work like Desmume X432R. I said I had a pretty strong DIY attitude, so naturally the next step from the GBA is the DS. I have every intent of taking on the Nintendo DS eventually, and I want to push what&#8217;s been done in DS emulation, primarily in the areas of custom textures and custom shaders. Don&#8217;t get me wrong, I use Desmume X432R a lot, but this is just a dream I got, to make my own emu. That&#8217;s all years down the road, but I think I&#8217;m on the right track.</p>
+<p>Now, hear me out on the last of my crazy plans. I&#8217;m going to aim to make a 4-in-1 emulator, from the DMG to GBC to GBA to DS. I&#8217;m already in the process of figuring out how to make the first three work together. Once DS emulation starts up, I&#8217;ll go from there and see how to integrate it. Like I said, I don&#8217;t care who uses it or if it ever gets noticed on the scene; emu-dev is a hobby and a passion now. </p>
+<p>For anyone interested, all my progress starts with <a href="https://web.archive.org/web/20150428041044/https:/github.com/shonumi/gbe-plus">GB Enhanced+</a> or just GBE+ for short. The old GBE project is dead, long live the GBE+ project. It&#8217;s the same as the old project (custom tile replacement) just with better code and a GUI (no more CLI only) and it&#8217;s going to be the base for everything else I want to do.</p>
+<p>Well, that&#8217;s all I got this time. Was it worth a 2 year wait for an update? I don&#8217;t know, but at least everyone knows I haven&#8217;t been sitting on my hands. We&#8217;ll see how and where things go from here ;)</p>
+			<div class="fixed"></div>
+		</div>
+		<div class="under">
+			<span class="categories">Categories: </span><span><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/category/emu-dev/" title="View all posts in Emulation Development" rel="category tag">Emulation Development</a></span>			<span class="tags">Tags: </span><span></span>		</div>
+	</div>
+
+	<!-- related posts START -->
+		<!-- related posts END -->
+
+	<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/themes/inove/js/comment.js"></script>
+
+
+
+<div id="comments">
+
+<div id="cmtswitcher">
+			<a id="commenttab" class="curtab" href="javascript:void(0);" onclick="MGJS.switchTab('thecomments,commentnavi', 'thetrackbacks', 'commenttab', 'curtab', 'trackbacktab', 'tab');">Comments (0)</a>
+		<a id="trackbacktab" class="tab" href="javascript:void(0);" onclick="MGJS.switchTab('thetrackbacks', 'thecomments,commentnavi', 'trackbacktab', 'curtab', 'commenttab', 'tab');">Trackbacks (0)</a>
+				<span class="addcomment"><a href="index.html#respond">Leave a comment</a></span>
+				<span class="addtrackback"><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2015/04/19/emulating-the-gba/trackback/">Trackback</a></span>
+		<div class="fixed"></div>
+</div>
+
+<div id="commentlist">
+	<!-- comments START -->
+	<ol id="thecomments">
+			<li class="messagebox">
+			No comments yet.		</li>
+		</ol>
+	<!-- comments END -->
+
+
+	<!-- trackbacks START -->
+			<ol id="thetrackbacks">
+							<li class="messagebox">
+					No trackbacks yet.				</li>
+
+					</ol>
+		<div class="fixed"></div>
+	<!-- trackbacks END -->
+</div>
+
+</div>
+
+	<form action="https://web.archive.org/web/20150428041044/http://6bit.net/shonumi/wp-comments-post.php" method="post" id="commentform">
+	<div id="respond">
+
+					
+			<div id="author_info">
+				<div class="row">
+					<input type="text" name="author" id="author" class="textfield" value="" size="24" tabindex="1"/>
+					<label for="author" class="small">Name (required)</label>
+				</div>
+				<div class="row">
+					<input type="text" name="email" id="email" class="textfield" value="" size="24" tabindex="2"/>
+					<label for="email" class="small">E-Mail (will not be published) (required)</label>
+				</div>
+				<div class="row">
+					<input type="text" name="url" id="url" class="textfield" value="" size="24" tabindex="3"/>
+					<label for="url" class="small">Website</label>
+				</div>
+			</div>
+
+			
+		
+		<!-- comment input -->
+		<div class="row">
+			<textarea name="comment" id="comment" tabindex="4" rows="8" cols="50"></textarea>
+		</div>
+
+		<!-- comment submit and rss -->
+		<div id="submitbox">
+			<a class="feed" href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/comments/feed/">Subscribe to comments feed</a>
+			<div class="submitbutton">
+				<input name="submit" type="submit" id="submit" class="button" tabindex="5" value="Submit Comment"/>
+			</div>
+						<input type="hidden" name="comment_post_ID" value="117"/>
+			<div class="fixed"></div>
+		</div>
+
+	</div>
+		</form>
+
+	
+
+	<div id="postnavi">
+		<span class="prev"></span>
+		<span class="next"><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2013/07/18/emulating-game-boy-games-with-customcolorized-sprites/" rel="prev">Emulating Game Boy Games With Custom/Colorized Sprites</a></span>
+		<div class="fixed"></div>
+	</div>
+
+
+	</div>
+	<!-- main END -->
+
+	
+<!-- sidebar START -->
+<div id="sidebar">
+
+<!-- sidebar north START -->
+<div id="northsidebar" class="sidebar">
+
+	<!-- feeds -->
+	<div class="widget widget_feeds">
+		<div class="content">
+			<div id="subscribe">
+				<a rel="external nofollow" id="feedrss" title="Subscribe to this blog..." href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/feed/"><abbr title="Really Simple Syndication">RSS</abbr></a>
+									<ul id="feed_readers">
+						<li id="google_reader"><a rel="external nofollow" class="reader" title="Subscribe with Google" href="https://web.archive.org/web/20150428041044/http:/fusion.google.com/add?feedurl=http://6bit.net/shonumi/feed/"><span>Google</span></a></li>
+						<li id="youdao_reader"><a rel="external nofollow" class="reader" title="Subscribe with Youdao" href="https://web.archive.org/web/20150428041044/http:/reader.youdao.com/#url=http:/6bit.net/shonumi/feed/"><span>Youdao</span></a></li>
+						<li id="xianguo_reader"><a rel="external nofollow" class="reader" title="Subscribe with Xian Guo" href="https://web.archive.org/web/20150428041044/http:/www.xianguo.com/subscribe.php?url=http://6bit.net/shonumi/feed/"><span>Xian Guo</span></a></li>
+						<li id="zhuaxia_reader"><a rel="external nofollow" class="reader" title="Subscribe with Zhua Xia" href="https://web.archive.org/web/20150428041044/http:/www.zhuaxia.com/add_channel.php?url=http://6bit.net/shonumi/feed/"><span>Zhua Xia</span></a></li>
+						<li id="yahoo_reader"><a rel="external nofollow" class="reader" title="Subscribe with My Yahoo!" href="https://web.archive.org/web/20150428041044/http:/add.my.yahoo.com/rss?url=http://6bit.net/shonumi/feed/"><span>My Yahoo!</span></a></li>
+						<li id="newsgator_reader"><a rel="external nofollow" class="reader" title="Subscribe with newsgator" href="https://web.archive.org/web/20150428041044/http:/www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://6bit.net/shonumi/feed/"><span>newsgator</span></a></li>
+						<li id="bloglines_reader"><a rel="external nofollow" class="reader" title="Subscribe with Bloglines" href="https://web.archive.org/web/20150428041044/http:/www.bloglines.com/sub/http:/6bit.net/shonumi/feed/"><span>Bloglines</span></a></li>
+						<li id="inezha_reader"><a rel="external nofollow" class="reader" title="Subscribe with iNezha" href="https://web.archive.org/web/20150428041044/http:/inezha.com/add?url=http://6bit.net/shonumi/feed/"><span>iNezha</span></a></li>
+					</ul>
+							</div>
+						<div class="fixed"></div>
+		</div>
+	</div>
+
+	<!-- showcase -->
+	
+<div id="text-2" class="widget widget_text">			<div class="textwidget"><div class="sidebar_ad"></div></div>
+		</div><div id="meta-2" class="widget widget_meta"><h3>Meta</h3>			<ul>
+						<li><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/wp-login.php">Log in</a></li>
+			<li><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/feed/" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://web.archive.org/web/20150428041044/http:/wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>
+						</ul>
+</div></div>
+<!-- sidebar north END -->
+
+<div id="centersidebar">
+
+	<!-- sidebar east START -->
+	<div id="eastsidebar" class="sidebar">
+	
+		<!-- categories -->
+		<div class="widget widget_categories">
+			<h3>Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-3"><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/category/emu-dev/" title="View all posts filed under Emulation Development">Emulation Development</a>
+</li>
+			</ul>
+		</div>
+
+		</div>
+	<!-- sidebar east END -->
+
+	<!-- sidebar west START -->
+	<div id="westsidebar" class="sidebar">
+	
+		<!-- blogroll -->
+		<div class="widget widget_links">
+			<h3>Blogroll</h3>
+			<ul>
+				<li><a href="https://web.archive.org/web/20150428041044/http:/codex.wordpress.org/">Documentation</a></li>
+<li><a href="https://web.archive.org/web/20150428041044/http:/wordpress.org/extend/plugins/">Plugins</a></li>
+<li><a href="https://web.archive.org/web/20150428041044/http:/wordpress.org/extend/ideas/">Suggest Ideas</a></li>
+<li><a href="https://web.archive.org/web/20150428041044/http:/wordpress.org/support/">Support Forum</a></li>
+<li><a href="https://web.archive.org/web/20150428041044/http:/wordpress.org/extend/themes/">Themes</a></li>
+<li><a href="https://web.archive.org/web/20150428041044/http:/wordpress.org/news/">WordPress Blog</a></li>
+<li><a href="https://web.archive.org/web/20150428041044/http:/planet.wordpress.org/">WordPress Planet</a></li>
+			</ul>
+		</div>
+
+		</div>
+	<!-- sidebar west END -->
+	<div class="fixed"></div>
+</div>
+
+<!-- sidebar south START -->
+<div id="southsidebar" class="sidebar">
+
+	<!-- archives -->
+	<div class="widget">
+		<h3>Archives</h3>
+					<ul>
+					<li><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2015/04/" title="April 2015">April 2015</a></li>
+	<li><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2013/07/" title="July 2013">July 2013</a></li>
+	<li><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2013/04/" title="April 2013">April 2013</a></li>
+	<li><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2013/03/" title="March 2013">March 2013</a></li>
+	<li><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/2013/02/" title="February 2013">February 2013</a></li>
+			</ul>
+			</div>
+
+	<!-- meta -->
+	<div class="widget">
+		<h3>Meta</h3>
+		<ul>
+						<li><a href="https://web.archive.org/web/20150428041044/http:/6bit.net/shonumi/wp-login.php">Log in</a></li>
+		</ul>
+	</div>
+
+</div>
+<!-- sidebar south END -->
+
+</div>
+<!-- sidebar END -->
+	<div class="fixed"></div>
+</div>
+<!-- content END -->
+
+<!-- footer START -->
+<div id="footer">
+	<a id="gotop" href="index.html#" onclick="MGJS.goTop();return false;">Top</a>
+	<a id="powered" href="https://web.archive.org/web/20150428041044/http:/wordpress.org/">WordPress</a>
+	<div id="copyright">
+		Copyright &copy; 2013-2015 Shonumi&#039;s Blog	</div>
+	<div id="themeinfo">
+		Valid <a href="https://web.archive.org/web/20150428041044/http:/validator.w3.org/check?uri=referer">XHTML 1.1</a> and <a href="https://web.archive.org/web/20150428041044/http:/jigsaw.w3.org/css-validator/check/referer?profile=css3">CSS 3</a>.	</div>
+</div>
+<!-- footer END -->
+
+</div>
+<!-- container END -->
+</div>
+<!-- wrap END -->
+
+<p><a href="https://web.archive.org/web/20150428041044/http:/www.bad-behavior.ioerror.us/">Bad Behavior</a> has blocked <strong>13</strong> access attempts in the last 7 days.</p><script type="text/javascript">slimstat_tid='e5c8';slimstat_path='https://web.archive.org/web/20150428041044/http://6bit.net/shonumi/wp-content/plugins/wp-slimstat';slimstat_blog_id='5';slimstat_session_id='b198ce1db574d9ecab87849f5bc22f1d';</script><script type="text/javascript">
+/* <![CDATA[ */
+window.CKEDITOR_BASEPATH = "https://web.archive.org/web/20150428041044/http://6bit.net/shonumi/wp-content/plugins/ckeditor-for-wordpress/ckeditor/";
+var ckeditorSettings = { "textarea_id": "comment", "pluginPath": "https:\/\/web.archive.org\/web\/20150428041044\/http:\/\/6bit.net\/shonumi\/wp-content\/plugins\/ckeditor-for-wordpress\/", "autostart": true, "qtransEnabled": false, "outputFormat": { "indent": true, "breakBeforeOpen": true, "breakAfterOpen": false, "breakBeforeClose": false, "breakAfterClose": true }, "configuration": { "height": "120px", "skin": "kama", "scayt_autoStartup": false, "entities": true, "entities_greek": true, "entities_latin": true, "toolbar": "WordpressBasic", "templates_files": [ "https:\/\/web.archive.org\/web\/20150428041044\/http:\/\/6bit.net\/shonumi\/wp-content\/plugins\/ckeditor-for-wordpress\/ckeditor.templates.js" ], "contentsCss": [ "" ], "stylesCombo_stylesSet": "wordpress:http:\/\/6bit.net\/shonumi\/wp-content\/themes\/inove\/ckeditor.styles.js", "customConfig": "https:\/\/web.archive.org\/web\/20150428041044\/http:\/\/6bit.net\/shonumi\/wp-content\/plugins\/ckeditor-for-wordpress\/ckeditor.config.js" }, "externalPlugins": [  ], "additionalButtons": [  ] }
+/* ]]> */
+</script>        <style type="text/css">
+            #content table.cke_editor { margin:0; }
+            #content table.cke_editor tr td { padding:0;border:0; }
+        </style>
+        <script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-content/plugins/wp-slimstat/wp-slimstat.js?ver=3.5.1"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/platform.twitter.com/widgets.js?ver=3.5.1"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/apis.google.com/js/plusone.js?ver=3.5.1"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/platform.linkedin.com/in.js?ver=3.5.1"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-includes/js/jquery/ui/jquery.ui.core.min.js?ver=1.9.2"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20150428041044js_/http:/6bit.net/shonumi/wp-includes/js/jquery/ui/jquery.ui.datepicker.min.js?ver=1.9.2"></script>
+
+</body>
+</html>
+
+<!--
+     FILE ARCHIVED ON 04:10:44 Apr 28, 2015 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 13:38:54 Jan 24, 2021.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 90.003
+  exclusion.robots.policy: 0.481
+  RedisCDXSource: 0.879
+  exclusion.robots: 0.5
+  esindex: 0.016
+  PetaboxLoader3.resolve: 26.444
+  load_resource: 42.554
+  CDXLines.iter: 23.063 (3)
+  PetaboxLoader3.datanode: 72.96 (4)
+  LoadShardBlock: 60.516 (3)
+-->

@@ -1,0 +1,1885 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=GB2312">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="https://docs.huihoo.com/media/gba/filelist.xml">
+<link rel=Edit-Time-Data href="https://docs.huihoo.com/media/gba/editdata.mso">
+<link rel=OLE-Object-Data href="https://docs.huihoo.com/media/gba/oledata.mso">
+<!--[if !mso]>
+<style>v\:* {behavior:url("gbago.htm#default%23VML");}
+o\:* {behavior:url("gbago.htm#default%23VML");}
+w\:* {behavior:url("gbago.htm#default%23VML");}
+.shape {behavior:url("gbago.htm#default%23VML");}
+</style>
+<![endif]-->
+<title>GBA程序开发入门</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:LastAuthor>soft</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2003-03-23T02:18:00Z</o:Created>
+  <o:LastSaved>2003-03-23T02:18:00Z</o:LastSaved>
+  <o:Pages>5</o:Pages>
+  <o:Words>991</o:Words>
+  <o:Characters>5654</o:Characters>
+  <o:Company>goldpoint</o:Company>
+  <o:Lines>47</o:Lines>
+  <o:Paragraphs>11</o:Paragraphs>
+  <o:CharactersWithSpaces>6943</o:CharactersWithSpaces>
+  <o:Version>9.2812</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:DoNotShowRevisions/>
+  <w:DoNotPrintRevisions/>
+  <w:HyphenationZone>0</w:HyphenationZone>
+  <w:DoNotHyphenateCaps/>
+  <w:DrawingGridHorizontalSpacing>0 磅</w:DrawingGridHorizontalSpacing>
+  <w:DrawingGridVerticalSpacing>0 磅</w:DrawingGridVerticalSpacing>
+  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
+  <w:UseMarginsForDrawingGridOrigin/>
+  <w:DrawingGridHorizontalOrigin>0 磅</w:DrawingGridHorizontalOrigin>
+  <w:DrawingGridVerticalOrigin>0 磅</w:DrawingGridVerticalOrigin>
+  <w:DoNotShadeFormData/>
+  <w:Compatibility>
+   <w:SpaceForUL/>
+   <w:BalanceSingleByteDoubleByteWidth/>
+   <w:DoNotLeaveBackslashAlone/>
+   <w:ULTrailSpace/>
+   <w:DoNotExpandShiftReturn/>
+   <w:UsePrinterMetrics/>
+   <w:WW6BorderRules/>
+   <w:FootnoteLayoutLikeWW8/>
+   <w:ShapeLayoutLikeWW8/>
+   <w:AlignTablesRowByRow/>
+   <w:ForgetLastTabAlignment/>
+   <w:AutoSpaceLikeWord95/>
+   <w:LayoutRawTableWidth/>
+   <w:LayoutTableRowsApart/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:宋体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:SimSun;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:553679495 -2147483648 8 0 66047 0;}
+@font-face
+	{font-family:"\@宋体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:none;
+	mso-layout-grid-align:none;
+	font-size:10.5pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:宋体;}
+ /* Page Definitions */
+@page
+	{mso-page-border-surround-header:no;
+	mso-page-border-surround-footer:no;
+	mso-footnote-position:end-of-section;
+	mso-endnote-position:end-of-section;
+	mso-endnote-numbering-style:arabic;
+	mso-endnote-numbering-start:0;}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:42.55pt;
+	mso-footer-margin:49.6pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body lang=ZH-CN style='tab-interval:36.0pt'>
+
+<div class=Section1>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span></b><b><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>程序开发入门<span lang=EN-US><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></span></span></b><b><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>1.GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>简介</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Game Boy
+Advanced(GBA)</span><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>是日本任天堂公司于</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>2001</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>年推出的一款</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>32</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>位掌上游戏机</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>它着重于游戏机的便携式</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>并且以</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>2D</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>游戏为主</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>(3D</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>游戏依然不错</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>).GBA</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>有十分高效硬件图像处理加速</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>基本上是现在全球公认的最佳的掌上游戏机</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的硬件功能十分多</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>它的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>CPU</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>是以</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>RISC</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>为基础的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>32</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>位</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ARM CPU,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>主频是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>16.78MHz.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>屏幕最大支持</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>240x160</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>16</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>位真彩色显示</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>在图形处理方面</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>还另外提供了硬件加速</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>支持硬件上的图形旋转</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>缩放</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,alpha</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>混合</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,face in/out</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>淡入淡出等</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的软件开发主要是以</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>语言为主</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>程序设计简单而且十分自由</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>也正是这一点吸引了许多爱好者在</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>上做东西</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>(</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>不一定是游戏</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>).</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>你完全可以把它做成</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>PDA,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>做成</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Mp3</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>播放器</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>(</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>它的声音处理方面能力也不错哦</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>),</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>做成随身电影播放齐</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>做成电子词典等</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>只要你有能力设计它的软件</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>比如</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>azhong</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>的主页</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman";color:black'>http://huangyz2002abcd.nease.net/</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma;color:black'>上就有他写的</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";
+color:black'>WORDBOY</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:black'>字典软件</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:black'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma;color:black'>还有</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";
+color:black'>MUSIC PLAYER GBA</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:black'>的音乐播放器<span
+lang=EN-US>,能让GBA变身Mp3播放器.</span></span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";
+color:black'>VideoGBA,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:black'>能把图片转换成</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:black'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma;color:black'>影片的工具</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";
+color:black'>.</span><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma;color:black'>不过要制做它的电影有点困难<span
+lang=EN-US>.这里提供一部已经做来的,&lt;&lt;黑客帝国&gt;&gt;的片断下载:
+http://213.30.21.181/web/down/show.asp?id=40&amp;down=1<o:p></o:p></span></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma;color:black'>在<span lang=EN-US>http://readboy.nease.net/上还可以找到READBOY,GBA上的读书软件,这个软件做得很不错,除了看书,甚至还可以浏览图片.<o:p></o:p></span></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:186pt;
+ height:154.5pt' o:ole="">
+ <v:imagedata src="image001.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=248 height=206
+src="https://docs.huihoo.com/media/gba/image002.jpg" v:shapes="_x0000_i1025"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1109919853">
+ </o:OLEObject>
+</xml><![endif]--><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>不说多了</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>我们还是主要来看看如何开发</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>的软件</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>应该说</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>你只要会点</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>C</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>语言</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>就可以进入</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>的开发行列中了</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>在</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>上写程序比在电脑上写程序更简单</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>是单总线的设计</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>也就是说通过简单的读写命令就能完成所有的内部硬件操作</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>访问</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>内部的寄存器就犹如访问一块内存一样简单</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>而</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>所有的功能都是通过读写寄存器而完成的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>2.GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>程序开发准备</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>开发所需要的东西除了一台可以用的电脑外</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>主要就是一个编译器和一个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>模拟器</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>有了</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>GBA</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>模拟器</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>你就可以在你的电脑上运行</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>程序了</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>模拟器应该是到处可以找得到的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>我推荐的是</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>VisualBoyAdvance.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>你可以在</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>www.gbadev.org</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>上下载最新的版本</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>如果你还想把你的程序弄到</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>机器上玩</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>那么除了应该有个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>外</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>还应该有个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ROM</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>烧录器</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>比如</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>EZ-Flash.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>通过它可以把电脑上的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ROM</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>烧录到</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>卡带上</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>然后放到</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>上运行</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.(</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>总共一个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>加一个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>128MB</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>EZ-Flash</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>大概是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>1000</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>元人民币</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>程序开发可以用汇编语言和</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C/C++</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>语言来写程序</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>不过汇编语言比较复杂</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>而且不是我们平常使用</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>8086</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>汇编</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>而是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Arm</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>汇编</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>任天堂公司可能觉得</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C++</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>程序运行消耗太大</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>不推荐</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C++</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>语言来开发</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>所以我们都一直将</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>语言作为首选</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>开发所用的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>语言编译器主要有两种</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>一种是免费的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>gcc,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>一种是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Arm</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>公司提供的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ArmSDT.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>这里的</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>gcc</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>当然不是简单的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>linux</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>下的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>gcc,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>而是</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>Arm Gcc.</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>简单地说就是把我们平时常见的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>gcc</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>改造成生成</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>ARM CPU</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>代码的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>gcc.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>你可能会问难道我们要使用</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>linux</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>操作系统了吗</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>?</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>其实我们还是在</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>windows</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>下做</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>开发</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>虽然</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>gcc</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>主要是在</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>linux</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>下的东西</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>但是我们也可以从</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>cygwin(</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>在</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>windows</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>下模拟</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>UNIX</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>的工具</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>)</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>中得到在</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>windows</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>下运行的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>gcc.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>你可以根据这个</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>cygwin</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>下的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>gcc,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>自己去配置</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>Arm Gcc,</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>也可以直接去下载个配置好了的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>Arm Gcc.</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>比如</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>DevKitAdv,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>你可以到</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>http://www.gbadev.org
+</span><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;
+mso-hansi-font-family:Tahoma'>去下载这个软件</span><span lang=EN-US style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.DevKitAdv</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>大概</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>10</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>多</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>MB.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>有了它</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>你用不着去找什么</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>cygwin(200-300MB)</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>和配置什么</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Arm Gcc</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>了</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,DevKitAdv</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>已经帮你做好了一切</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>你只需安装它就</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>OK</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>了</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ArmSDT</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Arm</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>公司提供的专门为</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ARM CPU</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的开发程序的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>语言编译器</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>前面说过</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>是采用</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>32</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>位的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ARM CPU,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>所以这个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ArmSDT</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>是可以用来开发</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>程序的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>而且由于</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ArmSDT</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ARM</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>公司官方的开发包</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>所以它的编译速度和质量上都比免费的</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>gcc</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>要高</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>但对</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>语言的支持也不及</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>gcc</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>好</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>(gcc</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>毕竟已经成了</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>语言编译器的标准</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>),</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>最关键的问题它不是免费的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>但是它的免费测试版还是可以用的</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>你可以到</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Arm</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>公司的网站去下载</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>ARMSDT2.51.
+http://www.arm.com <o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>我以</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>DevkitAdv</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>配置的</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>gcc</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>为主还讲解</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>的程序开发</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>安装</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>DevKitAdv</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>很简单</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>用</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>WinZip</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>或</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>WinRAR</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>软件解压下载文件后</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>双击</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>DKA_Setup.exe,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>出现下面的对话框</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>选择安装目录</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>然后点击</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>&quot;Install&quot;</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>就进行安装了</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>整个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>DevKitAdv</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>共</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>49MB,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>应该是十分小的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:宋体;
+mso-hansi-font-family:Tahoma'><!--[if gte vml 1]><v:shape id="_x0000_i1026"
+ type="#_x0000_t75" style='width:324.75pt;height:220.5pt' o:ole="">
+ <v:imagedata src="image003.gif" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=433 height=294
+src="https://docs.huihoo.com/media/gba/image003.gif" v:shapes="_x0000_i1026"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1026"
+  DrawAspect="Content" ObjectID="_1109919857">
+ </o:OLEObject>
+</xml><![endif]--></span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>编译器和模拟器都装好后</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>下面我们需要一批小工具</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>主要就是帮我们转换图片</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>声音等数据</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>程序编译后通常都是一个</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>rom</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>文件</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>图像和声音等数据都是包含在主程序里的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>这些工具能把我们电脑上的图片或声音文件转换成一个</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>*.h</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>头文件</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>然后包含在主程序里编译</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>关于这种转换工具也是有许多</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>我推荐的图形转换工具是</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>kaleid_1-2-3,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>在</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>http://www.gbadev.org</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>上下载</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>它可以转换我们平时用的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>BMP</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>文件</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>声音转换工具是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>wav2gbac.exe,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>也是在</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>http://www.gbadev.org</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>下载</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>它可以转换我们平时用的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>WAV</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>文件</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>好了</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>下载完后这两个小工具后</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>准备工作就算做完了</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>3.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>第一个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>程序</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>现在我们开始我们的第一个</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>程序</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>在这个程序中我们将在屏幕上显示一张的图片</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>首先你建立一张</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>240*160</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>大小</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,256</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>色的</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>bmp</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>图片</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>比如这样</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:宋体;
+mso-hansi-font-family:Tahoma'><!--[if gte vml 1]><v:shape id="_x0000_i1027"
+ type="#_x0000_t75" style='width:180pt;height:120pt' o:ole="">
+ <v:imagedata src="image004.gif" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=240 height=160
+src="https://docs.huihoo.com/media/gba/image004.gif" v:shapes="_x0000_i1027"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1027"
+  DrawAspect="Content" ObjectID="_1109919860">
+ </o:OLEObject>
+</xml><![endif]--></span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>名字就叫</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>helloworld.bmp.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>打开刚才下载的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>Kaleid_1-2-3</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>程序</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>选中菜单</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>File</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>中</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Open,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>打开这个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>helloworld.bmp</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>文件</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>再选中菜单</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>File</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>中</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Convert and
+Save.</span><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:
+宋体;mso-hansi-font-family:Tahoma'>出现对话框</span><span lang=EN-US style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:宋体;
+mso-hansi-font-family:Tahoma'><!--[if gte vml 1]><v:shape id="_x0000_i1028"
+ type="#_x0000_t75" style='width:567.75pt;height:395.25pt' o:ole="">
+ <v:imagedata src="image005.gif" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=757 height=527
+src="https://docs.huihoo.com/media/gba/image005.gif" v:shapes="_x0000_i1028"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1028"
+  DrawAspect="Content" ObjectID="_1109919864">
+ </o:OLEObject>
+</xml><![endif]--></span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>如图一样选择各项选择</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>特别注意的是一定要选择</span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>&quot;BitMap
+Graphics(Mode 4)&quot;</span></b><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>和</span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>&quot;Save
+As C Source&quot;</span></b><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>并且<b style='mso-bidi-font-weight:normal'>去掉</b></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>&quot;#include
+&lt;agbtypes.h&gt;</span></b><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>的选择</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>.</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>最后单击</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>&quot;Convert and Save&quot;,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>保存为</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>helloworld.h<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>图像数据已经转换好了</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>接着我们开始写代码</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>建立个</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>main.c</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>的文件</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>并把</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>helloworld.h</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>放在一个目录下</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>然后在</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>main.c</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>中写下代码</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>typedef
+unsigned char</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'> u8;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>typedef
+unsigned short </span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>u16;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>typedef
+unsigned long </span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>u32;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'> REG_DISPCNT *(u16*)0x04000000<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>显示寄存器地址</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>VRAM 0x06000000<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>图像缓冲区地址</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>PALETTE 0x5000000<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>调色板地址</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>MODE_4 0x04<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='mso-tab-count:
+1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// mode4</span></span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;
+color:green'>标志</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>BG2_ENABLE 0x0400<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// BG_2</span></span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;
+color:green'>标志</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>SetMode(Mode)
+REG_DISPCNT=(Mode)<span style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>设置显示模式的宏定义</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#include
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>&quot;helloworld.h&quot;<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span><span style='mso-tab-count:
+1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>包含图像调色板和数据的头文件</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>u16*
+palette_mem=(u16*)PALETTE;<span style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>系统调色板</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>u16*
+video_buffer=(u16*)VRAM;<span style='mso-tab-count:1'>&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>图像缓冲区</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>void</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'> Draw(u16* src_palette,u16*
+src_data,u16* dst_palette,u16* dst_data);<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>int</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'> main()<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>设置屏幕模式</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma;color:green'>这里使用</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";
+color:green'>MODE_4<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>SetMode
+(MODE_4 | BG2_ENABLE); <o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// helloworld_pal</span></span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;
+color:green'>和</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:green'>helloworld_gfx</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma;color:green'>是在</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";
+color:green'>&quot;helloworld.h&quot;</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;
+color:green'>定义的调色板和图像数据数组名</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";
+color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Draw((u16*)helloworld_pal,(u16*)helloworld_gfx,palette_mem,video_buffer);<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>死循环</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>while(1)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{
+;}<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>}<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:green'>//
+MODE_4</span><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:
+宋体;mso-hansi-font-family:Tahoma;color:green'>绘图函数</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>void</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'> Draw(u16* src_palette,u16*
+src_data,u16* dst_palette,u16* dst_data)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:blue'>int</span> loop,x,y;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>写入目的调色板</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:green'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:blue'>for</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>(loop = 0; loop &lt; 256; loop++)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>dst_palette[loop] = src_palette[loop];<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>写入图像缓冲区</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:blue'>for</span>(x = 0; x &lt; 120; x++)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style="mso-spacerun: yes">&nbsp;</span><span style='color:blue'>for</span>(y =
+0; y &lt; 160; y++)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style="mso-spacerun: yes">&nbsp; </span>dst_data[(y) *120 + (x)]=src_data[(y)
+*120 + (x)];<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>}<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>最后建立一个编译批处理命令</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>make.bat</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>来帮我们编译生成目标代码</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>写入下面的命令到一个新建的</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>make.bat</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>文件里面</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>PATH=C:\devkitadv\bin;%PATH%<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>gcc -lm -o
+main.elf main.c <o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>objcopy -v -O
+binary main.elf main.bin <o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>pause<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>如果你的</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>devkitadv</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>是在</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>D</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>盘</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>那么就应该是</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>PATH=D:\devkitadv\bin;%PATH%,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>我这里的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>DevKitAdv</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>是安装在</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>C</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>盘的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>执行</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>make.bat,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>如果没有错误的话就可以得到编译出来的</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>main.bin</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>和</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>main.elf.
+main.bin</span><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>就是可以运行的</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>GBA</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>的</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>rom.</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>你可以用的模拟器</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>VisualBoyAdvance</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>来打开运行它</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>或者烧录到</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>卡带上运行</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>这是在模拟器</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>VisualBoyAdvance</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>中运行的结果</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:宋体;
+mso-hansi-font-family:Tahoma'><!--[if gte vml 1]><v:shape id="_x0000_i1029"
+ type="#_x0000_t75" style='width:195.75pt;height:164.25pt' o:ole="">
+ <v:imagedata src="image006.gif" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=261 height=219
+src="https://docs.huihoo.com/media/gba/image006.gif" v:shapes="_x0000_i1029"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1029"
+  DrawAspect="Content" ObjectID="_1109919867">
+ </o:OLEObject>
+</xml><![endif]--></span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>下面我将一一讲解上面的程序</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>前三行</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>typedef
+unsigned char</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'> u8;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>typedef
+unsigned short </span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>u16;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>typedef
+unsigned long </span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>u32;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>定义</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>GBA</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>程序自己的数据类型</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>因为这样我们就很容易知道每个数据在</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>GBA</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>中占的字节数</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'> REG_DISPCNT *(u16*)0x04000000<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>显示寄存器地址</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>REG_DISPCNT</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>是设置显示模式的寄存器</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>中有</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>mode0-mode5</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>六个显示模式</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>我们这个程序的显示模式是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>mode4,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>也就是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>240x160</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>8</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>位色</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>(256</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>色</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>)</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的双缓冲显示模式</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>比如</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>mode3,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>就是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>240x160</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>16</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>位真彩色的单缓冲显示模式</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>VRAM 0x06000000<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>图像缓冲区地址</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>PALETTE 0x5000000<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// </span></span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:green'>调色板地址</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:green'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>VRAM</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>就是</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>GBA</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的显示内存</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>简单地说</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>VRAM</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>中的数据就是屏幕上的图象</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>跟我们的平常用的计算机一样的</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.PALETTE</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>就是<span style='color:black'>调色板地址</span></span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman";color:black'>,</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;color:black'>简单地说就是装图像调色板的地方</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman";color:black'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>MODE_4 0x04<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='mso-tab-count:
+1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// mode4</span></span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;
+color:green'>标志</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>#define
+</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>BG2_ENABLE 0x0400<span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:green'>// BG_2</span></span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;
+color:green'>标志</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>MODE_4</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>和</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>BG2_ENABLE</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>都是设置</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>REG_DISPCNT</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的值</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>我们再看看</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>main</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>函数主要做了些什么</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>首先是</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>SetMode (MODE_4 | BG2_ENABLE); </span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>把显示模式设置成</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>mode_4.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>然后是执行</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Draw</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>函数</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>把我们刚刚转换的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>helloworld.h</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>里面的图像数据和调色板数据复制指定的内存去</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>在</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>Draw</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>这个函数里面</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>都是使用了</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>for</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>循环一个一个地把调色板数据和图象数据复制到内存中去的</span><span lang=EN-US style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>前面提到过</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>,GBA</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>中</span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'>MODE4</span><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>支持的是</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>240*160</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>并且</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>256</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>色的显示方式</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>那么显示内存</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>VRAM</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>中一个字节就对应屏幕上的一点的颜色</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>这么算来</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>整张</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>240*160</span><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>大小的屏幕就应该有</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>240*160=38400</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>个字节</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>所以我们在</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>helloworld.h</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>中的</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>helloworld_gfx</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>有</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>38400/2=19200</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>个元素</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>(</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>一个</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>u16</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>是占两个字节</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>).</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>而且我们还可以通过公式来计算得到屏幕中一点对应在</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>VRAM</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>的地址</span><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><span
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:
+Tahoma'>这样就可以得到下面的写点函数</span><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>.</span><b
+style='mso-bidi-font-weight:normal'><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>特别指出的是</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span></b><b
+style='mso-bidi-font-weight:normal'><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>对于</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>VRAM</span></b><b
+style='mso-bidi-font-weight:normal'><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>的访问只能是</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>u16</span></b><b
+style='mso-bidi-font-weight:normal'><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>大小的数据类型</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>,</span></b><b
+style='mso-bidi-font-weight:normal'><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>而不能是</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>u8(</span></b><b
+style='mso-bidi-font-weight:normal'><span style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>包括</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";
+color:blue'>char</span></b><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>).</span></b><span style='font-size:
+9.0pt;mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>而一个</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>u16</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>类型的数据表示着两个点的信息</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>低</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>8</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>位对应的是前面的点</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>高</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>8</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>位对应的是后面的点</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>.<b style='mso-bidi-font-weight:normal'>
+</b></span><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:
+宋体;mso-hansi-font-family:Tahoma'>所以我们需要一些算法来实现对屏幕中单独一个点的读写</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'>,</span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>请看下面的写点函数</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman";color:blue'>void</span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'> SetPixel(<span style='color:blue'>int</span>
+x,<span style='color:blue'>int</span> y,u8 color)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:blue'>register</span> u16 *tc; <o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span><span style='mso-tab-count:
+1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>tc= video_buffer+y*120+x/2;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:blue'>if</span>(x&amp;1)<span style="mso-spacerun: yes">&nbsp;
+</span><span style='color:green'>// </span></span><span style='font-size:9.0pt;
+mso-bidi-font-size:10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma;
+color:green'>如果<span lang=EN-US>x是奇数</span></span><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;mso-bidi-font-family:
+"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style="mso-spacerun: yes">&nbsp;</span><span style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>*tc=((*tc&amp;0x00FF)+(color&lt;&lt;8));
+<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span><span style='mso-tab-count:
+1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='color:blue'>else</span> <o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='mso-tab-count:1'>&nbsp;&nbsp; </span><span style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>*tc=(*tc&amp;0xFF00)+color;
+<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'>}<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>其中<span lang=EN-US>video_buffer就是显示内存VRAM的地址.屏幕上的点与VRAM中的值是按线性一一对应的.VRAM中第1个字节的信息就是屏幕中(0,0)这个点的颜色在调色板上的引索,第2个字节就是屏幕(1,0)的颜色信息,第3个字节就是(2,0)的颜色信息,一次类推.到第241个字节就是屏幕(0,1)的颜色信息.然后第242就是(1,1)的信息...由此关系,我们可以找出公式,在屏幕上(x,y)点的信息应该是储存于VRAM中第
+y*240+x 个字节里,那么我们如果要画(x,y)这一点,就只需要修改VRAM中第y*240+x个字节的信息就OK了.可是这里又有个问题困扰着我们,那就是上面黑体字写的,GBA中对于VRAM的访问不能是单单的一个字节的访问,而必须是16位两个字节的访问.这也就是说你每次写点的同时会影响到旁边的点的信息.还好,我们可以通过简单的位运算可以在避开影响旁边点的同时,完成对(x,y)的写点工作.代码已经在上面了.由于*tc是16位的指针,所以tc加1就等于移动了16位两个字节的距离.所以在代码中,tc=video_buffer+
+y*120+ x/2 而不是前面所说的tc=video_buffer+ y*240 +x.至于后面的代码我也就不多讲了,如果你觉得有问题,那么应该去查看一下C语言书籍.<o:p></o:p></span></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:Tahoma;mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:9.0pt;mso-bidi-font-size:10.0pt;
+font-family:宋体;mso-hansi-font-family:Tahoma'>通过这个函数<span lang=EN-US>,你就可以在屏幕上画线,画圆,画矩型等,甚至还可以写汉字.<o:p></o:p></span></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>4.更多的资料和信息<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
+10.0pt;font-family:宋体;mso-hansi-font-family:Tahoma'>GBA上的mode4下第一个程序虽然做出来了,但是想要真正地做GBA开发那还远远不够的.GBA里面支持Bg(Background)背景,OBJ(Object)精灵等东西,那些才是GBA游戏中常用的技术.通过Bg和OBj才能进一步使用GBA硬件上的Alpha混合,Face
+in/out,马塞克等特效支持.可惜我不可能在这里把这些东西都详细讲解出来.你可以到www.gpgame.net网站上找到我写的十分详细的GBA资料,名字叫做GBA探索日记.同时也可以到www.gbadev.org去查看许多国外的教程.www.gbadev.org是个十分齐全的GBA开发网站,你可以在上面找很多国外的朋友写的demo,开发工具,源代码,文章等等.虽然目前国内还没有正式的GBA开发网站,但是可以到www.cgdn.net论坛上找到很多已经在做GBA开发的朋友.在这里我要提醒大家的是,开发GBA程序其实是很简单的事情,困难的是资料的缺乏,尤其是中文资料.最后我把我的联系方式告诉大家,如果大家在做GBA过程有什么问题,希望我能帮上你.QQ:8664220,email:<a href="https://docs.huihoo.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fe8a9f909992a1c7c7be8d91968bd09d9193">[email&#160;protected]</a>,msn:<a href="https://docs.huihoo.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6b2a7a8a1aa99ffff86b5a9aeb3e8a5a9ab">[email&#160;protected]</a></span><span
+lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+</div>
+
+<script data-cfasync="false" src="https://docs.huihoo.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+
+</html>

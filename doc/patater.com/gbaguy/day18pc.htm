@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 18</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 18</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Creating/Deleting Files</b></h2>
+<p style="color: green;"><pre><b>
+	See title, code code...
+
+<h2 align="center" style="color: LightCoral;"><b>Creating</b></h2>
+	A file is created with Function 3Ch of DOS Services Interrupt 21h. Here's some code to create
+a file called "elmo.txt":
+
+	;;---CODE START---;;
+		mov ah,3Ch
+		mov cx,0   ; no special file attributes
+		mov dx,offset filename
+		int 21h
+		mov ah,4Ch
+		int 21h
+
+		filename db "elmo.txt",0
+	;;---CODE END---;;
+
+Note that instead of exiting the program like is done above, you could take the file handle which is
+returned in AX by Functin 3Ch and write to your newly created file (created files are opened for writing).
+
+<h2 align="center" style="color: LightCoral;"><b>Deleting</b></h2>
+	Deleting is identical and is Function 41h. This will delete the file
+created by the previous program:
+
+	;;---CODE START---;;
+		mov ah,41h   ; different function this time.
+		mov dx,offset filename
+		int 21h
+		mov ah,4Ch
+		int 21h
+
+		filename db "elmo.txt",0
+	;;---CODE END---;;
+
+This is easy, isn't it?
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	I hope you're doing okay and not super crashing your comp!
+
+	Until Next Time,
+		- Mike H a.k.a GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day19pc.htm">Day 19</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

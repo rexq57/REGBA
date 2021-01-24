@@ -23,6 +23,8 @@
 		21C6FEF9255AD88400656E9C /* gba.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEF7255AD88400656E9C /* gba.c */; };
 		21C6FEFF255ADC6500656E9C /* bus.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FEFE255ADC6500656E9C /* bus.c */; };
 		21C6FF08255ADD1100656E9C /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C6FF07255ADD1100656E9C /* mem.c */; };
+		21FCC76725A977D40015238B /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = 21FCC76225A9755F0015238B /* log.c */; };
+		21FCC76C25A977D90015238B /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = 21FCC76225A9755F0015238B /* log.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -352,6 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21FCC76C25A977D90015238B /* log.c in Sources */,
 				21857C62255B9A0800DD6FA8 /* bus.c in Sources */,
 				21857C64255B9A0800DD6FA8 /* cpu.c in Sources */,
 				21857C66255B9A0800DD6FA8 /* mem.c in Sources */,
@@ -364,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21FCC76725A977D40015238B /* log.c in Sources */,
 				21C6FEFF255ADC6500656E9C /* bus.c in Sources */,
 				21C6FE62255ABAC500656E9C /* ViewController.m in Sources */,
 				21C6FF08255ADD1100656E9C /* mem.c in Sources */,

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 9 - A Moving Sprite Program - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 9 - A Moving Sprite Program</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>What?</h2>
+<p>Today isn't really a tutorial, it's more the solution to the suggestion made
+yesterday about a program that allows the user to move the sprite. I believe
+that we have infact covered everything necessary to make a Moving Sprite
+Program. So, the next section will be the complete code file, and that'll be
+all for today.</p>
+
+<h3>Da Code!</h3>
+<p><code class="block">
+    ;;--- CODE START ---;;
+    .inesprg 1
+    .inesmap 0
+    .inesmir 1
+    .ineschr 1</code></p>
+
+<pre><code>.bank 1
+.org $FFFA
+.dw 0        ; no VBlank
+.dw Start    ; address to execute on reset
+.dw 0        ; no whatever
+
+.bank 0
+.org $0000 X_Pos   .db 20       ; a X position for our sprite, start at 20 Y_Pos   .db 20       ; a Y position for our sprite, start at 20
+
+.org $8000  ; code starts at $8000 or $C000 Start:
+
+lda #%00001000  ;
+sta $2000       ;
+lda #%00011110  ; Our typical PPU Setup code.
+sta $2001       ;
+
+ldx #$00    ; clear X            ;; start of palette loading code
+
+lda #$3F    ; have $2006 tell
+sta $2006   ; $2007 to start
+lda #$00    ; at $3F00 (palette).
+sta $2006
+</code></pre>
+
+<p>loadpal:                ; this is a freaky loop
+    lda tilepal, x  ; that gives 32 numbers
+    sta $2007       ; to $2007, ending when
+    inx             ; X is 32, meaning we
+    cpx #32         ; are done.
+    bne loadpal     ; if X isn’t =32, goto “loadpal:” line.
+                                    ;; end of palette loading code</p>
+
+<p>infinite:  ; a label to start our infinite loop
+waitblank:
+    lda $2002  ; these 3 lines wait for VBlank, this loop will actually miss VBlank
+    bpl waitblank ; alot, in a later Day, I’ll give a better way.</p>
+
+<pre><code>lda #$00   ; these lines tell $2003
+sta $2003  ; to tell
+lda #$00   ; $2004 to start
+sta $2003  ; at $0000.
+
+lda Y_Pos  ; load Y value
+sta $2004 ; store Y value
+
+lda #$00  ; tile number 0
+sta $2004 ; store tile number
+
+lda #$00 ; no special junk
+sta $2004 ; store special junk
+
+lda X_Pos  ; load X value
+sta $2004 ; store X value
+; and yes, it MUST go in that order.
+
+lda #$01   ; these
+sta $4016  ; lines
+lda #$00   ; setup/strobe the
+sta $4016  ; keypad.
+
+lda $4016  ; load Abutton Status ; note that whatever we ain't interested
+lda $4016  ; load Bbutton Status ; in we just load so it'll go to the next one.
+lda $4016  ; load Select button status
+lda $4016  ; load Start button status
+lda $4016  ; load UP button status
+and #1     ; AND status with #1
+bne UPKEYdown  ; for some reason (not gonna reveal yet), need to use NotEquals
+;with ANDs. So it'll jump (branch) if key was down.
+
+lda $4016  ; load DOWN button status
+and #1     ; AND status with #1
+bne DOWNKEYdown
+
+lda $4016  ; load LEFT button status
+and #1     ; AND status with #1
+bne LEFTKEYdown
+
+lda $4016  ; load RIGHT button status
+and #1     ; AND status with #1
+bne RIGHTKEYdown
+jmp NOTHINGdown  ; if nothing was down, we just jump (no check for conditions)
+; down past the rest of everything.
+</code></pre>
+
+<p>UPKEYdown:
+    lda Y_Pos ; load A with Y position
+    sbc #1  ; subtract 1 from A. Only can do math on A register. SBC (Subtract with Borrow)
+    sta Y_Pos ; store back to memory
+    jmp NOTHINGdown  ; jump over the rest of the handling code.</p>
+
+<p>DOWNKEYdown:
+    lda Y_Pos
+    adc #1  ; add 1 to A. ADC (Add with Carry)((to A register))
+    sta Y_Pos
+    jmp NOTHINGdown ; jump over the rest of handling code.</p>
+
+<p>LEFTKEYdown:
+    lda X_Pos
+    sbc #1
+    sta X_Pos
+    jmp NOTHINGdown
+;the left and right handling code does the same as UP and Down except.. well.. with
+; left and right. :)</p>
+
+<p>RIGHTKEYdown:
+    lda X_Pos
+    adc #1
+    sta X_Pos
+    ; don’t need to jump to NOTHINGdown, it’s right below. Saved several bytes of
+    ; PRG-Bank space! :)</p>
+
+<p>NOTHINGdown:
+    jmp infinite</p>
+
+<p>tilepal:   .incbin “our.pal”  ; a label for our palette data</p>
+
+<pre><code>.bank 2
+.org $0000
+.incbin "our.bkg"
+.incbin "our.spr"
+</code></pre>
+
+<p>;;— END OF CODE FILE —;;
+&lt;/code&gt;</p>
+
+<p>Hopefully you still have, the our.pal,our.bkg,our.spr files from the sprite
+day. You should understand all of this as I have (or atleast I think I have)
+covered everything necessary (to be able to do this).</p>
+
+<p>Note: In some emulators, you may have to hit down a few times before the
+sprite appears. I don't know why this happens.</p>
+
+<h3>This Day In Review</h3>
+
+<p>Thanks to the people who sent me their own implementation of the Moving
+Sprite Program. Atleast now I know <em>someone</em> reads this.</p>
+
+<p>
+    Happy coding,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-10/index.html">Day 10</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

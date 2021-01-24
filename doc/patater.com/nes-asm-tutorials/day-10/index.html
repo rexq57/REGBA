@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 10 - Sprite DMA - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 10 - Sprite DMA</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>Sprite DMA?</h2>
+<p>Yep, Sprite DMA. You remember how we wrote to SPR-RAM (OAM) with $2003
+and $2004? Well, this is actually unrealiable on the real system (or so I've heard).
+What we actually need to do is utalize (utallise?) memory as OAM, and then put a
+number into a register and everything is copied for us automatically into the actual
+OAM. If you didn't get that it'll (hopefully) become clearer as we do it.</p>
+
+<h3>What Memory?</h3>
+
+<p>As I said above, we need to use our "variable" memory to make a sort of
+duplicate of OAM. In this tutorial we will use $0300 for our OAM Copy if you will,
+and you will, 'cause I will/am... nevermind. ok... Note that there are only something
+like 64 sprites on the NES so this only really takes (64*4(4bytes for each entry)=256
+bytes aways from what we can use. So basically, leave all your "variables" at $0000-$0200
+and only go over $0500 with your "variables" if you have to.</p>
+
+<p>Now when I say that we'll be using $0300 for an OAM Copy, I mean that it will
+(actually HAS to) be the same layout as the regular OAM. Also, try to remember that
+$0300 is a memory <em>address</em>, which is somewhat different from a memory <em>register</em>
+as in we have to increment the address every write/store ourselfs rather than just keep giving
+values to a (memory) register.</p>
+
+<p>Also (alot of alsos, I know... I just want to make this as clear as possible),
+there is a reason we use an even number in the hundreds for our OAM Copy. I'll tell
+you in the next section.</p>
+
+<p>Alright, hopefully you get the theory. Now let's see some assembler!
+Here goes:</p>
+<p><code class="block">
+;;--- START OF CODE ---;;
+    .inesmap 0  ;
+    .inesprg 1  ; I do these in different orders sometimes, it doesn't matter
+    .ineschr 1  ; as long as you keep the 1s with the right ones. I hope that
+    .inesmir 1  ; didn't confuse you as much as I just confused myself. ;)</code></p>
+
+<pre><code>.bank 1
+.org $FFFA
+.dw 0
+.dw Start
+.dw 0
+
+.bank 0  ; code bank
+.org $0000 ; variable ORG location $0000
+
+; normally variables defined here
+
+.org $0300 ; OAM Copy location $0300
+</code></pre>
+
+<p>Sprite1_Y:     .db  0   ; sprite #1’s Y value
+Sprite1_T:     .db  0   ; sprite #1’s Tile Number
+Sprite1_S:     .db  0   ; sprite #1’s special byte
+Sprite1_X:     .db  0   ; sprite #1’s X value
+Sprite2_Y:     .db  0   ; same thing, same order for sprite #2
+Sprite2_T:     .db  0   ; note that I numbered 1 2 …
+Sprite2_S:     .db  0   ; some people may actually prefer starting
+Sprite2_X:     .db  0   ; the count at 0, but it doesn’t really matter.
+; this would just go on and on for however many sprites you have</p>
+
+<pre><code>.org $8000 ; code ORG location $8000
+</code></pre>
+
+<p>Start:
+    ; code goes here, the code that goes here or atleast the code to get the
+    ; above sprite definitions into the actual OAM, will be given in the next
+    ; section.</p>
+
+<p>infin:
+    jmp infin  ; infinite loop
+;;— END OF CODE FILE —;;
+&lt;/code&gt;</p>
+
+<p>If you don't get it, email me telling exactly what you don't get.</p>
+
+<h3>The DMA Register</h3>
+
+<p>The DMA Register is $4014. We want to write a 3 to it. Why 3? Because
+our OAM Copy is at $0<u>3</u>00. Writing to the register causes the stuff at
+$0n00 (where 'n' is the number we wrote) to be copied into the actual OAM.
+So if we had our stuff at $0400 we would write a 4, if it was at $0500 then
+write a 5. Get it? I sure hope so. If not tell me please, I will not hesitate
+to help you.</p>
+
+<p>So, now to get our values in the actual OAM assuming we put the sprite's info
+in the Sprite#-whatever "variables", we just go like this:</p>
+<p><code class="block">
+    lda #$3  ; could be #3, 3 is the same hex and decimal (obviously).
+    sta $4014 ; when we write to it, the copy from $0300+ to actual OAM, is carried out.
+</code></p>
+
+<p>That's it! It's not only more reliable than our old method, it's easier!</p>
+
+<h3>How to modify Day 9's code to use this method.</h3>
+
+<p>Well, we need to do several things. First, copy the .org $0300 and stuff
+over our old variables section. We don't need the variables any more (for
+sprite info that is) because we're using the OAM Copy itself for the sprite's X
+and Y.</p>
+
+<p>Second, use a find and replace function to replace all the 'X_Pos' and
+'Y_Pos' with 'Sprite1_X' and 'Sprite1_Y' respectively.</p>
+
+<p>Third find the block of code that loads $2003 with a value and then proceeds to
+write to $2004 several times. Find that block of code and replace it with:</p>
+<p><code class="block">
+    lda #3
+    sta $4014
+</code></p>
+
+<p>That should be it! We also save several bytes of code with this method.</p>
+
+<h3>This Day In Review</h3>
+
+<p>Hope you enjoy Sprite DMA, I tried to make it as painless as possible.  Now
+that we have a better way to put data in OAM, we can look at a better way to
+capture VBlank tomorrow. On to interrupts...</p>
+
+<p>
+    May Your Programs Run Without Bugs,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-11/index.html">Day 11</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="my head" />
+<title>GBA ASM Tutorial Chapter 3</title>
+<link rel="stylesheet" href="tutorial.css" type="text/css" />
+</head>
+<h1>Chapter 3</h1>
+<h3>Some ARM Instructions</h3>
+<body>
+<p>Today we will get started learning some ARM instructions. But first some facts you should keep in mind (relating to speed):
+<list><pre>
+<li>Always align your data. use <code>.align</code for this, 32bit = <code>.align 4</code>, 16bit = <code>.align 2</code>
+	The CPU can do some funky things when you use non-aligned addresses which are bound to slow things up.</li>
+<li>Instructions that don't access memory are quite fast, make maximum use of your registers instead of loading
+values from memory. Use a MOV and ADD to load a 32bit value, instead of an LDR from ROM.</li>
+<li>It's late ;), if you have some speed tips, feel free to email me.</li>
+</pre></list>
+</p>
+
+<h3>The LDR Instruction</h3>
+<p>The LDR Instruction is quite multipurpose, although it's main purpose is to load (read) a value from memory.
+It can use many addressing modes, some of which I don't even know... Find a manual. I was lucky enough to find
+"ARM Architecture Reference Manual 2nd Edition" at a local bargain book store. There's also some manuals on
+GbaDev.org. The simplest of the LDR instructions loads a value that get's "pooled" in ROM (or whereever you're
+running your code from. Looks like this: <br />
+<code>ldr r0,=0x32bitnumber</code> (where 0x32bitnumber is a 32bit number, 
+such as 0x403, 0xCAFEBABE, 0xBAD00FED, 0x6000000...).<br /><br /> The number is actually stored in the "pool", the assembler
+will do this automatically. Typically, you should explicitly tell it where it can put a pool by saying <code>.ltorg</code>
+after each subroutine (or at the end of the file if you're doing something small).</p>
+<p>The next mode reads from an address stored in another register, example: <br /> <code>ldr r0, [r1]</code> <br /><br />
+This will load r0 with the 32bit word at the address in r1. (in C, it's similar to <code>r0 = *r1;</code>)</p>
+<p>This brings up a syntax point, when a register has brackets [around] it, the instruction is typically refering to the
+RAM contents of the address in the register in brackets and not the register's value itself.</p>
+<p>There are a few more modes that you should be aware of:
+(I will use r0, but any register can actually be used. A register can also be used in place of #offset.)<pre>
+<code>[r0, #offset]</code> - The number r0 + #offset is used as the address. (Pre-indexed)
+		if you put a ! after the ending bracket, the address used will be written into r0.
+		This is called "write-back" (or atleast it's a good name for it). Useful in a loop so you
+		don't have to have another instruction to update your address pointer (r0 in these examples).
+<code>[r0], #offset</code> - The number r0 is used as the address and then r0+#offset is written into r0. (Post-indexed)
+			(Write-back is automatic)</pre>Note that these are addressing modes, and the full instruction looks
+like this <code>ldr r1, <i>address_mode</i></code>. So that means we are free to do stuff like<br /> <code>ldr r1, [r0, r2]</code>
+or <code>ldr r3, [r2], #4</code>. The first one does: r1 = RAM at address r0+r2, the second: r3 = RAM at address r2, r2=r2+#4.
+See how robust ARM instructions are? Trust me, you haven't seen anything yet!</p>
+
+<h3>The STR Instruction</h3>
+<p>The STR Instruction uses pretty much the same modes as LDR (except for ,=0x32bitnumber). The only difference is:
+It stores (writes) the value into the memory address instead of reading it. Simple enough/Nuff said.</p>
+
+<h3>The MOV Instruction</h3>
+<p>The MOV Instruction is useful in that it moves numbers between registers, it can also include a shift operation.
+It's syntax looks something like this (reg1,reg2 can be any registers, reg2 is always unchanged by the instruction):
+	<pre><code>mov reg1, reg2 {,LSL/LSR/ASR/ROR/RRX  #}</code> - Will move the value in reg2 (possibly shifted by an optional 
+			shift parameter) into reg1. example: <code>mov r0, r1, LSL #2</code> is r0 = r1 shifted left 2 bits.
+	<code>mov reg1, #0xnumber</code> - Will move the number into reg1. There are restrictions on the number however. It
+			can only be a number that can be made by shifting up a byte sized value.</pre>
+Note that doing something like <code>mov r0, r0</code> is essentially a NOP (does nothing), and if you want to shift a 
+register, a MOV instruction is what you need:<br /> <code>mov r0, r0, LSL #3</code> shifts r0 up 3. There are no stand-alone shift
+instructions in the ARM instruction set.</p>
+<p>The shifting syntax is the same with many instructions (especially math ones like ADD,SUB,EOR,ORR,AND,BIC, all have
+syntax like MOV, I will not cover the shifting syntax again, except possibly including it in examples for when we go over
+compatable instructions. If you need help, feel free to email me, and I'll see if I can be of assistance.</p>
+
+<p>I hope you got all of that, these instructions are quite important. Next, we will cover loading smaller values from
+RAM, and learn about branches, and then dissect the program from Chapter 1.</p>
+
+</body>
+That's all for today, how about <a href="ch4.htm">Chapter 4</a>? Or the <a href="../gbaasm.htm">GBA ASM</a> index?
+
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</html>

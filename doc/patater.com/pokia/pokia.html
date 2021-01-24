@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pokia</title>
+<link rel="stylesheet" href="pokia.css">
+</head>
+<body>
+<canvas id="waveform" width="1" height="1"></canvas>
+<pre id="debug"></pre>
+<img id="phone-screen" src="images/POKIA-screen-480.png" width="1" height="1">
+<canvas class="lcd" id="lcd" width="1149" height="843"></canvas>
+<img id="phone-shadowscreen" src="images/POKIA-shadow-480.png" width="1" height="1">
+<img id="phone-body" src="images/POKIA-body-480.png" width="1" height="1">
+<img width="1" height="1" src="images/POKIA-power-480.png" class="img_button" id="power-img" />
+<img width="1" height="1" src="images/POKIA-soft-480.png" class="img_button" id="soft-img" />
+<img width="1" height="1" src="images/POKIA-up-480.png" class="img_button" id="up-img" />
+<img width="1" height="1" src="images/POKIA-clear-480.png" class="img_button" id="clear-img" />
+<img width="1" height="1" src="images/POKIA-down-480.png" class="img_button" id="down-img" />
+<img width="1" height="1" src="images/POKIA-one-480.png" class="img_button" id="one-img" />
+<img width="1" height="1" src="images/POKIA-two-480.png" class="img_button" id="two-img" />
+<img width="1" height="1" src="images/POKIA-three-480.png" class="img_button" id="three-img" />
+<img width="1" height="1" src="images/POKIA-four-480.png" class="img_button" id="four-img" />
+<img width="1" height="1" src="images/POKIA-five-480.png" class="img_button" id="five-img" />
+<img width="1" height="1" src="images/POKIA-six-480.png" class="img_button" id="six-img" />
+<img width="1" height="1" src="images/POKIA-seven-480.png" class="img_button" id="seven-img" />
+<img width="1" height="1" src="images/POKIA-eight-480.png" class="img_button" id="eight-img" />
+<img width="1" height="1" src="images/POKIA-nine-480.png" class="img_button" id="nine-img" />
+<img width="1" height="1" src="images/POKIA-asterisk-480.png" class="img_button" id="asterisk-img" />
+<img width="1" height="1" src="images/POKIA-zero-480.png" class="img_button" id="zero-img" />
+<img width="1" height="1" src="images/POKIA-hash-480.png" class="img_button" id="hash-img" />
+<div width="1" height="1" class="button" id="power"></div>
+<div width="1" height="1" class="button" id="soft"></div>
+<div width="1" height="1" class="button" id="up"></div>
+<div width="1" height="1" class="button" id="clear"></div>
+<div width="1" height="1" class="button" id="down"></div>
+<div width="1" height="1" class="button" id="one"></div>
+<div width="1" height="1" class="button" id="two"></div>
+<div width="1" height="1" class="button" id="three"></div>
+<div width="1" height="1" class="button" id="four"></div>
+<div width="1" height="1" class="button" id="five"></div>
+<div width="1" height="1" class="button" id="six"></div>
+<div width="1" height="1" class="button" id="seven"></div>
+<div width="1" height="1" class="button" id="eight"></div>
+<div width="1" height="1" class="button" id="nine"></div>
+<div width="1" height="1" class="button" id="asterisk"></div>
+<div width="1" height="1" class="button" id="zero"></div>
+<div width="1" height="1" class="button" id="hash"></div>
+<div id="extra-controls" class="controls">
+<label for="tempo">Tempo:</label>
+<select id="tempo">
+</select>
+</div>
+<script src="synthesizer.js"></script>
+<script src="bitmaps.js"></script>
+<script src="ui.js"></script>
+<script src="init.js"></script>
+</body>
+</html>

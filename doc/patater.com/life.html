@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Conway's Game of Life | Patater</title>
+    <link rel="stylesheet" href="life.css">
+  </head>
+  <body>
+    <div id="content">
+      <canvas id="content-canvas" width="512" height="512"/>
+    </div>
+    <div id="status">
+      <div id="messages"></div>
+      <span id="fps"></span>
+    </div>
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+      #ifdef GL_ES
+        precision mediump float;
+      #endif
+      attribute vec3 position;
+      attribute vec2 a_uv;
+      varying vec2 uv;
+
+      void main() {
+        gl_Position = vec4(position, 1.0);
+        uv = a_uv;
+      }
+    </script>
+
+    <script id="compute" type="x-shader/x-fragment">
+      #ifdef GL_ES
+        precision mediump float;
+      #endif
+      varying vec2 uv;
+      uniform sampler2D sampler;
+      uniform sampler2D mod_sampler;
+      uniform float dx;
+      uniform float dy;
+
+      const float cool_down_rate = 0.05;
+
+      int count_neighbors(void)
+      {
+        int neighbors = 0;
+        // N
+        if (texture2D(sampler, uv + vec2(0., dy)).a == 1.) neighbors++;
+        // NE
+        if (texture2D(sampler, uv + vec2(dx, dy)).a == 1.) neighbors++;
+        // E
+        if (texture2D(sampler, uv + vec2(dx, 0.)).a == 1.) neighbors++;
+        // SE
+        if (texture2D(sampler, uv + vec2(dx, -dy)).a == 1.) neighbors++;
+        // S
+        if (texture2D(sampler, uv + vec2(0., -dy)).a == 1.) neighbors++;
+        // SW
+        if (texture2D(sampler, uv + vec2(-dx, -dy)).a == 1.) neighbors++;
+        // W
+        if (texture2D(sampler, uv + vec2(-dx, 0.)).a == 1.) neighbors++;
+        // NW
+        if (texture2D(sampler, uv + vec2(-dx, dy)).a == 1.) neighbors++;
+
+        return neighbors;
+      }
+
+      void main(void) {
+        float state = texture2D(sampler, uv).a;
+        float cool = state - cool_down_rate;
+        float mod_state = texture2D(mod_sampler, uv).a;
+
+        // Handle mouse clicks on our pixels.
+        if (mod_state > 0.) {
+          if (state == 1.) {
+            // Don't fire any more.
+            gl_FragColor = vec4(0., 0., 0., cool);
+          } else {
+            // Start firing.
+            gl_FragColor = vec4(0., 0., 0., 1.);
+          }
+        } else {
+          int neighbors = count_neighbors();
+          if (state == 1.) {
+            // Alive
+            if (neighbors < 2 || neighbors > 3) {
+              // Die
+              gl_FragColor = vec4(0., 0., 0., cool);
+            } else {
+              gl_FragColor = vec4(0., 0., 0., 1.);
+            }
+          } else {
+            // Dead
+            if (neighbors == 3) {
+              gl_FragColor = vec4(0., 0., 0., 1.);
+            } else {
+              gl_FragColor = vec4(0., 0., 0., cool);
+            }
+          }
+        }
+      }
+    </script>
+
+    <script id="display" type="x-shader/x-fragment">
+      #ifdef GL_ES
+        precision mediump float;
+      #endif
+      varying vec2 uv;
+      uniform sampler2D sampler;
+
+      const float pink_r = 1.;
+      const float pink_g = 0.;
+      const float pink_b = 139. / 255.;
+
+      void main(void) {
+        float state = texture2D(sampler, uv).a;
+        if (state == 1.) {
+          // Firing
+          gl_FragColor = vec4(1., 1., 1., 1.);
+        } else {
+          // Refractory
+          gl_FragColor = vec4(state, 0, pink_b * state, 1.);
+        }
+      }
+    </script>
+
+    <script type="text/javascript" src="life.js"></script>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 7</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 7</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Compare and Jump</b></h2>
+<p style="color: green;"><pre><b>
+	Using the CMP (compare) instruction along with the conditional jump instructions,
+we get the if construct of high level languages.
+
+<h2 align="center" style="color: LightCoral;"><b>The CMP Instruction</b></h2>
+	The CMP Instruction is used to compare two things. It is used such as
+
+		cmp ax,6  ; will compare AX and 6
+		cmp ah,bl  ; will compare AH and BL
+		var1 dw 0
+		cmp ax,var1  ; will compare AX and the value in var1
+
+	Note that CMP doesn't modify any registers or memory.
+
+<h2 align="center" style="color: LightCoral;"><b>The Conditional Jumps</b></h2>
+	Conditional jumps jump to a label if the current condition (set by CMP) is
+true. The conditional jumps include:
+
+	JMP - Will jump no matter what, doesn't check conditions.
+	JE  - Will jump if compared things are equal.
+	JNE - Will jump if comparison is not equal.
+	JA  - Will jump if the first thing is greater.
+	JB  - Will jump if the first thing is less.
+
+Here's some sample code:
+
+	mov ax,6
+	cmp ax,bx  ; compare AX with BX
+	ja Above  ; jump to label Above if AX > BX
+	je Equal  ; jump to label Equal if AX == BX
+	jb Below  ; jump to label Below if AX < BX
+
+Note that you can't use RET with a jump and there are no conditional CALLs, you have to
+jump to somewhere that'll do the call and then jump back or something like that.
+
+<h2 align="center" style="color: LightCoral;"><b>Some Code</b></h2>
+	This will output the numbers from 9 to 0:
+
+;;---CODE START---;;
+	mov ah,10
+again:
+	sub ah,1
+	cmp ah,0  ; check if AH is 0
+	je endofit   ; if AH is 0 goto endofit
+	push ax
+	add ah,30h ; turn a digit into it's ASCII by adding 30h
+	mov dl,ah
+	mov ah,2
+	int 21h  ; output the digit
+	pop ax  ; get the number back
+	jmp again ; do it again
+endofit:
+	mov ah,4ch
+	int 21h
+;;---CODE END---;;
+
+There's a better way to do that, if you find it, you don't get
+hit with an imaginary trout.
+
+Hope you enjoyed that! :)
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Hope you're having fun, I know I am!
+
+	Happy coding!,
+		- GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day8pc.htm">Day 8</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

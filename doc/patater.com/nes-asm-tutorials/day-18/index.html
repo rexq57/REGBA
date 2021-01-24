@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 18 - BG Scrolling - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 18 - BG Scrolling</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>How?</h2>
+<p>I had already done some experimenting to see how exactly background scrolling
+works. It appears that (without a mapper) you can only scroll in the direction that
+you are (possibly aren't?) having mirroring (the ".inesmir 1" we always use).</p>
+
+<h2>Registers?</h2>
+<p>The background scroll <em>port</em> is $2005, I call it a port instead of a
+register because, even though it takes 2 writes, those two writes aren't used as
+one big number like in other registers and do two different things.</p>
+
+<p>The first write to $2005 will be the vertical scroll and the second write
+will be the horizontal scroll (according to <a href="http://fms.komkon.org/EMUL8/NES.html">Fayzullin's doc</a>).</p>
+
+<h3>Some things...</h3>
+<p>Unless you set-up your cartridge (.NES file) to have the 2Kb needed to use
+all 4 Name Tables (which I don't <em>yet</em> know how to do), it seems that
+you can only scroll a certain way. If anyone knows how it scrolls vs. mirroring
+or how to use all 4 Name Tables, please <a href="mailto:vbnetprogramer@hotmail.com">E-Mail</a> me.</p>
+
+<p>You will know that you are possibly scrolling the wrong way if the
+background moves funky or possibly disappears (happened to me).</p>
+
+<h3>No Code?</h3>
+<p>I'd like for you people to actually try and do it yourselves, if you do,
+feel free to send me some code. I know that you can do it, you have all the
+info you need.  If enough people complain or even if enough people send me
+code, I'll put my code up here...</p>
+
+<p>Seriously, you can do it. The basic things you need are:</p>
+<ol>
+    <li>Variables for Vertical and Horizontal scroll.</li>
+    <li>Have atleast a simple background displayed.</li>
+    <li>Handle keypad presses (up,down,left,right).</li>
+    <li>Write vert. and hori. scroll to $2005</li>
+</ol>
+
+<h3>This Day In Review</h3>
+
+<p>I've decided that tomorrow will <em>definitely</em> be about loading up to
+like 64KB easily (we will use the method to load the Zelda title screen
+(1KB)).</p>
+
+<p>
+    Happy Coding!,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-19/index.html">Day 19</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

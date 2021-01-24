@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 22</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 22</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Port I/O</b></h2>
+<p style="color: green;"><pre><b>
+	There are many things to do with computers that are called "ports". However, the ones we are
+talking about today are internal I/O controll ports. Things described here will most likely work on
+a DOS or Win9x computer, but NOT on a WinXP or NT based computer. I take no responsibility if you
+crash your computer with these instructions (or any others for that matter.). I also give no 
+guarantee that any code will work on your computer and/or specific hardware. Now that the disclaimer
+is out of the way, let's see some code!!
+
+<h2 align="center" style="color: LightCoral;"><b>The IN instruction</b></h2>
+	The IN instruction gets a byte of data from a port. It works like this:
+
+		in al,dx   ; will get a byte of data from port DX and put it in AL.
+
+	I find that the OUT instruction is used (somewhat) more often:
+
+<h2 align="center" style="color: LightCoral;"><b>The OUT instruction</b></h2>
+	The OUT instruction works like IN, except AL is written to the port in DX.
+
+		out dx,al  ; the reverse of the IN instruction
+
+	Note that you MUST use AL and DX for this instruction. That probably isn't true,
+but it's easiest to remember. (for me anyway).
+
+Now for a little something! This should turn on some lights on the keyboard:
+
+	;;---CODE START---;;
+	mov dx,60h   ; keyboard control port 60h
+	mov al,0EDh  ; set LED status
+	out dx,al    ; write to port
+	mov al,3     ; experiment with 0,1,2,3 to see what lights go on.
+	out dx,al    ; write to port
+	mov ah,4ch
+	int 21h    ; 4Ch (Exit Program)
+	;;---CODE START---;;
+
+Here's an interesting note: A friend and I tried to write a program that turns on CAPS Lock, but
+turns off the LED (the light), the BIOS of the computer constantly checks and corrects things so
+that the actual status and the LED were in agreement. To make a story short, the program didn't
+work.
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	There are many ports that do many things, BE CAREFULL!
+
+	Have fun!,
+		- Mike
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day23pc.htm">Day 23</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

@@ -1,0 +1,99 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 15</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 15</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Comparing Strings</b></h2>
+<p style="color: green;"><pre><b>
+	Yesterday, we got a string of text from the user. Today, we'll learn how to do a case
+insensitive comparison of 2 strings. However, there's a catch, these strings must be NULL
+terminated (end with a 0 byte instead of a $). So instead of putting a $ on the end like
+last time, we'll put a 0 at the end.
+
+<h2 align="center" style="color: LightCoral;"><b>Service 2Fh</b></h2>
+	Service 2Fh is the Multiplex Service. It allows communication between Windows and DOS.
+We'll be using Function 121Eh to compare strings. That's right, a 16bit number. For 16bit function
+numbers, all of AX is the function number.
+
+<h2 align="center" style="color: LightCoral;"><b>How to use Function 121Eh</b></h2>
+	Here's our input again and move down a lines:
+
+		mov ah,0Ah
+		mov ds,cs
+		mov dx,offset len
+		int 21h
+		mov ah,2
+		mov dl,10
+		int 21h
+		mov dl,13
+		int 21h		
+
+	This puts a 0 at the end making a NULL-terminated string.
+
+		mov bx,offset act
+		mov dx,offset buffer
+		add dl,byte [bx]
+		mov bx,dx
+		mov byte [bx],0  ; note that the zero was $ last time
+
+	Here we do the comparison:
+
+		mov ax,offset msg  ; compare input with msg variable
+		mov si,ax          ; SI is the first string
+		mov ax,offset buffer
+		mov di,ax          ; DI is the second string, it shouldn't matter what order.
+		mov ax,121Eh    ; function number
+		int 2Fh         ; call Multiplex Service
+		je Yep         ; if strings equal goto Yep
+		jmp Nope       ; goto Nope
+	Yep:
+		mov dx,offset good
+		mov ah,9
+		int 21h    ; tell the user it's good
+		mov ah,4Ch
+		int 21h   ; exit
+	Nope:
+		mov dx,offset bad
+		mov ah,9
+		int 21h   ; tell user no match
+		mov ah,4Ch
+		int 21h  ; exit
+
+		len db 255
+		act db 0
+		buffer db 256 DUP 0
+
+		msg db "Elmo",0
+		bad db "How can you not say 'Elmo'!$"
+		good db "I like Elmo too!$"
+	
+
+And they say ASM is hard!? If you don't get it, ask me!
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Everyone always wants to compare strings, so here you go!
+
+	Have some fun with this!,
+		-Mike
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day16pc.htm">Day 16</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

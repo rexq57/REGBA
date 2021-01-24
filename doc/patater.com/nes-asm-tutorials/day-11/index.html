@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 11 - The JSR Instruction - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 11 - The JSR Instruction</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>JSR?</h2>
+<p>JSR stands for Jump to SubRoutine and is used to, well... jump to a subroutine.</p>
+
+<h3>How do we use it?</h3>
+
+<p>We use it by giving it the name of the label that we want to jump to.
+Example:</p>
+<p><code class="block">
+    jsr OurSub
+    ; blah, some code</code></p>
+
+<p>OurSub:
+    ; blah, some more code
+    ; return to instruction <em>after</em> the JSR.
+&lt;/code&gt;</p>
+
+<h2>Return? How?</h2>
+
+<p>With the RTS (ReTurn from Subroutine) instruction of course! So the full
+version of the above stuff is:</p>
+<p><code class="block">
+    jsr OurSub
+    ; blah, some code</code></p>
+
+<p>OurSub:
+    ; blah, some code
+    rts  ; returns and resumes execution at the first “blah, some code”.
+&lt;/code&gt;</p>
+
+<h2>Something more</h2>
+<p>One thing to remember though, if you just want to separate your code out.
+then what is described above should be enough. If you want to jump to a subroutine based
+on a comparison, you would have to do something like the following:</p>
+<p><code class="block">
+    cmp #5  ; compare A with 5
+    bne DONTcall ; if A isn't 5 we branch over the subroutine call.
+    jsr OurSub
+DONTcall:</code></p>
+
+<pre><code>;somewhere... possibly far away: OurSub:
+
+;blah, code.
+rts ; return &lt;/code&gt;
+</code></pre>
+
+<h3>This Day In Review</h3>
+
+<p>I hope you get that, if you don't.. well.. I just won't think like that. ;)
+Seriously though, if you ever need help with something from these tutorials or
+find an error, don't hesitate to <a href="mailto:vbnetprogramer@hotmail.com">tell me</a>.</p>
+
+<p>
+    Happy coding!,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-12/index.html">Day 12</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

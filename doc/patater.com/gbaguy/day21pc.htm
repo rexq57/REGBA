@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 21</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 21</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>The XCHG Instruction</b></h2>
+<p style="color: green;"><pre><b>
+	Why do I constantly demand having one of these intro sections???
+
+<h2 align="center" style="color: LightCoral;"><b>The Info</b></h2>
+	You know that the MOV instruction moves values between registers, however, sometimes
+this is not entirely what you want. Sometimes, you want to SWITCH values without destroying
+the value of a register. You <i>could</i> just do something like:
+
+	push dx
+	push ax
+	pop dx
+	pop ax
+
+But that's not good, you should do:
+
+	xchg ax,dx  ; will switch the values in AX and DX.
+
+Note that you can also do:
+
+	xchg bl,ch
+
+But you CANNOT do:
+
+	xchg bx,ah
+
+AH is only 8bits and BX is 16bits, how is that supposed to work? (That won't even assemble!)
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	This is a convenient instruction, never forget it!
+
+	Until Next Time!,
+		- Mike H
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day22pc.htm">Day 22</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

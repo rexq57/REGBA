@@ -1,0 +1,150 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="my head" />
+<title>GBA ASM Tutorial Chapter 4</title>
+<link rel="stylesheet" href="tutorial.css" type="text/css" />
+</head>
+<h1>Chapter 4</h1>
+<h3>Dissecting our First Program</h3>
+<body>
+<p>Today, we will discuss the program from Chapter 1. But first we need to go over some more instructions.</p>
+<p>The first instruction we need to learn is another form of STR. We've worked with 32bit values, but you can also
+work with 16bit, or 8bit values. Note that you should make sure addresses used to access 32bit and 16bit values are
+aligned properly. Here are some examples of loading and storing 16 and 8 bit values:
+(I only use the single register addressing mode here, but any can be used.)<br /><br />
+	<code>ldrh r0, [r1]</code> - The H after LDR mean "halfword" (word=32,halfword=16,byte=8 bits), this will
+		load the 16bit value at address contained in r1 into r0.<br /> Note that the upper 16bits of r0 will then
+		be zeroed out.<br /><br />
+		<code>ldrsh r0, [r1]</code> - Loads a signed word. Same as the above really, except the 16bit value will be sign-extended into the
+		upper bits of r0.<br /> So if you load the 16bit value 0xFE3A (for example), r0 will be 0xFFFFFE3A. For those
+		who may not know, sign-extend fills the upper bits with the highest bit of the loaded value. If you
+		had loaded 0x0342, r0 would then be 0x00000342.<br /><br />
+		<code>ldrb r0, [r1]</code> - Loads a byte (8bit) value, upper 24bits zeroed out (also called zero-extend).<br />
+		<br/><code>ldrsb r0, [r1]</code> - Loads a signed byte value, it is sign-extended (value of bit 7 copied to
+		the rest of the higher bits).</p><p>STR has similar variants, however, it does not have the signed ones.</p>
+<h3>Branches</h3>
+<p>Branches allow us to jump to piece of code, conditionally if needed. Typically, a branch instruction looks like this:<br />
+<code>b <i>label_name</i></code> - will jump to the code that comes after the label. Chances are that you know what a label is.
+But if you don't, it looks like this:<br />
+<code>label:</code> - A label is a word (that mostly follows C identifier rules), followed by a colon.
+<p>Conditional branches look similar, except that they have one of the condition codes added to the 'b'.<br /> The conditions
+are: (copied out of a PDF written by <a href="http://re-eject.gbadev.org/">Re-Eject</a>)<pre>
+Equal EQ 
+Not Equal NE 
+Carry Set CS 
+Carry Clear CC 
+Unsigned Higher or Same HS
+Unsigned Lower LO 
+Minus/Negative MI 
+Plus/Positive or Zero PL
+Overflow VS 
+No Overflow VC 
+Unsigned Higher HI 
+Unsigned Lower or Same LS 
+Signed Greater than or Equal GE 
+Signed Less than LT 
+Signed Greater than GT 
+Signed Less than or Equal LE 
+Always AL - The default
+Never NE - Useless, and it might even be not supported in our version of the ARM processor.</pre></p><p>There is another
+register called the CPSR (Current Program Status Register), the condition (aka status) is contained in the top 4 bits
+of this register (each one called a "flag"), they are: zero (also set when something is equal), carry, overflow, and
+sign (set to the highest bit of a number). The CPSR cannot be used in MOV instructions, it just exists. There are 
+special instructions to modify it explicitly, we'll get to those eventually, but they aren't very important. With most
+instructions, you have a choice to update the CPSR based on the result of the instruction. We will get to that in due
+time as well.</p>
+
+<h3>Discussion of A Program</h3>
+<p>Let's go thru and discuss the program from Chapter 1</p><pre>
+<code>.arm</code> - Tells the assembler we will be using the ARM mode instructions.
+<code>.text</code> - Tells the assembler to put the following in the text (code) section (usually ROM for a GBA cart).
+<code>.global main</code> - Tells the assembler to allow access to our main from outside this file, necessary so the
+				linker can find the main function.
+<code>main:</code> - A label denoting the start of our main function.
+<code>mov r0, #0x4000000</code> - Puts the value 0x4000000 into r0. (this is the address of REG_DISPCNT, the LCD controller.)
+<code>mov r1, #0x400</code> - Puts the value 0x400 into r1. (we can't just mov 0x403, since it 
+				can't be created by shifting up an 8 bit value)
+<code>add r1, r1, #3</code> - Add 3 to r1 (r1 = r1 + 3), r1 now contains 0x403 (will mean mode 3 and enable BG 2, to 
+				the GFx hardware)
+<code>str r1, [r0]</code> - Actually do the write to the address.
+<code>@blank</code> - Comments in asm start with '@', although since we call the file .S and compile with GCC, we 
+			can use C and C++ style comments too.<code>
+      mov r0, #0x6000000  @ address of VRAM
+      mov r1, #0xFF       @ some redish color
+      mov r2, #0x9600     @ the amount of 16bit writes it'll take to fill the screen.
+loop1:                    @ a label
+	strh r1, [r0], #2  @ will store the 16bit value in r1 into address in r0, then 
+				@ add 2 to r0. (16bit values are 2 bytes long).
+	subs r2, r2, #1   @ subtract 1 from r2 (r2 = r2 - 1). the S after SUB means to set the 
+			  @ flags in CPSR based on the result.
+	bne loop1         @ If the status doesn't reflect the result of an instruction being zero, jump to loop1.
+
+infin:                @ an infinite loop
+	b infin
+</code></pre><p>Notice the S after SUB, if that weren't there, the status would never say that a zero result had happened
+and we'd have an infinite loop there. Math (and some other instructions) only touch the CPSR if the S is there. This is
+quite important.</p>
+
+<h3>Showing a picture</h3>
+<p>I figured you would probably want to do this now. So that's what we'll do. If you don't have it already, pick up a copy
+of "Bimbo" from <a href="http://www.gbadev.org/">GbaDev</a>, and export a copy of your favorite photo as a Binary file
+called "pic.bin" (no quotes, as usual) for mode 3. I'll list the entire program and use comments to explain it:</p><listing>
+.arm
+.text
+.global main
+main:
+	mov r0, #0x4000000  @ the usual set up routine
+	mov r1, #0x400   @ 0x403 is BG 2 enable, and mode 3.
+	add r1, r1, #3
+	strh r1, [r0]   @ the memory I/O value we're setting is actually 16bits, let's not mess 
+			@ something else up by writting 32.
+	
+	mov r0, #0x6000000  @ address of VRAM
+	ldr r1, =pic        @ using this form of LDR with a label will put the address of the label into r1.
+	mov r2, #0x960     @ the amount of 32 BYTE writes to fill the screen (we'll be using a new instruction)
+loop1:
+	ldmia r1!, { r3,r4,r5,r6,r7,r8,r9,r10 } @ will start with the address in r1, it will load each listed register
+				@ with 32bits from memory, incrementing the address by 4 each time. The final address used +4
+				@ will be written back into r1 (because of the !). Note this instruction doesn't use 
+				@ brackets around the register used for the address.
+	stmia r0!, { r3,r4,r5,r6,r7,r8,r9,r10 } @ will start with the address in r1, it will store each listed register
+				@ into memory (32bit write), adding 4 to the address. The final address used +4 will
+				@ be written back.
+	@ These instructions are a fast(er) way to do block memory copying, they are only useful when you have alot of
+	@ registers available (registers 3-10 were used here, but I could have said r2,r4, they don't have to be in order
+	@ just don't use the address register in the destination list.
+
+	subs r2, r2, #1  @ subtraction setting the flags
+	bne loop1  @ will loop if r2 wasn't zero.
+
+infin:
+	b infin  @ infinite loop
+
+.ltorg   @ give the assembler a place to put the immediate value "pool", needed for the ldr REG,= (s).
+pic:   @ a label to indicate the address  of the included data.
+	.incbin "pic.bin"  @ include the binary file</listing>
+
+</body>
+
+<p>Challenge: Grab a copy of GBATek.htm from gbadev, and see if you can do the same picture in mode 4.
+(you will need to reduce the colors, since mode 4 is an 8bit palette'ed mode.) HINT: If you still use the binary
+output format, it'll output the palette first. Copy that in one loop (using write-back on your chosen address register), then use a loop similar
+to the one I just used to copy the picture. Palette is 0x200 bytes, Picture is 0x12c00 bytes.</p>
+
+<p>The answer will be given at the end of Chapter 5.</p>
+
+<p>In Chapter 5, we'll take a look at the GBA's graphics system in greater detail.</p>
+
+That's all for now, how about <a href="ch5.htm">Chapter 5</a>? Or the <a href="../gbaasm.htm">GBA ASM</a> index?
+
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</html>

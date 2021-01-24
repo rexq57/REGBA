@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 14</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 14</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Getting Input</b></h2>
+<p style="color: green;"><pre><b>
+	Today, instead of just a single char, we'll input an entire line from the user. We will be
+using DOS Service Function Ah.
+
+<h2 align="center" style="color: LightCoral;"><b>The Buffer</b></h2>
+	Function Ah takes an special buffer for text. It is arranged like so:
+
+	byte 0 - Maximum length of input
+	byte 1 - Will be filled after the input is received with the actual number of chars
+	bytes 2-n - The buffer to be filled with input, should be atleast (byte 0) chars long
+
+Here's how we do it in code:
+
+	len db 254 ; a fair amount of space
+	act db 0   ; will be filled with actual amount of chars received
+	buffer db 254 dup 0  ; DUP means that I want 254 bytes of the number following which is 0.
+				; that's so we don't have to do 254 of 0,0,0, etc...
+
+<h2 align="center" style="color: LightCoral;"><b>How to use Function 0Ah</b></h2>
+	Here's the code to input a line:
+
+		mov ah,0Ah  ; function number
+		mov dx,offset len  ; start of buffer
+		int 21h   ; call DOS
+
+	Now, we should move down a line so that we can echo back the input:
+
+		mov ah,2
+		mov dl,10
+		int 21h
+		mov dl,13
+		int 21h    ; 10 and 13 make up a carriage return and line feed.
+
+	Put a dollar sign at the end of the chars inputted:
+
+		mov bx,offset act    ; pointer to length of text string
+		mov dx,offset buffer ; pointer to the start of chars
+		add dl,byte [bx]     ; add the length to the pointer of chars.
+		; we need ^ the "byte" otherwise we will be adding the full 16bit number at that location.
+		mov bx,dx            ; move pointer into BX
+		mov byte [bx],'$'    ; put the $ there.
+
+	Now it's all ready to output with Function 9:
+
+		mov dx,offset buffer  
+		mov ah,9             ; output the input string
+		int 21h
+		mov ah,4Ch    ; exit the program
+		int 21h
+
+	Here's our buffer:
+
+		len db 255
+		act db 0
+		coma1 db 256 DUP 0
+
+
+That's it! I hope you understood all that pointer math when we put the dollar sign in!
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Input is very important, what use is a program without it?
+
+	Until Next Time!,
+		- Mike H
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day15pc.htm">Day 15</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

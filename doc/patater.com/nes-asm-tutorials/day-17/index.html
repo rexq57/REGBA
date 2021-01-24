@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 17 - The Sprite Attribute Byte - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 17 - The Sprite Attribute Byte</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>The What?</h2>
+<p>The Sprite Attribute Byte (SAB) is the third (of 4bytes) byte that you write
+to OAM (SPR-RAM). This byte controls several (4) things including:</p>
+<dl>
+    <dt>Bits 0-1</dt><dd> 2 Bits of the sprites colors. Will be discussed at a later time.</dd>
+    <dt>Bits 2-4</dt><dd> UNUSED.</dd>
+    <dt>Bit #5</dt><dd> 0 = Sprite in front or 1 = Sprite in back of BG.</dd>
+    <dt>Bit #6</dt><dd> 1 = Flip horizontally.</dd>
+    <dt>Bit #7</dt><dd> 1 = Flip vertically.</dd>
+</dl>
+
+<p>See's see how to do this!</p>
+
+<h2>Gettin' Goin'</h2>
+<p>When I demonstrate each bit (with code <u>peices</u>) I'll give 2 pieces, of
+code, one for the $2003/$2004 method and one for the Sprite#-BYTE (DMA)
+method.</p>
+
+<p>To flip a sprite horizontally, you just need to set bit #6 of the special byte
+of OAM data (the third byte written). Assuming you have your special byte in A (you
+have to, to be able to do bit operations &amp; math):</p>
+<p><code class="block">
+    eor #%01000000  ; will toggle bit #6 in A.
+    sta $2004       ; this assumes that you already entered 2 bytes to $2004
+</code></p>
+
+<p>Now the DMA method:</p>
+<p><code class="block">
+    lda Sprite1_S
+    eor #%01000000
+    sta Sprite1_S   ; need to store it back so next time the correct thing happens.
+    sta $2004
+</code></p>
+
+<p>As you see, it's not much different.
+To flip a sprite vertically, you need to toggle bit #7 of the special byte.</p>
+
+<h3>Gettin' Goin'</h3>
+<p>Putting sprites <em>behind</em> backgrounds is always cool if you do it right,
+like the Warp Whisle (Whistle?) in Super Mario Bros. 3 ((c)1988? Nintendo, wow I was
+1 year old in 1988...) you have to get BEHIND the background and make to the end of
+the stage to get the whisle, remember that?</p>
+
+<p>Well, Bit #5 of the special byte is probably how that was done. Just make Bit #5
+a 1 to have your sprite be drawn under/behind the background. Example of toggling bit
+#5:</p>
+<p><code class="block">
+    eor #%00100000
+</code></p>
+
+<p>That will toggle bit #5, so you can use that instead of the eor in the previous code.</p>
+
+<h3>One Last Thing</h3>
+
+<p>Remember that you can always toggle more than one bit at a time.</p>
+
+<h3>This Day In Review</h3>
+
+<p>Hopefully I'll get around to talking about color attributes tomorrow.
+(Bits 0-1 of special byte and the BG Attribute Tables).</p>
+
+<p>
+    Hope you liked this!,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<p>
+P.S. Could someone email me to tell me if this works or not, please?
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-18/index.html">Day 18</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

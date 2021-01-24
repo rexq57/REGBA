@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 7 - Using Memory - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 7 - Using Memory</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>Where?</h2>
+<p>Before we do anything else it would probably be best to show how to use
+memory for our own data. This data could be anything from just a number you
+need to store or X/Y values for sprites. For this data we'll use free memory at
+$0000 (CPU).</p>
+
+<h3>How?</h3>
+
+<p>We'll ORG at $0000 in our Code Bank 0 and label some memory before ORGing to
+$8000 where our code starts. To label some memory (a.k.a making a variable) we use the
+assembler operation .db like so:</p>
+<p><code class="block">
+; note this is only a small code piece to demonstrate memory labeling syntax.</code></p>
+
+<pre><code>.bank 0
+.org $0000
+</code></pre>
+
+<p>label1:    .db   0
+byte1:     .db   $A5   ; notice that with Define Byte (.db) we don’t need the ‘#’ .</p>
+
+<pre><code>.org $8000
+</code></pre>
+
+<p>Start:     ; from here on would be code as usual
+&lt;/code&gt;</p>
+
+<p>Since label1 and byte1 are infact labels, they do need to start at the first
+colon (not tabbed in).</p>
+
+<h3>Loading Value of Our "Variables"</h3>
+
+<p>To load the value of one of our "Variables", just use a regular Load instruction
+with the label's name. Like so:</p>
+<p><code class="block">
+    ;assume label1 and byte1 have been declared like shown above.</code></p>
+
+<pre><code>lda label1  ; load A with label1's value
+ldx label1  ; load X with label1's value
+ldy label1  ; I hope you get the idea now
+
+lda byte1  ; load A with byte1's value &lt;/code&gt;
+</code></pre>
+
+<p>That's it for getting the value. Storing is just as easy. Even though you
+can figure it out yourself, I'll go through the same steps with storing.</p>
+
+<h3>Storing Into Our Variables</h3>
+
+<p>Storing is just like loading except the other way around (putting, not getting).
+It's done like this:</p>
+<p><code class="block">
+    ;again assume label1 was declared like shown before</code></p>
+
+<pre><code>sta label1  ; store A's value into label1
+stx label1  ; store X's value into label1
+sty label1 ; store Y's value into label1
+
+stx byte1  ; you should get it by now, I hope. &lt;/code&gt;
+</code></pre>
+
+<p>Simple, isn't it?</p>
+
+<h3>Some Important Facts</h3>
+<h4 class="subtitle">That I Waited Until the End to Mention</h4>
+
+<p>The main thing I want to mention here is that we can define more than just
+bytes. We can also define words, but since the NES's CPU works in only 8bits,
+this is a little more than I want to talk about right now.</p>
+
+<p>Also, I haven't tried it, but if you want to increment or decrement (Add or Sub 1
+respectfully), you could probably go something like this:</p>
+<p><code class="block">
+    inc label1  ; add 1 to label1</code></p>
+
+<pre><code>dec label1  ; sub 1 from label1 &lt;/code&gt;
+</code></pre>
+
+<h3>This Day In Review</h3>
+
+<p>I have no idea what's in store for tomorrow, since I need to complete Day 13
+of the GBA tutorial. I hope you had fun today. Why don't you try moving a
+sprite with the keypad?</p>
+
+<p>
+    Until Next Time,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-8/index.html">Day 8</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

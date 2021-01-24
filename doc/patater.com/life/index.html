@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Conway's Game of Life on the GPU - Patater</title>
+
+        <meta name="description" content="John Horton Conway devised this game in 1970. He played with it using chalkboards, checkers, or poker chips. Little did he know that we'd now be playing with it on our GPUs inside of hypertext browsers.">
+
+
+        <meta name="author" content="Jaeden Amero">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+        <link rel="manifest" href="../site.webmanifest">
+        <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../projects/index.html">Projects</a>
+        <a href="../blarg/index.html">Blarg</a>
+        <a href="../links/index.html">Links</a>
+        <a href="../about/index.html">About</a>
+        <a href="../books/index.html">Books</a>
+        <a href="../donate/index.html">Donate</a>
+    </nav>
+    <a href="../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Conway's Game of Life on the GPU</h1>
+<p class="minimeta">
+Published: 2012-08-27<br/>
+Updated: 2020-05-09<br/>
+Author: Jaeden Amero
+</p>
+</div>
+
+<div class="post">
+
+  
+<a href="../life.html">
+  
+<p><img class="post-graphic" src="../images/life.png" alt="Conway's Game of Life Rendered with the GPU" /></p>
+  
+</a>
+  
+
+<h2>Play</h2>
+<p><a href="../life.html">Conway's Game of Life with WebGL</a></p>
+
+<!--break-->
+
+<p><a href="../life.html"><image src="/images/life-2up.png" alt="A squiggle and some life drawn in Conway's Game of Life"></image></a></p>
+
+<h3>Motivation</h3>
+<p>I am very interested in simple systems that exhibit complexity, and Conway's
+Game of Life has some very simple rules. If a living cell has two or three
+neighbors, it keeps on living. If a dead cell has three neighbors, it becomes
+alive. The rules are that simple, yet its world is capable of great
+complexity.</p>
+
+<p>The GPU is a wonderful resource for performing parallel tasks, and Life is
+very parallel. Every cell is changed at once in parallel based on how many
+neighboring cells it has. I set out to use the GPU to implement the Game of
+Life</p>
+
+<p>I first implemented it using OpenCL on Mac OS X. I thought OpenCL would be
+cross platform enough. However, I was disappointed by the runtimes available on
+Windows and Linux. The skeleton code required for each platform was different.
+Some runtimes only ran code on the CPU and not the GPU, and some not on their
+creator's competitor's GPUs. I got fed up with the mess and decided not to
+publish anything.</p>
+
+<p>Then, a few weeks ago, I heard about WebCL. It sounded nice, but it
+unfortunately isn't very well supported in browsers, currently. It requires
+plugins from Nokia or Samsung. Nokia's plugin only works with Firefox and
+Samsung's only works with Safari. Again, I was disappointed.</p>
+
+<p>I had just seen <a href="http://www.chromeexperiments.com/detail/arms-globe/?f=webgl">a cool,
+interactive infographic that displays global small arms imports and exports</a>
+when I thought that I could do Life in WebGL. I did some learning and found
+WebGL to be very well suited for what I wanted to make: it provides access to
+the GPU in a platform agnostic way.&lt;/a&gt;
+
+<p>I grabbed <a href="http://ricardocabello.com/blog/post/714">a WebGL example
+from mr.doob</a>. Thank you, mr.doob. His example contained a bit of
+boilerplate to get me started. I then set out to write my first GLSL compute
+shader.</p>
+
+
+<h3>How it Works</h3>
+<p>Here's how it works. <a href="http://mrdoob.com/lab/javascript/webgl/glsl/04/">mr.doob's example</a> is
+of a single texture on a single quad. We would like to do some computation
+before rendering, though. We create two textures for use as frame buffers (so
+we can render to them). We also need a new fragment shader to perform the
+computation. This shader will alternatively read from one, previous state, texture (to count
+neighbors of all the cells) and write to the other, current state, texture; the game world is
+double buffered. Our rendering fragment shader will take whatever texture is
+ready and sample it in order to generate pretty pictures.</p>
+
+<div class="iframe-wrapper">
+<iframe src="https://www.youtube.com/embed/hTaAgUB7i44" frameborder="0" allowfullscreen=""></iframe>
+</div>
+
+<h3>How to Play</h3>
+<p>How you play is up to you. I've given you the game world and a 2x2 mouse
+cursor. You can draw stuff in the box. That is all. Enjoy!</p>
+
+<p>I've also given you the source code, so you can hack around with it and make
+something interesting. Use it for whatever you want, but be nice.</p>
+
+<h2>Play</h2>
+<p><a href="../life.html">Conway's Game of Life with WebGL</a></p>
+</p>
+
+</div>
+
+
+<div>
+    <h2>Download</h2>
+    <a href="../projects/life.bz2">Life's Source Code</a>
+</div>
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

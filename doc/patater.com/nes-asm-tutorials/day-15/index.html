@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 15 - The Noise Channel - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 15 - The Noise Channel</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>Intro</h2>
+<p>The noise channel is channel number 4 and outputs, well, a "noisy" sound.
+As with all the sound stuff I talk about here, the info comes from <a href="http://nesdev.parodius.com/NESSOUND.txt">The NES Sound Doc</a>.</p>
+
+<p>The technical description of what the "noise" is, is random frequencies. The
+reason this isn't described with the other sound channels is for 3 reasons:</p>
+<ol>
+    <li>Doing less at once.</li>
+    <li>Noise is slightly different from the others.</li>
+    <li>I felt like it.</li>
+</ol>
+
+<h3>Features</h3>
+<p>The features of the noise channel are as follows:</p>
+<ol>
+    <li>29.3 Hz to 447 KHz</li>
+    <li>Noisy sounds</li>
+</ol>
+
+<p>On to the registers!</p>
+
+<h3>The Registers</h3>
+<h4 class="subtitle">a.k.a ¿Dónde vas con este?</h4>
+<p>The Noise Channel registers are at $400C-$400F; the noise channel is enabled
+with (setting to 1) bit #3 of $4015. Let's see what they do! :)</p>
+
+<h4>$400C</h4>
+<p>Register $400C is the same as $4000, except bits #6-7 are unused.</p>
+
+<h4>$400D</h4>
+<p>Register $400D is totally <u>unused</u>.</p>
+
+<h4>$400E</h4>
+<p>Register $400E controls how fast the frequency goes from random frequency to
+random frequency or something like that, I'm not sure. The sound doc describes it as
+"playback sample rate". The bits are:</p>
+
+<dl>
+    <dt>Bits #0-3 (a.k.a the first hex digit)</dt><dd>"playback sample rate".</dd>
+    <dt>Bits #4-6</dt><dd>unused. Can stay zero (0).</dd>
+    <dt>Bit  #7</dt><dd>"random number type generation", as far as I can tell a 1 is higher
+sounding noise, a 0 is lower sounding noise. Since this is bit #7 and Bits #4-6 are
+unused, we can just make a 0 or a 1 be the second hex digit.</dd>
+</dl>
+
+<h4>$400F</h4>
+<p>Register $400F is the same as $4003 (except first 3 bits are unused), I just
+write whatever to it. You can still write #$AB to it if you want, I guess.</p>
+
+<p>If you really want to know, I'm not sure what it means, but bits #3-7 are
+the "length counter load value". This may or may not have something to do with
+the frequency.</p>
+
+<h4>$4015</h4>
+<p>To enable the Noise Channel, set bit #3 in $4015. Like so:</p>
+<p><code class="block">
+    lda #%00001000
+    sta $4015
+</code></p>
+
+<h4>The Full Code</h4>
+<p>Again, I'll make a full code listing just because I'm way too much of
+a nice guy. Here it is:</p>
+<p><code class="block">
+;;---CODE START---;;</code></p>
+
+<pre><code>.inesprg 1
+.inesmap 0
+.inesmir 1
+.ineschr 0  ; note that we have no CHR-ROM bank in this code
+
+.bank 1
+.org $FFFA
+.dw 0 ; no VBlank routine
+.dw Start
+.dw 0 ; we'll get to this at a later time
+
+.bank 0
+.org $8000 ; note that I just copy/pasted code from the register sections Start:
+lda #$FF   ; Like $4000 we just write all 1s 'cause
+sta $400C  ; we don't mind all the stuff in there being "on".
+
+lda #$50   ; play rate of 5 (5), lower sounding mode (0)
+sta $400E
+
+lda #$AB
+sta $400F
+
+lda #%00001000  ; enable Noise Channel
+sta $4015
+</code></pre>
+
+<p>infinite:
+    jmp infinite</p>
+
+<pre><code>;;--- END OF CODE FILE ---;; &lt;/code&gt;
+</code></pre>
+
+<p>Assemble and <u>Listen</u>! That code is just a modified version of the
+previous code file in Day 14. This code sounds like static, I realize thats
+what the Noise Channel does, but I mean this <em>really</em> sounds like radio
+or TV static (sorta). It could also be water if you stretch your imagination a
+little.</p>
+
+<h3>This Day In Review</h3>
+
+<p>Hope you liked that, The DMC Channel will happen when I figure it out.  So
+there. Hope you have fun with that! :)</p>
+
+<p>Also, be sure to read through the sound doc for all the complete tech
+info.</p>
+
+<p>
+    Happy listenings (again!),<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-16/index.html">Day 16</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

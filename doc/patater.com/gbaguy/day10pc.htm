@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 10</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 10</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Looping</b></h2>
+<p style="color: green;"><pre><b>
+	Yep, Looping. This is most similar to a FOR loop in High Level Languages.
+
+<h2 align="center" style="color: LightCoral;"><b>The LOOP Instruction</b></h2>
+	The LOOP instruction works like so:
+	
+	mov cx,200  ; note that without 'h' that 200 is a decimal value (base 10).
+AdditionLoop:
+	add ax,3
+	loop AdditionLoop ; will add 3 to AX, 200 times.
+
+Each time LOOP is executed, CX is decremented and if it's not zero, the label specified is
+jumped to.
+
+<h2 align="center" style="color: LightCoral;"><b>DEC and INC Instructions</b></h2>
+	Now would be a great time to tell you about DEC and INC.
+
+	DEC subtracts 1 from a register or memory location and INC adds 1.
+
+	Examples:
+
+		inc ax ; AX++; or AX = AX + 1;
+		dec dx ; DX--; or DX = DX - 1;
+
+		var dw 0
+		dec var  ; should work, I think. var--; or var = var - 1;
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	I'm running out of easy instructions. Look for output oriented stuff soon!
+
+	Happy coding!,
+		-GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day11pc.htm">Day 11</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

@@ -1,0 +1,112 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="my head" />
+<title>GBA ASM Tutorial Chapter 8</title>
+<link rel="stylesheet" href="tutorial.css" type="text/css" />
+</head>
+<h1>Chapter 8</h1>
+<h3>The BIOS</h3>
+<body>
+<p>The BIOS is a set of pre-coded routines that are within the GBA. We can call them at will with an instruction called SWI.</p>
+<h3>SWI</h3>
+<p>SWI stands for SoftWare Interrupt. What SWI does is call one of the builtin routines. Just give it a number and off it goes :). Example:<br />
+<code>mov r0, #0x10</code><br />
+<code>swi 0x80000</code> - SWI number 8 is SQRT (SQuare RooT). It will take the square root of r0 (and put the result in r0).<br />
+Notice that even though the SWI number is 8, with the ARM version of SWI, you need to do the SWI number * 0x10000 (or <<16, same thing). After running the
+above code, r0 should be 4.</p>
+
+<p>There are several other BIOS routines, see <a href="http://www.work.de/nocash/gbatek.htm">GBAtek.htm</a> for a list and how they work.</p>
+
+<p>Now let's do two things, see the Division BIOS routine. And then we'll make a rotating Mode 3 background using the BGAffineTransform BIOS routines.</p>
+<p>Division is SWI number 6, it works like so:<br />
+INPUT:<br />
+r0 = signed number<br />
+r1 = signed number to divide r0 by.<br />
+OUTPUT:<br />
+r0 = r0 / r1<br />
+r1 = r0 MOD r1 (this means remainder)<br />
+r3 = ABSOLUTE VALUE(r0 / r1)  (will be the positive version of the number in r0)<br />
+I don't think you need a code example there, pretty self-explanatory.</p>
+
+<h3>Our second little program:</h3>
+<listing>.arm
+.data  @ anything called .data will be put into RAM by the GCC startup routine.
+@ what we want is the struct BGAffineSrc.
+.align 4
+BG_affine_src:
+.word 100<<8    @ I got these values by trial and error.
+.word 100<<8
+.short 0x6F
+.short 0x45
+.short 0x280
+.short 0x280
+.zero 2
+
+.text
+.global main
+main:
+	mov r0, #0x4000000
+	mov r1, #0x400
+	add r1, r1, #3
+	strh r1, [r0]
+
+	@ this is the load code from Chapter 4
+	mov r0, #0x6000000
+	ldr r1, =pic      
+	mov r2, #0x960 
+loop1:
+	ldmia r1!, { r3,r4,r5,r6,r7,r8,r9,r10 } 
+	stmia r0!, { r3,r4,r5,r6,r7,r8,r9,r10 } 
+	subs r2, r2, #1 
+	bne loop1  
+
+	mov r4, #0x4000000  @ I'll use indexed addressing modes to access
+			    @ the I/O.
+	ldr r0,=BG_affine_src  @ r0 will be a pointer to the start of the struct.
+
+	mov r1, #0x4000000
+	add r1, r1, #0x20   @ r1 will be a pointer to where the BIOS should
+			    @ write the result of the calculations, I'm going
+			    @ to have it write directly to the hardware registers.
+
+	mov r2, #1
+	eor r3, r3, r3
+infin:
+wait1:
+	ldrh r5, [r4, #6]
+	cmp r5, #161         @ wait for vblank.
+	bne wait1
+
+	strh r3, [r0, #16]  @ write the angle to the struct
+	add r3, r3, #40     @ the angle is a 8:8 fixed point number.
+
+	stmia sp, { r0,r1,r2,r3,r4,r5 }  @ save some registers
+	swi 0xE0000    @ call the BIOS routine.
+	ldmia sp, { r0,r1,r2,r3,r4,r5 }  @ restore registers
+
+	b infin  @ you'll see a lot of infinite loops
+
+	.ltorg
+pic:
+	.incbin "pic.bin"  @ let's reuse that mode 3 picture data</listing>
+
+<p>I don't think that's too hard for you to be able to understand after some work at this point. A word of caution, when you use BIOS routines use a BIOS dump with
+VisualBoyAdvance, or just test with no$gba. It would seem that no$gba's BIOS emulation is somewhat better than VBA's. The program above works on the real GBA as do all
+programs I give you, unless otherwise noted. :)</p>
+
+<p>In the next chapter, we'll have some fun learning a couple new instructions, including a discussion of THUMB mode.</p>
+
+</body>
+
+That's all for now, How about <!--<a href="ch9.htm">Chapter 9</a>-->? Or the <a href="../gbaasm.htm">GBA ASM</a> index?
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</html>

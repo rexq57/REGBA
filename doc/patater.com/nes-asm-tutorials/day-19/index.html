@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 19 - Easy Large Loads - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 19 - Easy Large Loads</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>What?</h2>
+<p>Today, we will use a new loading loop that utilizes <em>indirect addressing</em>
+to load a lot of data at a time. The data we will load will be the Zelda title
+screen, and yes, today will include all of the code. I've included the 3 necessary
+data files in <a href="../../gbaguy/nesasm.zip">nesasm.zip</a>. Please redownload it, I could
+have sworn that I already had them in there... sorry for any inconveniece.</p>
+
+<h2>Indirect Addressing?</h2>
+<p>Yep, indirect addressing (which is hard for me to type for some reason...)
+is simply getting an address from the contents of another address, so say we
+wanted to get a value from an address contained at $0010-$0011 (16-bit address,
+remember that).</p>
+
+<p>But first a little review (I hope), vocab lesson #whatever: Take the address
+$8000, $00 is the high byte and $80 is the low byte, got it?  (I might have
+that backwards, I have bronchitis at the moment...)</p>
+
+<p>The low byte would be in $10 and the high byte in $11 (note that I use two
+digits only, because the first 2 in the address are zero). So assuming the address
+that we really want to load from is $82C5 which is at $10-$11, to load the byte
+at $82C5 into the A register, we would do:</p>
+<p><code class="block">
+    lda [$10]
+</code></p>
+
+<p>this can also be indexed, like so:</p>
+<p><code class="block">
+    lda [$10], y
+</code></p>
+
+<p>What this would do is take the address $82C5, add the contents of Y to that
+address (the <em>address</em> not the contents), and get byte at the resulting
+address.</p>
+
+<p>I hope you understood all that, because it's just going to get more confusing.
+And just a short joke before we continue:</p>
+
+<div class="warning">
+Surgeon General's Warning:
+Attempting to understand the ASM Code in the following sections of this
+document may cause the reader to either increase their ASM skills or drive them
+to suicidal frustration.
+</div>
+
+<h3>The Loop</h3>
+<p>I think, therefore I am? no. I think therefore I'll give the complete
+loop and explain it in pieces. Assume backg is the label of where a bunch of
+name table data is included, also assume $2006 is pointing to $2000:</p>
+<p><code class="block">
+    lda #low(backg)
+    sta $10
+    lda #high(backg)
+    sta $11</code></p>
+
+<pre><code>ldx #4
+ldy #0 loop:
+lda [$10],y
+sta $2007
+iny
+bne loop
+inc $11
+dex
+bne loop &lt;/code&gt;
+</code></pre>
+
+<p>The first piece:</p>
+<p><code class="block">
+    lda #low(backg)
+    sta $10
+    lda #high(backg)
+    sta $11
+</code></p>
+
+<p><code>low()</code> and <code>high()</code> are builtin instructions for
+NESASM.exe that take the high and low bytes of an address, in this case,
+backg.</p>
+
+<p>Note that $10 and $11 memory addresses are consecutive, it has to be that
+way, but they could be any consecutive addresses.</p>
+
+<p>The second:</p>
+<p><code class="block">
+    ldx #4
+    ldy #0
+loop:
+</code></p>
+
+<p>X controls how many chunks of 256 bytes to load in this case, 4. Y must be 0 (zero).</p>
+
+<p>The third:</p>
+<p><code class="block">
+    lda [$10],y
+    sta $2007
+    iny
+    bne loop
+</code></p>
+
+<p>This part loads 256 bytes to $2007 using indirect addressing indexed by Y.
+Note that the registers (A,X,Y) wrap around so adding 1 to #$FF will make the
+register contain #$00. And that's how this works, because when Y is incremented
+to #$00, the loop will be done loading the 256 byte chunk.</p>
+
+<p>The last:</p>
+<p><code class="block">
+    inc $11
+    dex
+    bne loop
+</code></p>
+
+<p>This part increments the high byte of the address of the data to the next
+256 byte chunk. It also counts down 1 in the X register which contains the
+amount of chunks left, if X is zero, it won't loop and we're done loading
+everything.</p>
+
+<p>That went better than I expected...</p>
+
+<h3>The Full Code File</h3>
+<p>Before I give you the full code file (fully commented, of course), make sure
+you have those 3 files in your code folder.</p>
+<p><code class="block">
+;--- CODE START ---;
+    .inesmir 1
+    .inesmap 0      ; INES header $H!7.
+    .ineschr 1
+    .inesprg 1</code></p>
+
+<pre><code>.bank 1
+.org $FFFA  ; vector table
+.dw 0
+.dw Start
+.dw 0
+
+.bank 0
+.org $0010 addrLO: .db 0  ; make "variable"s for our indirect addressing addrHI: .db 0
+
+.org $8000 Start:
+
+ldx #0
+lda #$20  ; set the destination address in PPU memory
+sta $2006  ; should be $2000
+stx $2006
+lda #low(backg)   ; put the high and low bytes of the address "backg"
+sta addrLO        ; into the variables so we can use indirect addressing.
+lda #high(backg)
+sta addrHI
+
+ldx #4  ; number of 256-byte chunks to load
+ldy #0 loop:
+lda [addrLO],y
+sta $2007     ; load 256 bytes
+iny
+bne loop ;--------------------
+inc addrHI  ; increment high byte of address backg to next 256 byte chunk
+dex        ; one chunk done so X = X - 1.
+bne loop   ; if X isn't zero, do again
+
+
+
+lda #$3F
+sta $2006
+lda #$00    ; point $2006 to the palette
+sta $2006
+ldx #$00 palload:
+lda tilepal, X     ; use a simple load of 32 bytes.
+inx
+sta $2007
+cpx #32
+bne palload
+
+jsr turn_screen_on  ; call subroutine to turn on / setup the PPU.
+</code></pre>
+
+<p>infin:              ; our infinite loop
+    jmp infin</p>
+
+<p>turn_screen_on:
+    ; Setup the PPU
+    lda #%00001000
+    sta $2000
+    lda #%00011110
+    sta $2001
+    rts</p>
+
+<p>tilepal: .incbin “zelda.pal” ; include the palette
+backg: .incbin “zelda.nam” ; include the name table data</p>
+
+<pre><code>.bank 2
+.org $0000
+.incbin "zelda.chr"  ; include the picture data in the background part
+;of the CHR-BANK (#2) ;;--- CODE END/ END OF FILE ---;; &lt;/code&gt;
+</code></pre>
+
+<p>I hope you got all that and that it works (I did some modifications from my
+testing file).</p>
+
+<h3>This Day In Review</h3>
+
+<p>I thought that was fun. Day 20 could be anything, maybe Attributes, maybe a
+lesson on the conditional branches.</p>
+
+<p>
+    Have fun!,<br />
+        - GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-20/index.html">Day 20</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

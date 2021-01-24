@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="my head" />
+<title>GBA ASM Tutorial Chapter 2</title>
+<link rel="stylesheet" href="tutorial.css" type="text/css" />
+</head>
+<h1>Chapter 2</h1>
+<h3>The Compiler</h3>
+<body>
+<p>There used to be 3 choices for GameBoy Advance development (do you spell it developement or development?):
+ARM SDT, DevKitAdvance, and Goldroad Assembler. Recently, more and more people are using devkitARM, a 
+more generic cross-compiler build of GCC. Today's choices are:
+
+<pre>
+	<a href="http://www.arm.com">ARM SDT</a> - Advanced RISC Machines SDK, it wasn't free but there was a hack floating around at the beginning.
+		Alot of the older demos are written in C using this. I think it was a build of GCC targetting ARM7.
+
+	<a href="http://devkitadv.sourceforge.net/">DevKitAdvance</a> - A free "kit" of GCC targetting ARM, used for a long while, was the best choice from after
+		ARM Corp. got mad about the hack of their SDK, up until recently when DevKitAdvance seems to have
+		died. devkitARM uses a newer build of GCC.
+
+	<a href="http://www.goldroad.co.uk/">Goldroad Assembler</a> - A one-shot assembler (no C compiler, and no linking either, this baby outputs straight
+		binaries). Several older demos also came with a source compatable with this. Hasn't been updated 
+		in ages, assumed to be discontinued. Assumed since noone's heard from the author in quite some time.
+
+	<a href="http://www.devkitpro.org/">devkitARM</a> - A free "kit" of GCC targetting several ARM processors, you need to actually specify what system
+		you are dev'ing for, since this "kit" supports GP32, GBA, GBA Multiboot, "and more". This is the "kit" 
+		you should get for this tutorial (since I assume you are using it). Any GCC build targetting ARM 
+		should work, but this one has things set up well and uses a newer version of GCC than the rest.
+
+There are some other choices for GBA dev, however:
+
+	<a href="http://www.jm-basic.com/dragon/">Dragon BASIC</a> - That's right, a BASIC compiler. From what I've heard, it's pretty good.
+		It is shareware though, so to get the best version, you need to pay.
+
+	<a href="http://www.ngine.de/site/index.php">HAM</a> - A library of functions and macros, and a bunch of other neat stuff that is supposed to 
+make it easier to program the GBA. I would assume that this thing sits on top of a GCC build. Note 
+that it's shareware, the free version has a required intro screen.
+
+	See the <a href="http://gbadev.org/tools.php?section=compiler">Compiler Section</a> at GbaDev.ORG for all the available
+choices (although as I write this, devkitARM isn't on there). Some items on there that I haven't 
+described here are yet more GCC builds targetting ARM.</pre></p>
+<p>In this tutorial, it will be assumed that you are using devkitARM (version 8 is the latest at time of writing). 
+DevKitAdvance <i>might</i> work, but it's not guaranteed. This tutorial's predecessor was written for the 
+Goldroad Assembler, but since that hasn't been updated in 2 years, the move to a GCC build is quite logical
+in my opinion. This new tutorial also makes a shift toward using ASM to augment a C program, as such, we will actually
+use the same program to compile .S (assembly) files as one would use to compile a C program, gcc.</p>
+<p>Since we are now using GCC, it will add its own startup code, so even though we will be using ASM, the code won't
+be all <i>us</i> as it would be if we had a straight binary instead of objects.</p>
+
+<p>Now let's test the compiler, download the devkitARM, and unZIP it to a directory (I used C:\devkitARM_r8\, but I'll
+probably move that later...). Open a DOS Prompt (CMD.exe for you XP folks (like me)). Make sure the "bin" folder is 
+in the path, I'll assume you're used to using the command line so you know how to do this. If not, search <a href="http://www.google.com/">Google</a> for a DOS tutorial.
+(my statement goes <code>set path=C:\devkitarm_r8\bin;%PATH%</code>)</p>
+Put this into a test_1.S file:<listing>.arm
+.text
+.global main
+main:
+	mov r0, #0x4000000
+	mov r1, #0x400
+	add r1, r1, #3
+	str r1, [r0]
+
+	mov r0, #0x6000000
+	mov r1, #0xFF
+	mov r2, #0x9600
+loop1:
+	strh r1, [r0], #2
+	subs r2, r2, #1
+	bne loop1
+
+infin:
+	b infin</listing>
+
+Make sure your current directory is where your test_1.S file is and type the following:<pre>
+<code>arm-elf-gcc -mthumb-interwork -specs=gba.specs f.S</code> and hit enter.
+<code>arm-elf-objcopy -O binary a.out a.gba</code> and hit enter (not gonna say that again).</pre>
+
+<p>If no errors are generated, a "a.gba" file will be, run it. It should make a fairly red(ish) screen.
+Don't worry about understanding the code right now, this is just to make sure you can compile some code.
+In the next chapter we will start learning the ARM instruction set (THUMB will come somewhat later, since it can look
+the same in many ways, and several instructions look quite similar).</p>
+
+</body>
+
+That's all for now, how about <a href="ch3.htm">Chapter 3</a>? Or the <a href="../gbaasm.htm">GBA ASM</a> index?
+
+<hr />
+<p>Note that I use the &lt;listing&gt; tag for a bunch of code, and the &lt;code&gt; tag for one-liners. It would
+seem that &lt;listing&gt; is an obscure tag. Internet Explorer 6 renders the text kinda small, while FireFox does
+it the way I want. It was a trade off (as it usually is), since I wanted to use &lt;code&gt; with the "white-space: pre;"
+CSS, but IE doesn't support it.</p>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</html>

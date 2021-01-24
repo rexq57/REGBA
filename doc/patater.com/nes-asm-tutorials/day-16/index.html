@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 16 - Bit Masking/Toggling - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 16 - Bit Masking/Toggling</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>Masking</h2>
+<p>Before we begin, there's something very important to remember: You can only
+do math and bit operations on the A register. There are no math and bit operation
+instructions for the X and Y registers.</p>
+
+<p>Masking, as in clearing certain bits while leaving the others intact. This
+is done (atleast alot of the time) with the AND instruction. The syntax is like
+this:</p>
+<p><code class="block">
+    and (number or memory)
+</code></p>
+
+<p>Say we want to clear the last 4bits of A, but leave the others intact:</p>
+<p><code class="block">
+    and #$F0
+</code></p>
+
+<p>Remember ANDing a bit with 1 will give the same value that you started with,
+and ANDing with 0 will always have an answer of 0, since the AND logic table is
+like this:</p>
+<pre>
+
+        <u>AND Table</u>
+    -----------------------------
+    Start  | ANDed with | Result
+    -----------------------------
+      0    |     1      |   0
+      0    |     0      |   0
+      1    |     0      |   0
+      1    |     1      |   1
+</pre>
+
+<p>It's OK if you already knew that, the tables today are for the people who are
+going to have to figure out all this bit logic stuff (ANDs, ORs, XORs, NOTs) on
+their own because they haven't used ASM before encountering the NES.</p>
+
+<p>Alright, now your probably wondering (maybe) how hex maps out to binary.
+(HEX to BINARY conversion). Here's a table of hex digits:</p>
+<pre>
+        <u>Hex 2 Binary</u>
+    ---------------------------------
+        0   |    0000
+        1   |    0001
+        2   |    0010
+        3   |    0011
+        4   |    0100
+        5   |    0101
+        6   |    0110
+        7   |    0111
+        8   |    1000
+        9   |    1001
+        A   |    1010
+        B   |    1011
+        C   |    1100
+        D   |    1101
+        E   |    1110
+        F   |    1111
+</pre>
+
+<p>So now you know (if you couldn't already) how to convert each hex digit to
+binary.  So #$0F becomes #%00001111 . The percent is the symbol NESASM.exe uses
+for binary numbers.</p>
+
+<p>Now what if you only want to mask certain bits out (to 0). You might want
+to do the AND instruction in binary. What ever bits you make 0 will be 0 when the
+AND is complete, and whatever bits are 1 will make the corresponding bit in the
+A register stay the same (wether it be 1 or 0). Example:</p>
+<p><code class="block">
+    ;we want to make bits #3 and #7 clear (0). Remember to count bits
+    ; from #0 on far right.
+    and #%<u>0</u>111<u>0</u>111
+</code></p>
+
+<p>Note the underlined '0's, the corresponding bits in A will be '0's, but
+everything else will remain unchanged.</p>
+
+<p>Now, what if we wanted to mask bits to be set (change to a 1). Then we would
+have to use OR. Take a look at the OR table below:</p>
+<pre>
+        <u>OR Table</u>
+    -----------------------------
+    Start  | ORed with | Result
+    -----------------------------
+      0    |     1      |   1
+      0    |     0      |   0
+      1    |     0      |   1
+      1    |     1      |   1
+</pre>
+
+<p>You should see that AND's result is 1 if BOTH inputs are 1. OR's result is
+1, if one or both inputs are 1.</p>
+
+<p>To set individual bits to 1 (I don't actually know why you'd want to do this, but
+the method I tell DOES work), you just OR with 1. The bits you don't want to change,
+you OR with 0. So to set bits #6 and #4 of A to 1 , we would go like this:</p>
+<p><code class="block">
+    ora #%0<u>1</u>0<u>1</u>0000
+</code></p>
+
+<p>Note that the instruction for OR is ORA, I guess it's like semi-traditional to have
+3 letter ASM instructions. I hope you understood that, we OR the bits we want set to
+1 with 1 and the bits we want to leave alone with 0.</p>
+
+<p>Also note that the NES is a 8bit system so we need all 8bits in our binary numbers.
+If you don't put all 8bits in, I think NESASM will interpret it as having 0's on
+the left as in being the number you think it'll be, but I'm not sure about this, you
+might need all 8bits.</p>
+
+<h2>Toggling</h2>
+
+<p>First of all, let's define toggling. Toggling is switching between 0 and 1.
+The method shown here is useful for toggling bits on (1) and off (0) with one instruction
+if you execute that instruction repeatedly.</p>
+
+<p>To toggle bits, you need the XOR. Here's a table for XOR:</p>
+<pre>
+        <u>XOR Table</u>
+    -----------------------------
+    Start  | XORed with | Result
+    -----------------------------
+      0    |     1      |   1
+      0    |     0      |   0
+      1    |     0      |   1
+      1    |     1      |   0
+</pre>
+
+<p>XOR only results in 1 if one (not both) of the inputs is 1. So XORing with a 1 will toggle the
+bit (and XORing with 0 will make a bit stay the same). The syntax of XOR is:</p>
+<p><code class="block">
+    eor (number or memory)
+</code></p>
+
+<p> Note that the instruction for XOR is EOR. The thing is that they both stand
+for (Exclusive OR (EOR)) or XOR (eXclusive OR). So if we wanted to toggle bits
+#1 and #6:</p>
+<p><code class="block">
+    eor #%0<u>1</u>0000<u>1</u>0
+</code></p>
+
+<p>XORing with 0 will make the bit stay the same, but XORing with 1 will make
+the bit opposite of what it is.</p>
+
+<h3>This Day In Review</h3>
+
+<p>I seriously hope you learned something today. Toggling and Masking bits
+is fun! Have fun!</p>
+
+<p>
+    Happy coding!,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<p>P.S. This is a direct conversion from the GBA Day 16, so if you find
+anything wrong, please tell me (via email).</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-17/index.html">Day 17</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

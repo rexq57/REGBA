@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 6</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 6</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Outputting Text Strings</b></h2>
+<p style="color: green;"><pre><b>
+	Yep, like a printf().
+
+<h2 align="center" style="color: LightCoral;"><b>A String Variable</b></h2>
+	Just like a normal one:
+
+		var1 db "Hello$"  ; you can use either ' or " for this.
+
+	Note that if you use var1 like we've seen before, you'll be changing the He if
+you use 16bits (AX,BX,CX,DX) or just H if you use the 8bit parts (AH,BH,AL,BL, etc...).
+What you really should use var1 for is creating a pointer to the start of the string,
+which in DOS ends with a '$' (a peso sign, the official United State of America dollar has
+2 lines through the 'S', I think, but I'm not sure). This means that you can't output
+a $ with this method, use the character output to do a $.
+
+<h2 align="center" style="color: LightCoral;"><b>Doing it</b></h2>
+	If this title means more to you than just outputting text, then you do way to much
+programming, close this window and go outside and find a hooker or something...
+
+	Anyway, here's the code:
+
+;;---CODE START---;;
+	jmp start   ; the JuMP instruction, skip over the data so it's not executed by the CPU.
+	msg db "Hello faithful reader!$"
+start:
+	mov dx,offset msg  ; the DOS Service function 9 expects the pointer to the text in DX.
+	mov ah,9  ; DOS Service function 9 outputs text.
+	int 21h   ; call DOS
+
+	mov ah,4Ch
+	int 21h   ; call the DOS Service function that exits the program.
+;;---CODE END---;;
+
+Very easy. Have fun! :)
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	How about comparing things and jumping places!
+
+	Have fun!,
+		-Mike H a.k.a GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day7pc.htm">Day 7</a></center>
+Note that I do not support prostitution and it is illegal in the USA.
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

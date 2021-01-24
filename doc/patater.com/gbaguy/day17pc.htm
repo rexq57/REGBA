@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 17</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 17</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Directories</b></h2>
+<p style="color: green;"><pre><b>
+	Today, we will investigate what goes into creating and deleting a directory (folder).
+
+<h2 align="center" style="color: LightCoral;"><b>Creating</b></h2>
+	To create a directory, we use Function 39h of the DOS Service Interrupt 21h.
+Function 39h expects a pointer to a NULL-terminated string in DX. 
+
+	Here's a small program to create an "Elmo" directory:
+
+	;;---CODE START---;;
+		mov ah,39h
+		mov dx,offset dirname
+		int 21h
+		mov ah,4Ch
+		int 21h
+
+		dirname db "Elmo",0
+	;;---CODE END---;;
+
+<h2 align="center" style="color: LightCoral;"><b>Deleting</b></h2>
+	Deleting is identical and is Function 3Ah. This will delete the directory
+created by the previous program:
+
+	;;---CODE START---;;
+		mov ah,3Ah   ; different function this time.
+		mov dx,offset dirname
+		int 21h
+		mov ah,4Ch
+		int 21h
+
+		dirname db "Elmo",0
+	;;---CODE END---;;
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	I should take this opportunity to mention that Function numbers always go in AH or all of AX!
+And each function expects it's parameters in specific registers, if you put things in the wrong register
+the code will not work.
+
+	I wonder files are next...
+		- GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day18pc.htm">Day 18</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

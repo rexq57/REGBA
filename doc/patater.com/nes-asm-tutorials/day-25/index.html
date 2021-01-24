@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 25 - Other Instructions - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 25 - Other Instructions</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>Other Instructions</h2>
+
+<h3 class="subtitle">Before we go</h3>
+
+<p>These are the remaining instructions on the 6502 that I haven't mentioned
+yet or explained in detail.</p>
+
+<h3>Addressing Modes</h3>
+<p>I ought to go over the addressing modes, so we are clear on how those work...</p>
+<dl>
+<dt>Implied</dt>
+<dd>The address mode is implied (like NOP, there isn't an address mode or
+asl (asl a, sometimes) where A is used without it being mentioned in the
+instruction.</dd>
+
+<dt>Immediate</dt>
+<dd>Example: lda #$3. Loads A with 3. Simple. You should know immediate mode...</dd>
+
+<dt>ZP</dt>
+<dd>Things like "lda $88" are zero page, called zero page because the
+addresses are $0000-$00FF (the high byte is the page). It is faster
+(slightly) and uses less PRG space (1 byte for ZP addresses) to use Zero
+Page instead of the Absolute address (which would add another zero
+byte.)</dd>
+
+<dt>Absolute</dt>
+<dd>Example: lda $0332. Use absolute addressing when reading memory that isn't in page zero.</dd>
+
+<dt>ZP Indexed</dt>
+<dd>Things like "lda $10,X" or "lda $B,Y" are indexed, meaning that A is
+loaded with the byte at the address (Must be a zero page address (1 byte))
++ either X or Y, so if you do "lda $10,X" when X is 5, A will be loaded
+with the byte at zero page address $15. Note that if you do "lda $FF,Y" (Y
+or X doesn't matter, except that fewer instructions can use Y as an index),
+when Y is 5, you don't get the byte from $0104, you get it from $04 (zero
+page indexed wraps).</dd>
+
+<dt>Absolute Indexed</dt>
+<dd>Pretty much the same as ZP Indexed, except there's no wrapping and the
+address can be 2 bytes (i.e. a full absolute address). Not sure what
+exactly happens if you have an index and an address of $FFFF. Would be neat
+if doing lda $FFFF,X with X swapping in another bank of RAM from
+$0200-$07FF. EMS on the NES!!!</dd>
+
+<dt>Pre Indirect</dt>
+<dd>Example: lda ($10,X). A 1-byte ZP address is given. X is added to the
+ZP Address (wrapping applies).  The final ZP address is used to get an
+absolute address from memory. That absolute address is then used to load a
+byte into A.&lt;/dt&gt;
+
+<dt>Post Indirect</dt>
+<dd>Example: lda ($10),Y. A 1-byte ZP address is given. The final ZP
+address is used to get an absolute address from memory. Y is added to the
+absolute address. That absolute address is then used to load a byte into
+A.</dd>
+
+<dt>Indirect</dt>
+<dd>This addressing mode is unique to the JMP instruction. Example JMP
+(label2). It's just like the indexed (Pre/Post) indirect modes, except that
+there's no index, and the ZP address from the indexed indirect modes is now
+an Absolute Address.</dd>
+&lt;/dl&gt;
+
+<h3>The BIT Instruction</h3>
+
+<p>The BIT instruction can be very useful. It does a sort of comparison...</p>
+
+<p>The BIT instruction has only 2 addressing modes ZP, and Absolute.</p>
+
+<p>BIT takes a byte from Memory, ANDs it with A. (note that neither A or Memory
+will change). It then Sets the Z flag if the result is zero. Sets the V flag to
+bit 6 of the result and the N flag to bit 7 of the result.</p>
+
+<p>This instruction is commonly used to check for vblank as it uses less cycles and doesn't change A:</p>
+<code class="block">
+;--CODE--;
+waitforVBLANK:
+    bit $2002 ; note that neither $2002 or A are written to. But N flag will
+    ; be set if bit 7 of $2002
+    ; is set. (bit 7 of $2002, remember that it tells if we are in VBlank).
+    bpl waitforVBLANK  ; will branch if N flag is 0. If N flag is 1, we are
+    ;in VBlank and are done waiting.
+;--CODE END--;
+</code>
+
+<h3>The ASL/LSR Instructions</h3>
+
+<p>These instructions are simple shifting instructions. They will either shift
+the A register or a Memory location. Note that they always shift one, and that
+the bit shifted off is put into the C register.  The new bit on the opposite
+end will be a zero. Simple as that. (think the &lt;&lt;1 or &gt;&gt;1 in C/C++). Very
+useful.</p>
+
+<h3>The ROL/ROR Instructions</h3>
+
+<p>These are just like ASL/LSR, except that it follows a slightly different steps:</p>
+<ol>
+    <li>The carry (C) flag before the instruction is saved (how?, dunno, just
+    is).</li>
+    <li>The byte (A or Memory) is shifted one in the specific direction
+    (L=Left,R=Right).</li>
+    <li>The bit shifted out is put into the C flag.</li>
+    <li>The old (saved) C flag is the bit that gets put onto the opposite side
+    of the bit that got shifted out.</li>
+</ol>
+
+
+<p>Not sure why you'd use ROL/ROR, probably useful for some math routines.</p>
+
+<h3>How the compare really works</h3>
+
+<p>Here are the steps on how CMP/CPY/CPX really work (I will assume CMP, so I don't have to go A/X/Y every time...):</p>
+<ol>
+    <li>A-"the byte being compared" is done and saved (how/where?, dunno)</li>
+    <li>If the result (the saved thing) is zero, Z flag is set.</li>
+    <li>The N flag is set to bit 7 of the result.</li>
+    <li>The C flag is set if the result would have ended up being greater than $100 (note
+    that the result actually wraps to a byte).</li>
+</ol>
+
+<p>So basically, A-byte, and then C if result &gt;= $100 (yes, &gt;=). N = result bit
+7, and Z if result is zero.</p>
+
+<h3>This Day In Review</h3>
+
+<p>Can't think of anything else about the base instruction set of the 6502 that
+I haven't mentioned yet, if there is, please <a href="mailto:vbnetprogramer@hotmail.com">tell me</a>.</p>
+
+<p>
+    Have fun (as usual)!,<br />
+        -GbaGuy
+</p>
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - Day 26
+</div>
+</dd></dl>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

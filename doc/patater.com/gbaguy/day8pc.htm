@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 8</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 8</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Shifting</b></h2>
+<p style="color: green;"><pre><b>
+	Shifting moves the bits in a register a certain amount of bits left or right.
+Any bits shifted past the end of the register are lost and zeros are added when new
+ones are needed.
+
+<h2 align="center" style="color: LightCoral;"><b>The SHL Instruction</b></h2>
+	SHL stands for SHift Left and... well... draws a 3d fish on the screen whacking
+somebody. I hope you didn't believe that! SHL shifts a register left so many bits...
+
+	Examples:
+
+		shl ax,2  ; will shift AX left 2 bits, effectively multiplying AX by 4
+		shl dx,cl  ; will shift DX left the amount in CL. Note that only CL can
+				; be used like that.
+	
+	SHR stands for SHift Right, works exactly like SHL, except it shifts right and
+effectively divides by 2 to the power of the number in CL's position...
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Shifts are useful for many things, learn them well!
+
+	Have fun!,
+		- Mike H
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day9pc.htm">Day 9</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

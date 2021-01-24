@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="my head" />
+<title>GBA ASM Tutorial Chapter 6</title>
+<link rel="stylesheet" href="tutorial.css" type="text/css" />
+</head>
+<h1>Chapter 6</h1>
+<h3>More Instructions</h3>
+<body>
+<p>In this Chapter, we will explore more of the ARM instructions set. Specifically, the instructions ADD,SUB,AND,ORR,EOR,BIC.
+These instructions are quite similar in that they all have one of their operands shifted. Some examples:<br />
+<code>add r0, r1, r2, LSR#2</code> - r0 = r1 + (r2 shifted right 2)<br />
+<code>bic r9, r7, r3, ROR#16</code> - r9 = r7 &~ (r3 rotated right 16)<br />
+You don't <i>have</i> to shift, you very well could just do:<br />
+<code>eor r3, r3, r3</code> - set r3 to zero (EOR is Exclusive OR).<br /></p>
+<p>The format for these instructions (and, actually, most ARM instructions) is:<br />
+<code>INSTRUCTION DEST, OPERAND2, OPERAND3 [, SHIFTER OP #Number or Register]</code><br />
+The operation defined by INSTRUCTION will be preformed on OPERAND2 and the result of applying any shifter operation to OPERAND3. The result
+of the operation will be placed the register DEST. Only the DEST register is modified by any of this.</p>
+
+<p>You may not be familiar with all of these, so here we go:<br />
+<b>ADD/SUB</b> - Your typical ADD and SUBtract. There is also a RSB instruction, which is a reversed subtract:<br />
+Normal: <code>sub r0, r1, r2</code>  -  r0 = r1 - r2.<br />
+Reversed: <code>rsb r0, r1, r2</code>  -  r0 = r2 - r1.<br />
+<br />
+<b>AND</b> - Does a bitwise AND operation. If you don't know your boolean logic, look <a href="http://computer.howstuffworks.com/boolean1.htm">here</a>.<br />
+<b>BIC</b> - This is a neat instruction. It's similar to AND, except the bits that are <u>set</u> in the second operand clear bits in the first. In C, you'd do
+<br />this with &~ (an AND followed by a bit inversion). In fact, BIC stands for BIt Clear.<br />
+<b>ORR</b> - Does a bitwise OR operation.
+
+<p>Something to remember is that if you add an S to the instruction (ANDS, SUBS, ADDS, etc..), the status flags will be
+set. If you forget to use an S in a loop (like the one in the first program in Chapter 1) and you try to do a conditional
+branch, you'll get an infinite loop or other bad bugs.</p>
+
+<h3>The CMP Instruction</h3>
+<p>You've seen this instruction before, but I need to explain it better. This instruction takes 2 operands and compares them.
+It then sets the status flags on the result so that you can then do something conditional. It looks like this:<br />
+<code>cmp r1, r0</code> - compare r1 to r0. This is the only way to end up with status'es such as Less Than (LT) and
+Greater Than or Equal (GE). This is an important instruction. Note that you can use the shifter on this instruction too.
+Examples: <br /> <code>cmp r0, #160</code> - We've seen ones like that before. But what about: <br /> <code>cmp r1, r0, LSL#2</code> - 
+compares r1 to (r0 shifted up 2). Remember that CMP <b><u>NEVER</u></b> modifies the registers, since there's no destination register.
+
+<h3>Conditional Everything</h3>
+<p>I bet you're wondering where that came from... Me too, this could have been a chapter by itself (a short one though). This
+is something I could have mentioned before, but I waited. The fact is that with ARM instructions, they <u>ALL</u> can be
+conditional. So that means:
+<code>orrlt r1, r3, r9</code> - If the status flags represent Less Than (LT), r1 = r3 OR r9. If the status flags don't represent the
+condition supplied with the instruction, the instruction is skipped. This applies to ALL ARM instructions, there are no exceptions. Useful, eh?</p>
+
+</body>
+
+That's all for now, How about <a href="ch7.htm">Chapter 7</a>? Or the <a href="../gbaasm.htm">GBA ASM</a> index?
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</html>

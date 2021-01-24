@@ -1,7 +1,7 @@
 #include "cpu.h"
 #include "bus.h"
 
-bool compile_arm(struct RECPU* cpu, uint32_t instruction);
+bool compile_arm(struct RECPU* cpu, uint32_t instruction, int* cycle_count);
 bool disassemble(uint32_t instruction, uint32_t PC, char* buffer);
 
 struct RECPU* recpu_create(void) {
@@ -14,14 +14,16 @@ void recpu_delete(struct RECPU* cpu) {
 
 void recpu_init(struct RECPU* cpu, struct REBUS* bus) {
     
+    #define CLR_REGS(n) memset(&n, 0, sizeof(n));
+    
     // 清空寄存器
-    memset(&cpu->regs, 0, sizeof(cpu->regs));
-    memset(&cpu->_regs_IRQ, 0, sizeof(cpu->_regs_IRQ));
-    memset(&cpu->_regs_FIQ, 0, sizeof(cpu->_regs_FIQ));
-    memset(&cpu->_regs_SVC, 0, sizeof(cpu->_regs_SVC));
-    memset(&cpu->_regs_ABT, 0, sizeof(cpu->_regs_ABT));
-    memset(&cpu->_regs_UND, 0, sizeof(cpu->_regs_UND));
-    memset(&cpu->cpsr, 0, sizeof(cpu->cpsr));
+    CLR_REGS(cpu->regs);
+    CLR_REGS(cpu->_regs_IRQ);
+    CLR_REGS(cpu->_regs_FIQ);
+    CLR_REGS(cpu->_regs_SVC);
+    CLR_REGS(cpu->_regs_ABT);
+    CLR_REGS(cpu->_regs_UND);
+    CLR_REGS(cpu->cpsr);
     
     // 初始化处理器各模式下的栈针，位于工作内存中
     memset(&cpu->mode_SP, 0, sizeof(cpu->mode_SP));
@@ -109,9 +111,7 @@ bool recpu_disassemble(struct REBUS* bus, uint32_t PC, char* buffer) {
 }
 
 int recpu_run_next_instruction(struct RECPU* cpu, bool* error) {
-    
-    int cycle_count = 0;
-    
+
     cpu->prev_PC = cpu->regs.PC;
     
     // 从内存总线上请求指令，并执行
@@ -122,8 +122,9 @@ int recpu_run_next_instruction(struct RECPU* cpu, bool* error) {
     REGBA_ASSERT(op.error == MEM_ERROR_NONE);
     
     uint32_t instruction = op.data;
+    int cycle_count = 0;
     
-    *error = !compile_arm(cpu, instruction);
+    *error = !compile_arm(cpu, instruction, &cycle_count);
     
     cpu->current_cycle_count += cycle_count;
     
@@ -219,11 +220,21 @@ struct Instruction_OP{
    |_Cond__|1_1_1_1|_____________Ignored_by_Processor______________| SWI
  */
 
-bool compile_arm(struct RECPU* cpu, uint32_t instruction/*, struct Instruction_OP* op*/) {
+bool compile_arm(struct RECPU* cpu, uint32_t instruction/*, struct Instruction_OP* op*/, int* cycle_count) {
     
     #define INSTRUCTION_ERROR REGBA_ASSERT(!"error");
     
-    // 取25-27作为基本标志位
+    *cycle_count = 0;
+    
+    // 先检查指令条件
+    bool condOp = conditionPassed(&cpu->cpsr, instruction);
+    if (!condOp) {
+        // 增加时钟周期: {cond} false     1S
+        *cycle_count = 1;
+        return false;
+    }
+    
+    // 取25-27作为基本标志位（见ARM Binary Opcode Format）
     uint32_t i = instruction & 0x0E000000;
     
     union REGS_USER* regs = &cpu->regs;
@@ -231,13 +242,8 @@ bool compile_arm(struct RECPU* cpu, uint32_t instruction/*, struct Instruction_O
     // arm模式下，访问PC会返回提前两条指令的地址
     uint32_t PC = regs->PC + 8;
     
-    // 先检查指令条件
-    bool condOp = conditionPassed(&cpu->cpsr, instruction);
-    if (!condOp) {
-        return false;
-    }
-    
     // 根据标志位最长开始进行匹配判断
+    // 该if分支结构来自 ARM Binary Opcode Format 的解析
     if ((instruction & 0x0FFFFFF0) == 0x012FFF10) {
         /*
          Branch and Exchange (BX, BLX_reg)
@@ -515,7 +521,7 @@ bool compile_arm(struct RECPU* cpu, uint32_t instruction/*, struct Instruction_O
                     PC += immediate;
                 }
                 regs->PC = PC;
-                
+                // this.WAITSTATES_SEQ_32 = [ 0, 0, 5, 0, 0, 1, 0, 1, 5, 5, 9, 9, 17, 17, 8 ];
                 //op->writesPC = true;
                 //op->fixedJump = true;
                 

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 22 - Mapper 2 - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 22 - Mapper 2</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>Mapper 2</h2>
+<div class="warning">
+<p>NOTE: This code doesn't work :(, if someone could figure out why I'll be
+extremely grateful.</p>
+</div>
+
+<p>I'd imagine that you'd know what a mapper is by now, maybe you've even
+already figured out how to use a mapper better than me. Either way, today I'll
+do some simple code showing how to use Mapper 2. Mapper 2 is probably one of
+the simplest mappers, it's basically a ROM switch. When a Mapper 2 ROM is
+loaded, the last ROM bank is put at $C000 and the first at $8000. The one at
+$C000 can't be switched, so naturally Mapper 2 switches the ROM Bank at $8000.
+To do this we just write the bank number to ROM anywhere from $8000-$FFFF
+(doesn't matter).</p>
+
+<h2>The Code</h2>
+<p>This code is simple enough, it starts at $C000, jumps to $8000 which then
+switches the bank and the newly loaded code bank sets a BG color of pink (I
+just picked an arbitrary number and it turned out to be pink, oh well :) ).
+It's quite likely I'm not doing something right, so if you find what it is or
+if you're just reading this to find my silly errors and laugh at them, please
+let me know!</p>
+
+<p>The code:</p>
+<p><code class="block">
+;-- CODE START --;
+    .inesmir 0 ;- don't care about mirroring
+    .inesmap 2 ;- Mapper 2!!!
+    .inesprg 4 ;- This might be 2 (I think NESASM.EXE goes by 8kb PRGs, so therefore the 4)
+    .ineschr 0</code></p>
+
+<pre><code>.bank 3  ; should be the last bank
+.org $FFFA
+.dw 0
+.dw START
+.dw 0
+
+.bank 0    ; first bank loaded at $8000
+.org $8000
+lda #2     ; will switch the bank to .bank 2 down there...
+sta $8000 infin:
+jmp infin
+
+.bank 1
+.org $C000 ; the second 16kb PRG at $C000 START:              ; the startup location (see vector table in bank 3)
+jmp $8000
+
+.bank 2
+.org $8000 ; another bank that'll get swapped in
+lda #0
+sta $2000
+lda #%00011000
+sta $2001      ; this code will enable PPU and put a nice color for
+lda #$3F       ; the background
+sta $2006
+lda #0
+sta $2006
+lda #$33
+sta $2007 label:
+jmp label ;-- CODE END --; &lt;/code&gt;
+</code></pre>
+
+<h3>One Last Thing</h3>
+
+<p>In all seriousness NESASM.EXE is a pain in the left, little pinky toe to
+use...  I had written a fairly good assembly a while back, but it had some
+limitations that would make it useless for serious coders (labels didn't work
+in indirect addressing modes, etc...).</p>
+
+<p>If I ever recode that assembler (i.e. get it working fully, hopefully with
+macros), then I'll switch to it. I must say that I really hate linking and link
+scripts and all that stuff; I just want to be able to write code and run
+it.</p>
+
+<h3>This Day In Review</h3>
+
+<p>The next installment WILL be attributes.</p>
+
+<p>
+    Happy (no, nothing inparticular, just HAPPY!),<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-23/index.html">Day 23</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

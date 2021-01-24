@@ -1,0 +1,271 @@
+/* This is the overworld theme to Patater dot com */
+
+/* Fix a common border issue */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  color: #777;
+  background-color: #F4F4F4;
+  font-family: Verdana, Arial, sans-serif;
+  color: #777;
+  padding: 0 0 0 0;
+  margin: 0 8px 0 8px;
+  min-height: 100vh;
+}
+
+.site {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  /*padding: 0 0 0 20px;*/
+  margin-top: 20px;
+  margin-right: 0;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 40px;
+}
+
+nav {
+  /*font: 19px 'BlenderBook', Helvetica, Arial, sans-serif;*/
+  text-transform: uppercase;
+  color: #000910;
+  line-height: 2;
+  margin-left: 8px;
+}
+
+.header nav {
+  margin-right: auto;
+}
+
+div.warning {
+  color: black;
+  border: 4px solid red;
+  background: white;
+  margin: 15px 0 15px 0;
+  padding: 10px 15px 10px 15px;
+}
+
+div.warning p {
+  padding: 0px;
+}
+
+a:link {
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover {
+  color: inherit;
+  background-color: #DEF3A8;
+}
+
+img {
+  max-width: 100%;
+}
+
+.iframe-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+}
+
+.iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.banner {
+  height: 80px;
+  width: 200px;
+  display: inline-block;
+  float: right; /* bleh. lern2grid, man. */
+  background-image: url('../images/patater-mast.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left top;
+  margin-right: 86px;
+  margin-top: 20px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  background-image: url('../images/patater.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left top;
+  margin-left: 210px;
+}
+
+.content {
+  padding: 8px 8px 8px 8px;
+  flex: 1;
+}
+
+.entries {
+  display: flex;
+  flex-flow: row wrap;
+  /*justify-content: center;*/
+  margin-bottom: 30px;
+  border-bottom: 4px solid #839929;
+  color: #F4F4F4;
+}
+
+.entry {
+  max-width: 400px;
+  background-color: #999559;
+  padding: 0;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.entry img {
+  border: none;
+  padding: 0 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 1px solid #F4F4F4;
+  height: 180px;
+  object-fit: cover;
+  object-position: left top;
+  width: 100%;
+}
+
+.entry-proper {
+  padding: 8px 16px 8px 16px;
+  background-image: url('../images/russetted-dark.svg');
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 100% auto;
+}
+
+.entry-proper p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.entries a:link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.entries a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+.entries a:hover {
+  text-decoration: none;
+  background-color: #B3AE68;
+  color: inherit;
+}
+
+.entries a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+.section {
+  /*font: 19px 'BlenderBold', Helvetica, Arial, sans-serif;*/
+  /*color: #BADB3B;*/
+  color: #839929;
+  text-transform: uppercase;
+}
+
+code {
+  width: 100vh;
+}
+
+pre {
+  width: 100vh;
+}
+
+.mash-footer {
+  min-height: 200px;
+  width: 100%;
+  /*max-width: 480px;*/
+  background-image: url('../images/patater-mash.svg');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  /*background-size: 80% auto;*/
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.mash-text {
+  color: #888;
+  margin-left: auto;
+  padding-right: 20px;
+  /*background-color: #F4F4F4;*/
+  /* TODO when phone is sideways I don't like the contrast, but white blocks also
+   * suck */
+}
+
+.right {
+  text-align: right;
+}
+
+.qr-code .black {
+  border-top-color: #000;
+  background: #000 none repeat scroll 0% 0%;
+}
+
+.qr-code {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.qr-code td {
+  border-width: 0px;
+  border-style: solid;
+  border-color: #00F;
+  border-collapse: collapse;
+  margin: 0px;
+  padding: 0px;
+}
+
+.qr-code-wrapper {
+  text-align: center;
+}
+
+.qr-code tr {
+  height: 5px;
+}
+
+.qr-code td {
+  border-top-width: 0;
+  width: 5px;
+  height: 5px;
+}
+
+@media (min-width: 1003px) {
+  .site {
+    padding-left: 7%;
+    padding-right: 7%;
+  }
+}

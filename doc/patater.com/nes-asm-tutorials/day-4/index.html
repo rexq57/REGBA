@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 4 - Making and Loading a Palette - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 4 - Making and Loading a Palette</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>WHAT!?!</h2>
+
+<p>That's right, today we create and load a palette. To create the palette,
+we'll use the program PAL.exe which I gave you in that zip file in Day 1. Run
+it, you will see a window with 32 gray boxes which you can fill in by drawing
+colors from the colored boxes on the bottom. Make sure when you make your
+palette that you make the first color on each row black or you'll get some
+funky results when we make backgrounds and sprites.</p>
+
+<p>Save the palette as our.pal, to save click the only menu and click the
+option with the word save in it. Good. If you didn't do all that and got pissed
+that I made you run a program that wasn't the assembler itself, click <a href="../../gbaguy/our.pal">here</a> to download my palette that I made for you. :)</p>
+
+<div class="note">
+<h4>What a palette is, plain and simple</h4>
+<em>If I say something contradictory to this paragraph later in this
+file, ignore it.</em>
+<p>
+A palette is basically a bunch of colors to pick from. Our palette is 32 colors
+/bytes (1 color = 1 byte) long. 16 colors for the sprite palette, 16 colors for
+the BG palette. Even though you can pick from 16 you can only use 4 per sprite
+or 4 per 16x16 piece of BG. Doing this is a little more complicated that what
+we've done so far, so I won't cover it yet. OK, actually I just haven't done it
+yet, so how am I supposed to teach you how to do it?</p>
+</div>
+
+<h3>How We Load The Pallete?</h3>
+
+<p>To load the palette, we write to 2 memory registers, $2006 twice to give it
+the full address ($3F00) that we are going to load the palette to. And then we
+just keep giving $2007 byte after byte of our palette until we've given it all
+of the palette.</p>
+
+<p>However, before we load the palette, we need to learn a few other things.</p>
+
+<h3>Indexed Addressing</h3>
+
+<p>Maybe you remember in Day 1 or 2, when I said that X and Y registers can be
+involved in Indexed Addressing. So this is how it works, k? :</p>
+<p><code class="block">
+    ;Assume X is 6.</code></p>
+
+<pre><code>lda $2002, x    ; loads A with value at memory location ($2002+6) so
+; memory location read is $2008.
+
+;Assume Y is 9;
+
+lda $2000, y    ; loads A with value at memory location ($2000+9) so
+; memory location read is $2009. &lt;/code&gt;
+</code></pre>
+<p>
+Note that you can load any register and use indexed addressing, not just A.
+</p>
+
+<h3>The Other Thing.</h3>
+
+<p>The other thing you need to know (and should have figured out already) is that
+load (and maybe store) instructions can take a label as the base address.
+here's some code to illustrate:</p>
+<p><code class="block">
+    somelabel: .incbin "our.pal"  ; include a pal file and label it's location.</code></p>
+
+<pre><code>lda somelabel, x  ; load A with value from location (somelabel's address+X register's
+                  ; value). &lt;/code&gt;
+</code></pre>
+
+<p>Please remember that unless I say otherwise, examples that just load A with
+something are just as applicable to loading X or Y. You should already know how
+label's work, if you don't you shouldn't be reading this. Go read my <a href="../../gbaguy/x86asm.htm">Intel ASM Tutor</a> or other
+basic assembly book/article. Like I said before, you should already know some
+kind of assembly language and label's are basic to ALL of them. So there.</p>
+
+<h3>Loading The Pallete</h3>
+
+<p>Instead of me blabing my keyboard off, how 'bout we let the code
+explain it? :</p>
+<p><code class="block">
+    lda #$3F   ; these 4 lines tell $2006 that we
+    sta $2006  ; want the stuff we load $2007 with
+    lda #$00   ; to start at memory location $3F00
+    sta $2006  ; . Note that since we can only store a byte at a time we store twice
+    ; to get the whole address in there.</code></p>
+
+<pre><code>ldx #$00   ; load X with 0. loadpal:   ; note that labels are followed by a ':' and aren't tabbed in.
+lda ourpal, x   ; load A with palette value at location ourpal + x.
+
+sta $2007       ; store the next palette value into $2007 which will put it in
+; the right place for us.
+
+inx    ; you've never seen this instruction before but it stands for INcrement X.
+; it adds 1 to X.
+
+cpx #32   ; ComPare X with 32 which is how many palette values we need to load.
+
+bne loadpal  ; bne stands for Branch on Not Equal, so this will branch to loadpal
+; if X wasn't equal to 32. If X is 32, then the loop will stop and were done
+; loading the palette. &lt;/code&gt;
+</code></pre>
+
+<p>
+Assume ourpal is a label that is defined later in the source file that looks something
+like this:</p>
+<p><code class="block">
+ourpal: .incbin "our.pal"   ; label our palette for use in the loading code.
+</code></p>
+
+<p>We will put together a complete code file when we get a sprite displayed tomorrow.</p>
+
+<p>Here's that again without the comments:</p>
+<p><code class="block">
+    lda #$3F
+    sta $2006
+    lda #$00
+    sta $2006</code></p>
+
+<pre><code>ldx #$00 loadpal:
+lda ourpal, x
+sta $2007
+inx
+cpx #32
+bne loadpal &lt;/code&gt;
+</code></pre>
+
+<h3>The New Instructions</h3>
+
+<p>You may have noticed the 3 new instructions in the loading code. They are</p>
+<dl>
+    <dt>INX</dt><dd> - Adds 1 to X. There is also INY which adds 1 to Y. There
+    is NO INA I heard that the designers of the 6502 just forgot it. There is a
+    INA on the next version of the 6502 (the 65c02) that is used on the
+    SNES.</dd>
+
+    <dt>CPX</dt><dd> - Compares a value with X. There is also CPY and CPA which
+    compare things with Y and A respectively. You can only use immediate values
+    here.  NO MEMORY ADDRESSES ALLOWED.</dd>
+
+    <dt>BNE</dt><dd> - Jumps to a label if the result of the last CPk (k is A
+    or X or Y) instruction was Not Equal. There is also BEQ which jumps if the
+    result was EQual. There are a few more that I'll explain when they come
+    up.</dd>
+</dl>
+
+<h3>This Day In Review</h3>
+
+<p>Loading the palette is EXTREMELY important as a background or a sprite is
+NOTHING without it's palette. Loading a palette is basically all you need to do
+to it as once it's there, it does it's job without any help from you. Tomorrow
+a sprite.</p>
+
+<p>
+    All hail the NES! Good-night,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-5/index.html">Day 5</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

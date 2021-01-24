@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 4</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 4</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Math</b></h2>
+<p style="color: green;"><pre><b>
+	There are 4 math instructions, aptly named ADD,SUB,MUL,and DIV.
+
+<h2 align="center" style="color: LightCoral;"><b>ADD and SUB</b></h2>
+	ADD is used such as the following:
+
+		add ax,bx   ; will add the value in BX + the value in AX and put the result in AX. AX = AX + BX
+
+	SUB is similar:
+
+		sub dx,cx   ; will subtract the value in DX - the value in CX and put the result in DX. DX = DX - CX
+
+Easy.
+
+<h2 align="center" style="color: LightCoral;"><b>MUL and DIV</b></h2>
+	MUL and DIV are somewhat more complicated and should be avoided if possible. However
+many times, you do need to do multiplication and division, so you have to use MUL and DIV
+(there are actually better instructions, these are just the basic ones).
+
+	MUL works like so:
+		
+		mul bx  ; will multipy AX * BX and put the result in AX.
+
+Note that one of the factors is always AX and the result is always put into AX. Also, DX will contain the upper 16bits
+if the multiplication uses an X register (AX,BX,CX,DX) and AX will contain the lower 16bits. Realize that you can
+do all these math instructions with the High and Low 8bit parts also, provided that you don't so something like
+
+		sub ah,bx   ; won't assemble because you can't subtract a 16bit thing from an 8bit thing.
+
+	DIV works similarly like so:
+
+		div cx  ; will divide AX/CX and put the result in AX with the remainder in DX.
+
+Easy, just remember that AX and DX get changed.
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	With what you know now, you can write a program to output the alphabet.
+It'll be (very) long, but you can do it!
+
+	Tomorrow, Functions in assembly!
+
+	Happy coding!,
+		-Mike H
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day5pc.htm">Day 5</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

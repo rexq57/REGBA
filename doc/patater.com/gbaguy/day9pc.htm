@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 9</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 9</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Logical Operations</b></h2>
+<p style="color: green;"><pre><b>
+	These are bit logical operations (AND,OR,XOR,NOT).
+
+<h2 align="center" style="color: LightCoral;"><b>The Info</b></h2>
+	If you don't know what AND,OR,XOR,and NOT do as logical bit operations, go find
+a good C book. But don't worry, I'll explain them anyway.
+
+	AND,OR,XOR all work like the following:
+	(using AND as an example):
+
+		and bx,6  ; BX = BX & 6;
+
+	NOT works somewhat differently:
+
+		not ax  ; will reverse all the bits in AX.
+
+The explanations:
+
+	AND:	10100101
+		00001111    ; a 1 and a 1 is a 1 otherwise 0.
+		--------
+		00000101
+
+	OR:	10100101
+		11001100    ; if either one is 1 then 1, if neither is 1 then 0.
+		--------
+		11101101
+
+	XOR:	10100101
+		00110011    ; one or the other 1, if both or neither are 1 then 0.
+		--------
+		10010110
+
+	NOT:	10101111
+		--------    ; flips all the bits
+		01010000
+
+Simple!
+
+<h2 align="center" style="color: LightCoral;"><b>Rotation</b></h2>
+	So that this "day" isn't humilitatingly short, here's the rotate instructions:
+
+	ROL,and ROR.
+
+	ROL stands for ROtate Left, and ROR stands for ROtate Right. These instructions
+work like shifts, except that every time, the bit that falls off the end is the bit put
+onto the beginning. So that a:
+
+		rol dx,16 ; will make DX stay the same
+		ror ax,16 ; will make AX stay the same
+		ror bl,8  ; will make BL stay the same
+
+	You can probably use CL the same way you did for the shifts.
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	If I can't think of anything else I'll defer to graphics!
+
+	Until Next Time!,
+		- Mike H a.k.a GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day10pc.htm">Day 10</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Building a Dual Floppy Mac Portable - Part 5 - Patater</title>
+
+        <meta name="description" content="Have you ever seen a dual floppy Macintosh Portable? I haven't. Let's make one, part 5.">
+
+
+        <meta name="author" content="Jaeden Amero">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+        <link rel="manifest" href="../site.webmanifest">
+        <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../projects/index.html">Projects</a>
+        <a href="../blarg/index.html">Blarg</a>
+        <a href="../links/index.html">Links</a>
+        <a href="../about/index.html">About</a>
+        <a href="../books/index.html">Books</a>
+        <a href="../donate/index.html">Donate</a>
+    </nav>
+    <a href="../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Building a Dual Floppy Mac Portable - Part 5</h1>
+<p class="minimeta">
+Published: 2010-07-24<br/>
+Updated: 2011-02-04<br/>
+Author: Jaeden Amero
+</p>
+</div>
+
+<div class="post">
+
+<p>When the computer first boots up, it displays a funky pattern on the screen. This pattern goes away in less than a second. This is probably a typical memory check or something.</p>
+
+<p><a href="../files/pictures/macportable-transient_boot_1.jpg"><img src="../files/pictures/thumb/macportable-transient_boot_1.jpg" alt="Transient Boot 1" /></a></p>
+
+<p>In attempting to photograph that, I discovered that some other sad mac codes are displayed before the final code is reached. These transient codes do seem to have a meaning, but maybe not one that makes sense; do they really matter or are they just noise before the correct code is shown?</p>
+
+<p><a href="../files/pictures/macportable-transient_boot_2.jpg"><img src="../files/pictures/thumb/macportable-transient_boot_2.jpg" alt="Transient Boot 2" /></a></p>
+
+<p><a href="../files/pictures/macportable-transient_boot_3.jpg" class="postlink"><img src="../files/pictures/thumb/macportable-transient_boot_3.jpg" alt="Transient Boot 3" /></a></p>
+
+<p>I've found that a few different codes are displayed over my few attempts to start up the machine. The code is of the form &quot;0030017xx:00001FFA&quot;, where xx can be one of 01, 38, 39, 3E. This major code 17 doesn't seem to be documented anyplace, but perhaps I just don't know how to read these errors. This is one of a few possible final sad mac codes.</p>
+
+<p><a href="../files/pictures/macportable-mystery_sad_mac.jpg"><img src="../files/pictures/thumb/macportable-mystery_sad_mac.jpg" alt="Mystery Sad Mac" /></a></p>
+
+<p>Here is my best guess. One of the sad mac major codes shown is 14. I suspect that because I'm attempting to boot from the 9V battery, the power manager is complaining. Because there isn't much power available, the sad mac changes around until it reaches some equilibrium on some invalid code. I'll have to try with a new battery and power adapter to see if this not enough power guess is on the right path.</p>
+
+<p>I'll be thankful for any <a href="../contact/index.html">guesses you have or recommendations for tests I should run</a>.</p>
+
+<p>Sad mac is depressed.</p>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

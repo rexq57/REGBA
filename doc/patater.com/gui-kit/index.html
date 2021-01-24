@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Patater GUI Kit - Patater</title>
+
+        <meta name="description" content="A simple GUI kit for streamlining the creation of menus and making simple games">
+
+
+        <meta name="author" content="Jaeden Amero">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+        <link rel="manifest" href="../site.webmanifest">
+        <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../projects/index.html">Projects</a>
+        <a href="../blarg/index.html">Blarg</a>
+        <a href="../links/index.html">Links</a>
+        <a href="../about/index.html">About</a>
+        <a href="../books/index.html">Books</a>
+        <a href="../donate/index.html">Donate</a>
+    </nav>
+    <a href="../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Patater GUI Kit</h1>
+<p class="minimeta">
+Published: 2007-11-13<br/>
+Updated: 2010-12-19<br/>
+Author: Jaeden Amero
+</p>
+</div>
+
+<div class="post">
+
+  
+<p><img class="post-graphic" src="../images/gui-kit-orchid.png" alt="GUI Kit" /></p>
+  
+
+<h2>About</h2>
+<p>
+The Patater GUI Kit is an open source (released under MIT license) GUI
+kit for the Nintendo DS. It is a basic framework for building a GUI. It
+is designed to help developers streamline the creation of basic menus
+and other similar components. It also includes a separate library with
+a few useful functions, such as <code>vblanksleep</code>,
+<code>waitfortouch</code>, and <code>dmafill</code>. It was written in
+C++.
+</p>
+<!--break-->
+
+<h2>Applications</h2>
+<p>
+A touch-based adventure game is currently in development, by Patater,
+which utilizes this GUI Kit. Upon release of the game, and after enough
+people have beaten the game (to avoid spoiling), the source will be
+released showing how to use the GUI Kit in a useful manner.
+</p>
+
+<p>
+The adventure game is undergoing code cleanup, though the story and
+graphics are still all complete.
+</p>
+
+<p>
+More than just touch-based adventure games and menus will be possible,
+however.  For example, a dating simulator which presents multiple
+choice responses to the environment would be extremely easy to develop
+with the Patater GUI Kit.
+</p>
+
+<h2>Basic Usage</h2>
+<p>
+Basically, you make some goodies in your <code>arm9_main.cpp</code>,
+like a <code>UIManager</code> and a <code>Screen</code> object or two.
+You then simply put the <code>HandleInput</code> function into your
+program loop and events will be passed to your <code>UIManager</code>.
+You then draw whatever you'd like to the screen using the
+<code>Screen</code> class or your own subclass, giving information
+about whatever <code>HotSpots</code>, <code>Buttons</code>, or other
+custom controls you've added to the <code>UIManager</code>. The
+<code>UIManager</code> will then send events to your controls which can
+do whatever you've programmed their various event handlers to do.
+</p>
+
+<p>
+Please <a href="../contact/index.html">contact me</a> if you have any suggestions or
+concerns.
+</p>
+
+<h2>Documentation</h2>
+<h5>GUI Kit Class Hierarchy</h5>
+<p>
+<img src="../images/gui-kit-hierarchy.png" alt="GUI Kit Hierarchy" />
+</p>
+
+</div>
+
+
+<div>
+    <h2>Download</h2>
+    <a href="../projects/guikit-20070919.tgz">Download the GUI Kit</a>
+</div>
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

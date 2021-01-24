@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 12</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 12</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Setting Up Graphics</b></h2>
+<p style="color: green;"><pre><b>
+	Today, we will setup graphics and draw a pixel!
+
+<h2 align="center" style="color: LightCoral;"><b>BIOS Screen Services</b></h2>
+	INT 10h is the BIOS Screen or Video Services. 
+
+<h2 align="center" style="color: LightCoral;"><b>Setting the Graphics mode</b></h2>
+	Will will use mode 13h, it is a paletted 320x240 sized 256 color mode.
+
+Here's the code to set it up:
+		mov al,13h  ; the mode
+		mov ah,0   ; function number 0
+		int 10h    ; call BIOS Screen Service
+
+<h2 align="center" style="color: LightCoral;"><b>Drawing a Pixel</b></h2>
+	BIOS Screen Service Function Number 0ch is draw a pixel, it expects the
+color number in AL, X in CX,and Y in DX.
+
+	The code: (Red pixel at 50,100):
+		mov ah,0ch
+		mov al,4  ; 4 is red with default palette
+		mov cx,50  ; x = 50
+		mov dx,100 ; y = 100
+		int 10h    ; call BIOS Service
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	Simple, isn't it! With what you currently know, you can write a program to display
+all 256 colors.
+
+	Have fun!,
+		- GbaGuy
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day13pc.htm">Day 13</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

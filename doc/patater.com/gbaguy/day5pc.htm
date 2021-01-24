@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 5</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 5</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>Subroutines</b></h2>
+<p style="color: green;"><pre><b>
+	Subroutines, almost just like C or BASIC...
+
+<h2 align="center" style="color: LightCoral;"><b>Labels</b></h2>
+	We've seen labels before when we saw variables, except these labels that mark a location in
+code have a color (':') after them, such as:
+
+	outputA:
+		mov ah,2
+		mov dl,'A'
+		int 21h
+
+These labels can be accessed like variables also, and that's how self-modifying code works.
+
+<h2 align="center" style="color: LightCoral;"><b>The CALL and RET Instructions</b></h2>
+	The CALL instruction calls a function specified by a label and a RET instruction returns
+to the main program, such as the following:
+
+	mov dl,'G'
+	call outputLetter
+	mov dl,'o'
+	call outputLetter
+	call ExitProgram
+outputLetter:
+	mov ah,2
+	int 21h
+	ret  ; returns to instruction after the CALL
+ExitProgram:
+	mov ah,4ch
+	int 21h    ; note that since the program will exit, there's no need for a RET.
+
+The above program will output Go in DOS.
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	With what you know now, you can write a program to output the alphabet.
+It'll be (very) long, but you can do it!
+
+	Tomorrow, Functions in assembly!
+
+	Happy coding!,
+		-Mike H
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day6pc.htm">Day 6</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

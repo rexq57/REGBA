@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 13 - Backgrounds - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 13 - Backgrounds</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>Intro</h2>
+<p>You should know what a background is, it's the stationary picture that the
+sprites move around on and possibly collide with. The background isn't too hard
+to make, but the lack of tools for the NES (a real big problem) makes BGs a
+pain in the you-know-what to make.</p>
+
+<h3>Making The BG</h3>
+<p>To make the BG, open your "our.bkg" in Tile Layer Pro and draw some tiles.
+Now, make a map out of the tiles on paper with the tile numbers, how do we get the
+tile numbers? It's quite simple actually, starting with the first tile is #0 it goes
+like this (assuming you have Tile Layer at 16 tiles per line):</p>
+<pre>
+    $0  $1  $2  $3  $4  $5  $6  $7  $8  $9  $A  $B  $C  $D  $E  $F
+    $10 $11 $12 $13 $14...
+</pre>
+
+<p>So if #$1 was the top-left 1/4<sup>th</sup> of a smile face, #$2 is the
+top-right, #$11 is the bottom -left and #$12 is the bottom right
+1/4<sup>th</sup>, you would write on the paper or in a text file:</p>
+<pre>
+1  2  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+11 12 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+...
+</pre>
+
+<p>Note: The NES Screen is about 32x32 tiles.</p>
+
+<p>The next thing you probably want to do is make that map into a binary file so
+that you can load it to PPU memory like you did with the palette.</p>
+
+<p>I've written a small program in VB to take a map file like the above (without the '...') and
+make it into a binary file for the above purpose. You don't need all 32 lines, unless
+you want them.</p>
+
+<p>Download it <a href="../../gbaguy/nesasm.zip">here</a>
+just run it and type the name of the map file (text) in the first box and the
+name (not extension) of the file you want it to create in the second box. If
+the map file contains alot of map data, the program may make more than 1
+file.</p>
+
+<h3>Name Tables</h3>
+<p>Name Tables is what originally made me avoid NES Assembly, I just couldn't
+get it from the sparce and vague and overly technical docs that currenty
+exist.</p>
+
+<p>To put it simply "Name" means Tile Number and "Table" basically means Map,
+so the Name Tables is where we want to put our map in PPU memory. There are two
+Name Tables; typically you'll want to use the first one so we will too. Name
+Table #1 is at $2020 in PPU memory, OK... that's a lie, it actually starts at
+$2000 in PPU memory, but since US NESs (and most emulators) don't display the
+first line (and last for that matter) we have to start the load at $2020.</p>
+
+<h3>Making The Code</h3>
+
+<p>I'm going to assume that you already have a source file that has the basic things
+such as:</p>
+<ol>
+    <li>Bank 1 with the $FFFA stuff (Reset, VBlank etc...)</li>
+    <li>Bank 2 incbin(ing) the 2 files "our.spr" and "our.bkg" in the right order.</li>
+    <li>Bank 0 ORGed at $8000, with code to setup the PPU and load the palette.</li>
+        <ol>
+        <li>The binary palette file incbin(ed) after the infinite loop.</li>
+        </ol>
+</ol>
+
+<p>Now that you have all those things it's time to add the stuff to make the
+BG appear on the screen.</p>
+<p>Add the following code after the palette loading loop:</p>
+<p><code class="block">
+    ;;--- CODE START ---;;</code></p>
+
+<pre><code>lda #$20
+sta $2006 ; give $2006 both parts of address $2020.
+sta $2006
+
+ldx #$00 loadNames:
+lda ourMap, X ; load A with a byte from address (ourMap + X)
+inx
+sta $2007
+cpx #64 ; map in previous section 64 bytes long
+bne loadNames ; if not all 64 done, loop and do some more
+
+;;--- STOP COPYING ---;; &lt;/code&gt;
+</code></pre>
+
+<p>And right after the INCBIN of the palette add this:</p>
+<p><code class="block">
+    ;;--- CODE START ---;;</code></p>
+
+<p>ourMap: .incbin “our.map” ; assuming our.map is the binary map file.</p>
+
+<pre><code>;;--- STOP COPYING ---;; &lt;/code&gt;
+</code></pre>
+
+<p>Assemble and run!</p>
+
+<h3>Some other things</h3>
+
+<p>If map2bin.exe made more than one file, you'll need one loop and one .incbin
+for each file, make sure to use different label names for each incbin and loop.
+If there's more than one file, make each loop run $FF times by making "cpx #64"
+into "cpx #$FF".</p>
+
+<p>MAP2BIN, because it's written in VB, makes every file 2 bytes too big
+because VB always adds a newline to writes to files.</p>
+
+<p>There's also something called Attribute Tables, we'll get to those in a
+later Day.</p>
+
+<h3>This Day In Review</h3>
+
+<p>I realize that wasn't too good, hopefully I'll be able to make it better
+later.</p>
+
+<p>
+    Happy coding!,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-14/index.html">Day 14</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

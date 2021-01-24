@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>x86 ASM - Day 13</title>
+</head>
+<body bgcolor="lavender">
+<h1 align="center" style="color: LightCoral; width: 100%; filter:shadow()">Day 13</h1>
+<pre>
+
+
+
+</pre>
+<h2 align="center" style="color: LightCoral;"><b>The Program Segment Prefix</b></h2>
+<p style="color: green;"><pre><b>
+	One of the most unused things in DOS! COM programs (what we're doing), are loading into their
+segment starting at 0100h. From 0000h to 00FFh is all the Program Segment Prefix or PSP. The PSP has
+alot of data as you could see by the link below.
+
+<h2 align="center" style="color: LightCoral;"><b>Layout</b></h2>
+	There's a good listing of the layout of the PSP <a href="http://members.tripod.com/~oldboard/assembly/program_segment_prefix.html">here</a>.
+
+<h2 align="center" style="color: LightCoral;"><b>An Older Way To Exit</b></h2>
+	Back in the day, Interrupt Service 20h was exit program. However, once multisegment EXEs came
+along, it became outdated. However, the machine code for INT 20h exists at offset 0 in our segment, so
+to jump there and exit the program, we could just do:
+
+	jmp 0   ; will exit program.
+
+Usefull! However, if you ever plan on making an actual EXE, you'll need to stick with function 4Ch of
+DOS Service 21h. Interrupt 20h will not work with EXEs because of some wierd expectation with the value
+of CS, which you REALLY should not mess with in EXEs.
+
+<h2 align="center" style="color: LightCoral;"><b>The Command Arguments</b></h2>
+	Any command line parameters are stored starting at 0081h in the PSP. The byte at 0080h gives
+the length in bytes of the parameters. So now you know why DOS will say "Command line too long" or
+something like that if the parameters are over 256 chars long.
+
+	Anyway, it's a quite simple matter to print out the command line parameters, here's a small
+program that does it:
+
+;;---CODE START---;;
+call PrintPSP  ; call the PrintPSP routine
+
+ExitProgram:
+	jmp 0  ; INT 20h is at offset 0 in the segment
+
+PrintPSP:
+	mov cl,[0080h]   ; get the length of the command arguments
+	mov bx,0081h     ; load the address of the start
+	cmp bx,0         ; if 0
+	je ExitProgram   ; Exit the program.
+PSP:
+	add bx,1         ; add 1 to the address (the parameters start at 0081h, but there's usually a space there).
+	mov dl,[bx]      ; get the char into DL
+	mov ah,02h       ; specify Function 2 (Print Char)
+	int 21h          ; call DOS Services
+	loop PSP         ; if CL (the length) isn't 0, loop back up to PSP.
+	ret              ; return to the instruction after the call, which is "jmp 0", which exits the program.
+;;---CODE END---;;
+
+Fun, isn't it?
+
+<h2 align="center" style="color: LightCoral;"><b>This Day In Review</b></h2>
+
+	The PSP is a fun thing to play around with!
+
+	Happy coding!,
+		- Mike H
+
+
+<center><a href="x86asm.htm">Intro</a> - <a href="day14pc.htm">Day 14</a></center>
+</b></pre></p>
+<!--Patater Footer-->
+<center>
+<font size="-1">Patater GBAGuy Mirror<br/><a href="../contact/index.html">Contact</a><br/>
+</font>
+</center>
+<br/>
+<br/>
+<!-- End Patater Footer-->
+</body>
+</html>

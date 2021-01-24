@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 12 - VBlank and Interrupts - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 12 - VBlank and Interrupts</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>VBlank?</h2>
+<p>If you don't know what VBlank is, pretend I'm hitting you with a trout. If
+you <em>do</em> know what VBlank is, pretend I'm hitting you with a trout. If
+you have no idea what a trout has to do with the NES, pretend I'm hitting you
+with a trout.</p>
+
+<p>Now that we have an imaginary fish stench in the room, let's learn a better
+way to sync with VBlank.</p>
+
+<h3>How do we use it?</h3>
+
+<p>First, we have a label, say 'VBlank_Routine', so we put it in the addresses
+in Bank 1 at $FFFA. Like so:</p>
+<p><code class="block">
+    .bank 1
+    .org $FFFA
+    .dw VBlank_Routine ; address to execute on VBlank
+    .dw Start ; address to execute at RESET.
+    .dw 0  ; address to execute during a BRK instruction (Another Day, Another time).</code></p>
+
+<pre><code>.bank 0
+.org $0000  ;variables VBlankOrNo  .db 0
+.org $8000  ;code VBlank_Routine:
+;start of function to execute on VBlank
+inc VBlankOrNo
+; add one (1) to VBlankOrNo, will be 1 if VBlank, 0 if not.
+rti  ; RTI is (Interrupt RETurn or ReTurn from Interrupt)
+</code></pre>
+
+<p>Start:
+    ;start of main code
+    ;blah some code
+;waitforvblank:  old code
+;   lda $2002  old code
+;   bpl waitforvblank old code
+;  the new code is :</p>
+
+<p>WaitForVBlank:
+    lda VBlankOrNo ; A = VBlankOrNO
+    cmp #1         ; if A == 1 then is VBlank
+    bne WaitForVBlank ; if not VBlank, then loop and do again
+    dec VBlankOrNo ; 1– or VBlankOrNO - 1 . VBlankOrNo will be 0 again.</p>
+
+<pre><code>; blah, code as usual. &lt;/code&gt;
+</code></pre>
+
+<p>I hope you get the general idea. I may have gotten something backwards or
+something, so if you know this is wrong, please tell me (I'm tired and may have
+not typed right!).</p>
+
+<p>UPDATE: Don't forget to set the "Generate VBlank bit" in one of the PPU
+Control ports!  (it's bit 7 of one of them, I think).</p>
+
+<h3>This Day In Review</h3>
+
+<p>This method will, appearantely, be much more stable than our old loop.</p>
+
+<p>
+    Greetings!,<br />
+        -Mike H a.k.a GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-13/index.html">Day 13</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>

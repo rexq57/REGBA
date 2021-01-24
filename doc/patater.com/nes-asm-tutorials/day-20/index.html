@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="content-language" content="en-us">
+        <title> Day 20 - Using SRAM - Patater</title>
+
+
+        <meta name="author" content="Mike Huber">
+
+        <meta name="viewport" content="width=device-width">
+
+
+        <link href="../../styles/patater2.css" rel="stylesheet" type="text/css" />
+        <link href="../../feed.xml" rel="alternate" type="application/rss+xml" title="Patater RSS" />
+
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../site.webmanifest">
+        <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#999559">
+        <meta name="msapplication-TileColor" content="#DA532C">
+        <meta name="theme-color" content="#F4F4F4">
+    </head>
+    <body>
+
+        <div class="site">
+              <header class="header">
+    <nav role="navigation">
+        <a href="../../projects/index.html">Projects</a>
+        <a href="../../blarg/index.html">Blarg</a>
+        <a href="../../links/index.html">Links</a>
+        <a href="../../about/index.html">About</a>
+        <a href="../../books/index.html">Books</a>
+        <a href="../../donate/index.html">Donate</a>
+    </nav>
+    <a href="../../index.html"><div class="banner"></div><div class="logo"></div></a>
+    </header>
+
+
+          <div class="content">
+          <div>
+<h1>Day 20 - Using SRAM</h1>
+<p class="minimeta">
+Published: 2005-07-22<br/>
+Updated: 2010-12-19<br/>
+Author: Mike Huber
+</p>
+</div>
+
+<div class="post">
+
+<h2>Using SRAM</h2>
+<p>First off, if this is wrong, somebody who possibly already knows about this,
+please correct me. The info below is my understanding of how things work, but
+it is quite likely that there is something that I'm not doing correctly.</p>
+
+<h2>SRAM</h2>
+<p>If I'm doing this correctly, it's really simple. If your cart has
+battery-backed up SRAM on it, then all you have to do is write to CPU memory
+anywhere from $6000-$8000, that's 8KB of save space. Someone was kind enough to
+email me the meaning of all the numbers that you can pass to .inesmir (although
+I didn't have a chance to email him back :( ):</p>
+
+<dl>
+<dt>0</dt><dd>= H (Horizontal Mirroring ONLY)</dd>
+<dt>1</dt><dd>= V (Vertical Mirroring ONLY)</dd>
+<dt>2</dt><dd>= H + Bat. (Horiztonal Mirroring + Battery ON)</dd>
+<dt>3</dt><dd>= V + Bat. (Vertical Mirroring + Battery ON)</dd>
+<dt>4</dt><dd>= H + Train. (Horizontal Mirroring + Trainer ON)</dd>
+<dt>5</dt><dd>= V + Train. (Vertical Mirroring + Trainer ON)</dd>
+<dt>6</dt><dd>= H + Bat. + Train. (Horizontal Mirroring + Battery and Trainer
+ON)</dd>
+<dt>7</dt><dd>= V + Bat. + Train. (Vertical Mirroring + Battery and Trainer
+ON)</dd>
+<dt>8</dt><dd>= H + 4scr. (Horizontal Mirroring + 4 Screen VRAM ON)</dd>
+<dt>9</dt><dd>= V + 4scr. (Vertical Mirroring + 4 Screen VRAM ON)</dd>
+<dt>A</dt><dd>= H + Bat. + 4scr. (Horizontal Mirroring + Battery and 4 Screen
+VRAM ON)</dd>
+<dt>B</dt><dd>= V + Bat. + 4scr. (Vertical Mirroring + Battery and 4 Screen VRAM
+ON)</dd>
+<dt>C</dt><dd>= H + 4scr. + Train. (Horizontal Mirroring + 4 Screen VRAM and
+Trainer ON)</dd>
+<dt>D</dt><dd>= V + 4scr. + Train. (Vertical Mirroring + 4 Screen VRAM and
+Trainer ON)</dd>
+<dt>E</dt><dd>= H + Bat. + 4scr. + Train. (Horizontal Mirroring + Battery, 4
+Screen VRAM, and Trainer ON)</dd>
+<dt>F</dt><dd>= V + Bat. + 4scr. + Train. (Vertical Mirroring + Battery, 4
+Screen VRAM, and Trainer ON)</dd>
+</dl>
+
+<p>That is right from his email (Battery ON means the cart has SRAM). The only
+thing I don't understand is how you can have mirroring and still have 4 Screen
+VRAM or if that's a mistake or something...</p>
+
+<h3>An Example</h3>
+<p>Here it is:</p>
+<p><code class="block">
+;-- CODE START --;
+    .inesmir 2  ; -- 2 means Horizontal mirroring and an SRAM chip;
+    .inesmap 0  ; -- If I feel adventurous, you might see Mapper 1 next time ;)
+    .inesprg 1  ; -- One bank of PRG-ROM
+    .ineschr 0  ; -- no banks of CHR-ROM in this example</code></p>
+
+<pre><code>.bank 1
+.org $FFFA
+.dw 0
+.dw START
+.dw 0
+
+.bank 0
+.org $C000 START:
+ldx #0   ; ----| loop:
+lda text,x   ; |-- there's probably a way of doing this in less cycles..
+sta $6000,x  ; |-- if you figure out a way, show me and 1000 points to you..
+inx          ; |-- the points don't matter anyway, so I guess it doesn't matter.
+cmp #0       ; |
+bne loop     ; ---|-- this routine writes a ASCIIZ string into SRAM (I hope).
+</code></pre>
+
+<p>infin:
+    jmp infin</p>
+
+<p>text:   .db “Hello, NES!”,0
+;– CODE END –;
+&lt;/code&gt;</p>
+
+<p>If everything goes as planned, "Hello, NES!" should be saved. If you're
+using FCEUltra (I recommend it.), you should see a .SAV file created, which is
+the same size as SRAM (8KB) and if you open it in notepad, you'll see the text.
+I would assume the .SAV file is just an exact copy of $6000-$8000.</p>
+
+<h3>This Day In Review</h3>
+<p>Now you can save your game if you couldn't before!</p>
+
+<p>
+    Have fun!,<br />
+        -GbaGuy
+</p>
+
+<div class="series-navigation">
+<a href="../index.html">Intro</a> - <a href="../day-21/index.html">Day 21</a>
+</div>
+
+</div>
+
+
+
+          </div>
+
+          <footer class="mash-footer">
+  <nav class="mash-text minimeta">
+    <a href="mailto:webmaster@patater.com">Email</a>
+    <a href="index.html#suicide-is-painless">Mash</a>
+    <a href="../../irc/index.html">Chat</a>
+  </nav>
+</footer>
+
+        </div>
+
+    </body>
+</html>
