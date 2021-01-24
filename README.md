@@ -13,7 +13,7 @@
 
 [GBA程序开发入门(中文)](doc/docs.huihoo.com/media/gba/gbago.htm)
 
-[GBA虚拟硬件规格](doc/CowBite Virtual Harware Spec.htm)
+[GBA虚拟硬件规格](doc/CowBite%20Virtual%20Harware%20Spec.htm)
 
 [ARMV4基础指令集](doc/armisa.pdf)
 
